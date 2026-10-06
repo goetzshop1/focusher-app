@@ -1,6 +1,9 @@
 name: iOS bauen und zu App Store Connect hochladen
 
 on:
+  push:
+    tags:
+      - "ios-v*"
   workflow_dispatch:
     inputs:
       version:
@@ -17,8 +20,8 @@ jobs:
     env:
       API_KEY_ID: Z7T5YKSW7U
       API_ISSUER: 951bd4e3-5906-4027-aa20-7cbb4507902b
-      TEAM_ID: ${{ vars.APPLE_TEAM_ID }}
-      APP_VERSION: ${{ github.event.inputs.version }}
+      TEAM_ID: ${{ vars.APPLE_TEAM_ID || '625A6TQ9CK' }}
+      APP_VERSION: ${{ github.event.inputs.version || '1.0.0' }}
       BUILD_NUMBER: ${{ github.run_number }}
     steps:
       - uses: actions/checkout@v4
