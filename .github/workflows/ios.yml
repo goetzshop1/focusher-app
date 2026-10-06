@@ -82,15 +82,33 @@ jobs:
           printf '%s\n' "$P8" > ~/.appstoreconnect/private_keys/AuthKey_${API_KEY_ID}.p8
           echo "KEY_PATH=$HOME/.appstoreconnect/private_keys/AuthKey_${API_KEY_ID}.p8" >> $GITHUB_ENV
 
+      - name: App-Store-Signatur anlegen (Zertifikat + Profil)
+        env:
+          BUNDLE_ID: de.vellunaprints.focusher
+          RUN_ID: ${{ github.run_number }}
+        run: |
+          python3 -m pip install --quiet --break-system-packages pyjwt cryptography requests || python3 -m pip install --quiet pyjwt cryptography requests
+          python3 scripts/asc_signing.py setup
+
+      - name: Signatur im Xcode-Projekt eintragen
+        run: |
+          python3 - <<'PY'
+          import os, re
+          p = "ios/App/App.xcodeproj/project.pbxproj"
+          s = open(p).read()
+          team, prof = os.environ["TEAM_ID"], os.environ["PROFILE_NAME"]
+          s = s.replace("CODE_SIGN_STYLE = Automatic;",
+              f'CODE_SIGN_STYLE = Manual;\n\t\t\t\tDEVELOPMENT_TEAM = {team};\n\t\t\t\tPROVISIONING_PROFILE_SPECIFIER = "{prof}";\n\t\t\t\t"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Distribution";')
+          s = s.replace('CODE_SIGN_IDENTITY = "iPhone Developer";', 'CODE_SIGN_IDENTITY = "Apple Distribution";')
+          open(p, "w").write(s)
+          print("Projekt auf manuelle App-Store-Signatur umgestellt:", prof)
+          PY
+
       - name: Archiv bauen und signieren
         run: |
           mkdir -p build
           xcodebuild -project ios/App/App.xcodeproj -scheme App -configuration Release \
             -destination 'generic/platform=iOS' -archivePath build/FocusHer.xcarchive \
-            -allowProvisioningUpdates \
-            -authenticationKeyPath "$KEY_PATH" -authenticationKeyID "$API_KEY_ID" -authenticationKeyIssuerID "$API_ISSUER" \
-            DEVELOPMENT_TEAM="$TEAM_ID" CODE_SIGN_STYLE=Automatic \
-            CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" \
             MARKETING_VERSION="$APP_VERSION" CURRENT_PROJECT_VERSION="$BUILD_NUMBER" \
             TARGETED_DEVICE_FAMILY=1 \
             archive > build/archive.log 2>&1 || { grep -E "error:|Error|failed|FAILED" build/archive.log | head -60; tail -n 60 build/archive.log; exit 1; }
@@ -105,7 +123,11 @@ jobs:
             <key>method</key><string>app-store-connect</string>
             <key>destination</key><string>upload</string>
             <key>teamID</key><string>${TEAM_ID}</string>
-            <key>signingStyle</key><string>automatic</string>
+            <key>signingStyle</key><string>manual</string>
+            <key>signingCertificate</key><string>Apple Distribution</string>
+            <key>provisioningProfiles</key><dict>
+              <key>de.vellunaprints.focusher</key><string>${PROFILE_NAME}</string>
+            </dict>
             <key>uploadSymbols</key><true/>
             <key>manageAppVersionAndBuildNumber</key><false/>
           </dict></plist>
@@ -116,6 +138,10 @@ jobs:
             -authenticationKeyPath "$KEY_PATH" -authenticationKeyID "$API_KEY_ID" -authenticationKeyIssuerID "$API_ISSUER" > build/export.log 2>&1 || { tail -n 80 build/export.log; exit 1; }
           tail -n 20 build/export.log
           echo "Build $APP_VERSION ($BUILD_NUMBER) hochgeladen. Er erscheint nach 10–30 Minuten in TestFlight."
+
+      - name: Zertifikat widerrufen und Profil löschen
+        if: always()
+        run: python3 scripts/asc_signing.py cleanup || true
 
       - name: Schlüssel löschen
         if: always()
