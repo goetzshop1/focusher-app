@@ -1,0 +1,153 @@
+Command line invocation:
+    /Applications/Xcode_26.6.app/Contents/Developer/usr/bin/xcodebuild -project ios/App/App.xcodeproj -scheme App -configuration Release -destination generic/platform=iOS -archivePath build/FocusHer.xcarchive -allowProvisioningUpdates -authenticationKeyPath /Users/runner/.appstoreconnect/private_keys/AuthKey_Z7T5YKSW7U.p8 -authenticationKeyID Z7T5YKSW7U -authenticationKeyIssuerID 951bd4e3-5906-4027-aa20-7cbb4507902b DEVELOPMENT_TEAM=625A6TQ9CK CODE_SIGN_STYLE=Automatic MARKETING_VERSION=1.0.0 CURRENT_PROJECT_VERSION=2 TARGETED_DEVICE_FAMILY=1 archive
+
+Build settings from command line:
+    CODE_SIGN_STYLE = Automatic
+    CURRENT_PROJECT_VERSION = 2
+    DEVELOPMENT_TEAM = 625A6TQ9CK
+    MARKETING_VERSION = 1.0.0
+    TARGETED_DEVICE_FAMILY = 1
+
+Resolve Package Graph
+
+Fetching from https://github.com/RevenueCat/purchases-hybrid-common.git
+
+Fetching from https://github.com/ionic-team/capacitor-swift-pm.git
+
+Fetching from https://github.com/RevenueCat/purchases-ios-spm
+
+Creating working copy of package ‘purchases-ios-spm’
+
+Checking out 5.92.0 of package ‘purchases-ios-spm’
+
+Creating working copy of package ‘capacitor-swift-pm’
+
+Checking out 8.5.2 of package ‘capacitor-swift-pm’
+
+Creating working copy of package ‘purchases-hybrid-common’
+
+Checking out 19.5.0 of package ‘purchases-hybrid-common’
+
+
+Resolved source packages:
+  RevenuecatPurchasesCapacitor: /Users/runner/work/focusher-app/focusher-app/node_modules/@revenuecat/purchases-capacitor @ local
+  RevenueCat: https://github.com/RevenueCat/purchases-ios-spm @ 5.92.0
+  CapacitorApp: /Users/runner/work/focusher-app/focusher-app/node_modules/@capacitor/app @ local
+  CapacitorSplashScreen: /Users/runner/work/focusher-app/focusher-app/node_modules/@capacitor/splash-screen @ local
+  capacitor-swift-pm: https://github.com/ionic-team/capacitor-swift-pm.git @ 8.5.2
+  CapacitorLocalNotifications: /Users/runner/work/focusher-app/focusher-app/node_modules/@capacitor/local-notifications @ local
+  CapacitorStatusBar: /Users/runner/work/focusher-app/focusher-app/node_modules/@capacitor/status-bar @ local
+  PurchasesHybridCommon: https://github.com/RevenueCat/purchases-hybrid-common.git @ 19.5.0
+  CapApp-SPM: /Users/runner/work/focusher-app/focusher-app/ios/App/CapApp-SPM @ local
+
+ComputePackagePrebuildTargetDependencyGraph
+
+Prepare packages
+
+CreateBuildRequest
+
+SendProjectDescription
+
+CreateBuildOperation
+
+ComputeTargetDependencyGraph
+note: Building targets in dependency order
+note: Target dependency graph (20 targets)
+    Target 'App' in project 'App'
+        ➜ Explicit dependency on target 'CapApp-SPM' in project 'CapApp-SPM'
+    Target 'CapApp-SPM' in project 'CapApp-SPM'
+        ➜ Explicit dependency on target 'CapApp-SPM' in project 'CapApp-SPM'
+        ➜ Explicit dependency on target 'Capacitor' in project 'capacitor-swift-pm'
+        ➜ Explicit dependency on target 'Cordova' in project 'capacitor-swift-pm'
+        ➜ Explicit dependency on target 'CapacitorApp' in project 'CapacitorApp'
+        ➜ Explicit dependency on target 'CapacitorLocalNotifications' in project 'CapacitorLocalNotifications'
+        ➜ Explicit dependency on target 'CapacitorSplashScreen' in project 'CapacitorSplashScreen'
+        ➜ Explicit dependency on target 'CapacitorStatusBar' in project 'CapacitorStatusBar'
+        ➜ Explicit dependency on target 'RevenuecatPurchasesCapacitor' in project 'RevenuecatPurchasesCapacitor'
+    Target 'CapApp-SPM' in project 'CapApp-SPM'
+        ➜ Explicit dependency on target 'Capacitor' in project 'capacitor-swift-pm'
+        ➜ Explicit dependency on target 'Cordova' in project 'capacitor-swift-pm'
+        ➜ Explicit dependency on target 'CapacitorApp' in project 'CapacitorApp'
+        ➜ Explicit dependency on target 'CapacitorLocalNotifications' in project 'CapacitorLocalNotifications'
+        ➜ Explicit dependency on target 'CapacitorSplashScreen' in project 'CapacitorSplashScreen'
+        ➜ Explicit dependency on target 'CapacitorStatusBar' in project 'CapacitorStatusBar'
+        ➜ Explicit dependency on target 'RevenuecatPurchasesCapacitor' in project 'RevenuecatPurchasesCapacitor'
+    Target 'RevenuecatPurchasesCapacitor' in project 'RevenuecatPurchasesCapacitor'
+        ➜ Explicit dependency on target 'RevenuecatPurchasesCapacitor' in project 'RevenuecatPurchasesCapacitor'
+        ➜ Explicit dependency on target 'Capacitor' in project 'capacitor-swift-pm'
+        ➜ Explicit dependency on target 'Cordova' in project 'capacitor-swift-pm'
+        ➜ Explicit dependency on target 'PurchasesHybridCommon' in project 'PurchasesHybridCommon'
+    Target 'RevenuecatPurchasesCapacitor' in project 'RevenuecatPurchasesCapacitor'
+        ➜ Explicit dependency on target 'Capacitor' in project 'capacitor-swift-pm'
+        ➜ Explicit dependency on target 'Cordova' in project 'capacitor-swift-pm'
+        ➜ Explicit dependency on target 'PurchasesHybridCommon' in project 'PurchasesHybridCommon'
+    Target 'PurchasesHybridCommon' in project 'PurchasesHybridCommon'
+        ➜ Explicit dependency on target 'PurchasesHybridCommon' in project 'PurchasesHybridCommon'
+        ➜ Explicit dependency on target 'RevenueCat' in project 'RevenueCat'
+    Target 'PurchasesHybridCommon' in project 'PurchasesHybridCommon'
+        ➜ Explicit dependency on target 'RevenueCat' in project 'RevenueCat'
+    Target 'RevenueCat' in project 'RevenueCat'
+        ➜ Explicit dependency on target 'RevenueCat' in project 'RevenueCat'
+        ➜ Explicit dependency on target 'RevenueCat_RevenueCat' in project 'RevenueCat'
+    Target 'RevenueCat' in project 'RevenueCat'
+        ➜ Explicit dependency on target 'RevenueCat_RevenueCat' in project 'RevenueCat'
+    Target 'RevenueCat_RevenueCat' in project 'RevenueCat' (no dependencies)
+    Target 'CapacitorStatusBar' in project 'CapacitorStatusBar'
+        ➜ Explicit dependency on target 'StatusBarPlugin' in project 'CapacitorStatusBar'
+        ➜ Explicit dependency on target 'Capacitor' in project 'capacitor-swift-pm'
+        ➜ Explicit dependency on target 'Cordova' in project 'capacitor-swift-pm'
+    Target 'StatusBarPlugin' in project 'CapacitorStatusBar'
+        ➜ Explicit dependency on target 'Capacitor' in project 'capacitor-swift-pm'
+        ➜ Explicit dependency on target 'Cordova' in project 'capacitor-swift-pm'
+    Target 'CapacitorSplashScreen' in project 'CapacitorSplashScreen'
+        ➜ Explicit dependency on target 'SplashScreenPlugin' in project 'CapacitorSplashScreen'
+        ➜ Explicit dependency on target 'Capacitor' in project 'capacitor-swift-pm'
+        ➜ Explicit dependency on target 'Cordova' in project 'capacitor-swift-pm'
+    Target 'SplashScreenPlugin' in project 'CapacitorSplashScreen'
+        ➜ Explicit dependency on target 'Capacitor' in project 'capacitor-swift-pm'
+        ➜ Explicit dependency on target 'Cordova' in project 'capacitor-swift-pm'
+    Target 'CapacitorLocalNotifications' in project 'CapacitorLocalNotifications'
+        ➜ Explicit dependency on target 'LocalNotificationsPlugin' in project 'CapacitorLocalNotifications'
+        ➜ Explicit dependency on target 'Capacitor' in project 'capacitor-swift-pm'
+        ➜ Explicit dependency on target 'Cordova' in project 'capacitor-swift-pm'
+    Target 'LocalNotificationsPlugin' in project 'CapacitorLocalNotifications'
+        ➜ Explicit dependency on target 'Capacitor' in project 'capacitor-swift-pm'
+        ➜ Explicit dependency on target 'Cordova' in project 'capacitor-swift-pm'
+    Target 'CapacitorApp' in project 'CapacitorApp'
+        ➜ Explicit dependency on target 'AppPlugin' in project 'CapacitorApp'
+        ➜ Explicit dependency on target 'Capacitor' in project 'capacitor-swift-pm'
+        ➜ Explicit dependency on target 'Cordova' in project 'capacitor-swift-pm'
+    Target 'AppPlugin' in project 'CapacitorApp'
+        ➜ Explicit dependency on target 'Capacitor' in project 'capacitor-swift-pm'
+        ➜ Explicit dependency on target 'Cordova' in project 'capacitor-swift-pm'
+    Target 'Cordova' in project 'capacitor-swift-pm' (no dependencies)
+    Target 'Capacitor' in project 'capacitor-swift-pm' (no dependencies)
+
+GatherProvisioningInputs
+
+CreateBuildDescription
+
+ExecuteExternalTool /Applications/Xcode_26.6.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc --version
+
+ExecuteExternalTool /Applications/Xcode_26.6.app/Contents/Developer/usr/bin/actool --print-asset-tag-combinations --output-format xml1 /Users/runner/work/focusher-app/focusher-app/ios/App/App/Assets.xcassets
+
+ExecuteExternalTool /Applications/Xcode_26.6.app/Contents/Developer/usr/bin/ibtool --version --output-format xml1
+
+ExecuteExternalTool /Applications/Xcode_26.6.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -v -E -dM -isysroot /Applications/Xcode_26.6.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.5.sdk -x c -c /dev/null
+
+ExecuteExternalTool /Applications/Xcode_26.6.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld -version_details
+
+ReadFileContents /Applications/Xcode_26.6.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/share/docc/features.json
+
+ExecuteExternalTool /Applications/Xcode_26.6.app/Contents/Developer/usr/bin/actool --version --output-format xml1
+
+Build description signature: bbd450bd7c7217d4a31c202967b7d612
+Build description path: /Users/runner/Library/Developer/Xcode/DerivedData/App-bftnsirjgxxrogcvaqjekecjqrkn/Build/Intermediates.noindex/ArchiveIntermediates/App/IntermediateBuildFilesPath/XCBuildData/bbd450bd7c7217d4a31c202967b7d612.xcbuilddata
+/Users/runner/work/focusher-app/focusher-app/ios/App/App.xcodeproj: error: Communication with Apple failed: Your team has no devices from which to generate a provisioning profile. Connect a device to use or manually add device IDs in Certificates, Identifiers & Profiles. https://developer.apple.com/account/ (in target 'App' from project 'App')
+/Users/runner/work/focusher-app/focusher-app/ios/App/App.xcodeproj: error: No profiles for 'de.vellunaprints.focusher' were found: Xcode couldn't find any iOS App Development provisioning profiles matching 'de.vellunaprints.focusher'. (in target 'App' from project 'App')
+** ARCHIVE FAILED **
+
+
+The following build commands failed:
+	Archiving project App with scheme App
+(1 failure)
