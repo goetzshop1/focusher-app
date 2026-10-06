@@ -41,7 +41,6 @@ jobs:
         run: |
           [ -n "$P8" ] || { echo "::error::Secret APPSTORE_P8 fehlt"; exit 1; }
           [ -n "$TEAM_ID" ] || { echo "::error::Variable APPLE_TEAM_ID fehlt"; exit 1; }
-          [ -n "$RC" ] || echo "::warning::Secret REVENUECAT_IOS_KEY fehlt – das Abo funktioniert in diesem Build nicht"
           X=$(ls -d /Applications/Xcode_26*.app 2>/dev/null | sort -V | tail -1); [ -n "$X" ] && sudo xcode-select -s "$X" || true
           xcodebuild -version
 

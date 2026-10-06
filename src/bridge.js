@@ -7,7 +7,7 @@ import { Purchases, LOG_LEVEL } from "@revenuecat/purchases-capacitor";
 import { App } from "@capacitor/app";
 
 const CFG = window.FOCUSHER_CONFIG || {};
-const ENTITLEMENT = CFG.entitlement || "vollversion";
+const ENTITLEMENT = CFG.entitlement || "focusher_pro";
 const platform = Capacitor.getPlatform(); // "ios" | "android" | "web"
 const native = Capacitor.isNativePlatform();
 

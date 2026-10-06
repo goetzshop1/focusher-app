@@ -35,9 +35,9 @@ const cfg = {
   version: process.env.APP_VERSION || "1.0.0",
   apiBase: process.env.FH_API_BASE || "https://base44.app/api/apps/6ac55f2ebe297f016feac28a/functions",
   apiKey: process.env.FH_API_KEY || "fh-app-2026-velluna",
-  revenuecatIos: process.env.REVENUECAT_IOS_KEY || "",
+  revenuecatIos: process.env.REVENUECAT_IOS_KEY || "appl_MBEknWSUPSAUcZaMboYCiBKYWNT", // öffentlicher SDK-Schlüssel, darf in der App stehen
   revenuecatAndroid: process.env.REVENUECAT_ANDROID_KEY || "",
-  entitlement: "vollversion",
+  entitlement: "focusher_pro",
   priceLabel: "29,99 €",
 };
 writeFileSync(join(www, "config.js"), "window.FOCUSHER_CONFIG = " + JSON.stringify(cfg, null, 2) + ";\n");
