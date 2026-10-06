@@ -1,0 +1,6 @@
+node_modules/
+www/
+ios/App/App/public/
+android/app/src/main/assets/public/
+*.p8
+.DS_Store

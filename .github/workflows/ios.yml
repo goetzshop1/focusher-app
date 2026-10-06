@@ -1,0 +1,111 @@
+name: iOS bauen und zu App Store Connect hochladen
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Versionsnummer, die im App Store angezeigt wird"
+        required: true
+        default: "1.0.0"
+
+permissions:
+  contents: read
+
+jobs:
+  ios:
+    runs-on: macos-26
+    env:
+      API_KEY_ID: Z7T5YKSW7U
+      API_ISSUER: 951bd4e3-5906-4027-aa20-7cbb4507902b
+      TEAM_ID: ${{ vars.APPLE_TEAM_ID }}
+      APP_VERSION: ${{ github.event.inputs.version }}
+      BUILD_NUMBER: ${{ github.run_number }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Voraussetzungen prüfen
+        env:
+          P8: ${{ secrets.APPSTORE_P8 }}
+          RC: ${{ secrets.REVENUECAT_IOS_KEY }}
+        run: |
+          [ -n "$P8" ] || { echo "::error::Secret APPSTORE_P8 fehlt"; exit 1; }
+          [ -n "$TEAM_ID" ] || { echo "::error::Variable APPLE_TEAM_ID fehlt"; exit 1; }
+          [ -n "$RC" ] || echo "::warning::Secret REVENUECAT_IOS_KEY fehlt – das Abo funktioniert in diesem Build nicht"
+          X=$(ls -d /Applications/Xcode_26*.app 2>/dev/null | sort -V | tail -1); [ -n "$X" ] && sudo xcode-select -s "$X" || true
+          xcodebuild -version
+
+      - name: Pakete installieren
+        run: npm install --no-audit --no-fund
+
+      - name: App-Oberfläche bauen
+        env:
+          REVENUECAT_IOS_KEY: ${{ secrets.REVENUECAT_IOS_KEY }}
+        run: npm run build:web
+
+      - name: iOS-Projekt erzeugen
+        run: |
+          [ -d ios ] || npx cap add ios
+          npx cap sync ios
+          npx @capacitor/assets generate --ios --iconBackgroundColor '#16141b' --splashBackgroundColor '#16141b' --splashBackgroundColorDark '#16141b'
+
+      - name: App-Einstellungen (Info.plist)
+        run: |
+          P=ios/App/App/Info.plist
+          PB=/usr/libexec/PlistBuddy
+          $PB -c "Set :CFBundleDisplayName FocusHer" $P
+          $PB -c "Set :CFBundleDevelopmentRegion de" $P
+          $PB -c "Add :ITSAppUsesNonExemptEncryption bool false" $P || $PB -c "Set :ITSAppUsesNonExemptEncryption false" $P
+          $PB -c "Delete :UISupportedInterfaceOrientations" $P || true
+          $PB -c "Add :UISupportedInterfaceOrientations array" $P
+          $PB -c "Add :UISupportedInterfaceOrientations:0 string UIInterfaceOrientationPortrait" $P
+          $PB -c "Delete :UIStatusBarStyle" $P || true
+          $PB -c "Add :UIStatusBarStyle string UIStatusBarStyleLightContent" $P
+          $PB -c "Set :UIViewControllerBasedStatusBarAppearance false" $P || $PB -c "Add :UIViewControllerBasedStatusBarAppearance bool false" $P
+          plutil -lint $P
+
+      - name: API-Schlüssel bereitstellen
+        env:
+          P8: ${{ secrets.APPSTORE_P8 }}
+        run: |
+          mkdir -p ~/.appstoreconnect/private_keys
+          printf '%s\n' "$P8" > ~/.appstoreconnect/private_keys/AuthKey_${API_KEY_ID}.p8
+          echo "KEY_PATH=$HOME/.appstoreconnect/private_keys/AuthKey_${API_KEY_ID}.p8" >> $GITHUB_ENV
+
+      - name: Archiv bauen und signieren
+        run: |
+          xcodebuild -project ios/App/App.xcodeproj -scheme App -configuration Release \
+            -destination 'generic/platform=iOS' -archivePath build/FocusHer.xcarchive \
+            -allowProvisioningUpdates \
+            -authenticationKeyPath "$KEY_PATH" -authenticationKeyID "$API_KEY_ID" -authenticationKeyIssuerID "$API_ISSUER" \
+            DEVELOPMENT_TEAM="$TEAM_ID" CODE_SIGN_STYLE=Automatic \
+            MARKETING_VERSION="$APP_VERSION" CURRENT_PROJECT_VERSION="$BUILD_NUMBER" \
+            TARGETED_DEVICE_FAMILY=1 \
+            archive | tail -n 40
+
+      - name: Hochladen zu App Store Connect
+        run: |
+          cat > build/ExportOptions.plist <<PLIST
+          <?xml version="1.0" encoding="UTF-8"?>
+          <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+          <plist version="1.0"><dict>
+            <key>method</key><string>app-store-connect</string>
+            <key>destination</key><string>upload</string>
+            <key>teamID</key><string>${TEAM_ID}</string>
+            <key>signingStyle</key><string>automatic</string>
+            <key>uploadSymbols</key><true/>
+            <key>manageAppVersionAndBuildNumber</key><false/>
+          </dict></plist>
+          PLIST
+          xcodebuild -exportArchive -archivePath build/FocusHer.xcarchive \
+            -exportOptionsPlist build/ExportOptions.plist -exportPath build/export \
+            -allowProvisioningUpdates \
+            -authenticationKeyPath "$KEY_PATH" -authenticationKeyID "$API_KEY_ID" -authenticationKeyIssuerID "$API_ISSUER"
+          echo "Build $APP_VERSION ($BUILD_NUMBER) hochgeladen. Er erscheint nach 10–30 Minuten in TestFlight."
+
+      - name: Schlüssel löschen
+        if: always()
+        run: rm -rf ~/.appstoreconnect

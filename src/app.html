@@ -1,0 +1,1469 @@
+<title>FocusHer Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&display=swap">
+
+
+<meta name="theme-color" content="#16141b">
+<style>
+/* Layout: eine ruhige App-Spalte (max. 560px), Inhalte oben, Tab-Leiste unten wie bei iOS.
+   Dark-first: dunkle Werte auf :root, helle nur bei ausdrücklicher Wahl. */
+:root{
+  --bg:#16141b; --surface:#1f1c26; --surface-2:#28242f; --line:#38333f;
+  --fg:#ece7f0; --muted:#a69fb0; --faint:#6f6879;
+  --lav:#c7b6ee; --mint:#a6d8c2; --peach:#f1c3a6; --sky:#a9c8ec;
+  --lav-ink:#2a2140; --mint-ink:#1d3a2f; --peach-ink:#45291a;
+  --e-low:var(--mint); --e-mid:var(--sky); --e-high:var(--peach);
+  --ff-display:"Bricolage Grotesque", "Avenir Next", system-ui, sans-serif;
+  --ff-body:"Atkinson Hyperlegible", "Helvetica Neue", Arial, sans-serif;
+  --fs:16px; --r:16px;
+  color-scheme:dark;
+}
+@media (prefers-color-scheme: light){
+  :root:not([data-theme="dark"]){
+    --bg:#f5f2f7; --surface:#ffffff; --surface-2:#efeaf3; --line:#ddd5e4;
+    --fg:#241f2b; --muted:#665e70; --faint:#9a92a4;
+    --lav:#7a5fc4; --mint:#3d8f6c; --peach:#bf6a3c; --sky:#4878b0;
+    --lav-ink:#ffffff; --mint-ink:#ffffff; --peach-ink:#ffffff;
+    color-scheme:light;
+  }
+}
+:root[data-theme="light"]{
+  --bg:#f5f2f7; --surface:#ffffff; --surface-2:#efeaf3; --line:#ddd5e4;
+  --fg:#241f2b; --muted:#665e70; --faint:#9a92a4;
+  --lav:#7a5fc4; --mint:#3d8f6c; --peach:#bf6a3c; --sky:#4878b0;
+  --lav-ink:#ffffff; --mint-ink:#ffffff; --peach-ink:#ffffff;
+  color-scheme:light;
+}
+:root[data-size="l"]{--fs:18px}
+:root[data-size="xl"]{--fs:20px}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html,body{height:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--ff-body);font-size:var(--fs);line-height:1.5;-webkit-font-smoothing:antialiased}
+button,input,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--lav);outline-offset:2px;border-radius:8px}
+.app{max-width:560px;margin:0 auto;padding-inline:16px;padding-block:20px calc(110px + env(safe-area-inset-bottom,0px))}
+h1,h2,h3{font-family:var(--ff-display);font-weight:700;line-height:1.15;text-wrap:balance;margin:0}
+h1{font-size:1.75em;letter-spacing:-.01em}
+h2{font-size:1.2em}
+h3{font-size:1em;font-weight:500}
+.eyebrow{font-size:.72em;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);font-weight:700}
+.muted{color:var(--muted)}
+.small{font-size:.85em}
+.stack{display:flex;flex-direction:column;gap:14px}
+.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.top{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;margin-bottom:18px}
+.top .date{font-size:.85em;color:var(--muted)}
+.brand{font-family:var(--ff-display);font-weight:700;font-size:.9em;color:var(--lav)}
+section.screen{display:flex;flex-direction:column;gap:18px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px}
+.plain{padding:0}
+.note{background:var(--surface-2);border-radius:12px;padding:12px 14px;font-size:.9em;color:var(--muted)}
+
+/* Energie */
+.energy{display:flex;flex-direction:column;gap:12px}
+.battery{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;height:14px}
+.battery span{border-radius:6px;background:var(--surface-2);transition:background .4s}
+.battery[data-l="0"] span:nth-child(1){background:var(--e-low)}
+.battery[data-l="1"] span:nth-child(-n+2){background:var(--e-mid)}
+.battery[data-l="2"] span{background:var(--e-high)}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:36px;background:transparent;margin:0}
+input[type=range]::-webkit-slider-runnable-track{height:8px;border-radius:8px;background:var(--surface-2)}
+input[type=range]::-moz-range-track{height:8px;border-radius:8px;background:var(--surface-2)}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:30px;height:30px;border-radius:50%;background:var(--fg);margin-top:-11px;border:4px solid var(--bg)}
+input[type=range]::-moz-range-thumb{width:24px;height:24px;border-radius:50%;background:var(--fg);border:4px solid var(--bg)}
+.scale{display:grid;grid-template-columns:repeat(3,1fr);font-size:.85em;color:var(--muted)}
+.scale span:nth-child(2){text-align:center}.scale span:nth-child(3){text-align:right}
+.scale b{color:var(--fg)}
+.energy-hint{font-size:.92em}
+
+/* Fokus-Karte */
+.focus{background:var(--surface-2);border-radius:20px;padding:20px;display:flex;gap:16px;align-items:flex-start}
+.focus .body{flex:1;min-width:0}
+.focus .title{font-family:var(--ff-display);font-size:1.3em;font-weight:500;line-height:1.25;margin-top:4px;overflow-wrap:anywhere}
+
+/* Aufgaben */
+.tasks{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:2px}
+.task{display:flex;gap:12px;align-items:flex-start;padding:10px 4px;border-bottom:1px solid var(--line)}
+.task:last-child{border-bottom:0}
+.task .txt{flex:1;min-width:0;overflow-wrap:anywhere;padding-top:6px}
+.task .meta{font-size:.78em;color:var(--muted);display:flex;gap:8px;flex-wrap:wrap;margin-top:2px}
+.check{flex:none;width:36px;height:36px;border-radius:50%;border:2px solid var(--faint);background:transparent;display:grid;place-items:center;transition:background .2s,border-color .2s}
+.check svg{width:18px;height:18px;opacity:0;transition:opacity .2s}
+.check:hover{border-color:var(--mint)}
+.check:hover svg{opacity:.5}
+.check.big{width:48px;height:48px;border-color:var(--mint)}
+.task.done .txt{color:var(--faint);text-decoration:line-through}
+.task.done .check{background:var(--mint);border-color:var(--mint)}
+.task.done .check svg{opacity:1;color:var(--mint-ink)}
+.del{flex:none;background:none;border:0;color:var(--faint);padding:8px;border-radius:8px;font-size:1.1em;line-height:1}
+.del:hover{color:var(--fg)}
+.dot{display:inline-block;width:9px;height:9px;border-radius:50%;vertical-align:middle;margin-right:4px}
+.dot.low{background:var(--e-low)}.dot.mid{background:var(--e-mid)}.dot.high{background:var(--e-high)}
+.tag{font-size:.72em;padding:1px 7px;border-radius:99px;border:1px solid var(--line);color:var(--muted)}
+details.later summary{cursor:pointer;color:var(--muted);font-size:.9em;padding:6px 0;list-style:none}
+details.later summary::-webkit-details-marker{display:none}
+details.later summary::before{content:"▸ ";}
+details.later[open] summary::before{content:"▾ ";}
+
+/* Eingaben */
+.field{width:100%;background:var(--surface-2);border:1px solid var(--line);border-radius:12px;padding:12px 14px;outline:none}
+.field:focus{border-color:var(--lav)}
+textarea.field{resize:vertical;min-height:84px}
+.btn{border:0;border-radius:12px;padding:12px 18px;font-weight:700;background:var(--lav);color:var(--lav-ink);min-height:46px}
+.btn.ghost{background:transparent;color:var(--fg);border:1px solid var(--line)}
+.btn.soft{background:var(--surface-2);color:var(--fg)}
+.btn.block{width:100%}
+.btn:disabled{opacity:.45;cursor:default}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{border:1px solid var(--line);background:transparent;border-radius:99px;padding:7px 13px;font-size:.88em;color:var(--muted)}
+.chip[aria-pressed="true"]{background:var(--surface-2);color:var(--fg);border-color:var(--fg)}
+.chip.suggest{border-style:dashed}
+.addrow{display:flex;gap:8px}
+.addrow .field{flex:1;min-width:0}
+
+/* Zerleger */
+.steps{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px;counter-reset:s}
+.step{display:flex;gap:10px;align-items:center;background:var(--surface-2);border-radius:12px;padding:8px 8px 8px 12px;counter-increment:s}
+.step::before{content:counter(s);font-family:var(--ff-display);font-weight:700;color:var(--muted);width:1.2em;flex:none}
+.step textarea{flex:1;min-width:0;background:transparent;border:0;outline:none;padding:6px 0;resize:none;overflow:hidden;line-height:1.35;height:auto}
+.step textarea:focus{box-shadow:0 1px 0 var(--lav)}
+.ebtn{flex:none;border:0;border-radius:99px;padding:5px 10px;font-size:.75em;font-weight:700}
+.ebtn.low{background:var(--e-low);color:var(--mint-ink)}
+.ebtn.mid{background:var(--e-mid);color:var(--lav-ink)}
+.ebtn.high{background:var(--e-high);color:var(--peach-ink)}
+:root[data-theme="light"] .ebtn{color:#fff}
+
+/* Journal */
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px}
+.stat b{display:block;font-family:var(--ff-display);font-size:1.6em;font-variant-numeric:tabular-nums;line-height:1.1}
+.stat span{font-size:.75em;color:var(--muted)}
+.jarbox{display:flex;flex-direction:column;align-items:center;gap:6px;padding-top:14px}
+.jarbox svg{width:100%;max-width:260px;height:auto;display:block;overflow:visible}
+.jar-glass{fill:color-mix(in srgb,var(--lav) 6%,transparent);stroke:var(--muted);stroke-width:2.5}
+.jar-lid{fill:var(--surface-2);stroke:var(--muted);stroke-width:2.5}
+.jar-lid-line{stroke:var(--faint);stroke-width:1.5}
+.jar-shine{stroke:var(--fg);stroke-width:3;stroke-linecap:round;opacity:.18;fill:none}
+.jar-label{fill:var(--surface);stroke:var(--line);stroke-width:1.5}
+.jar-label-txt{fill:var(--muted);font-family:var(--ff-display);font-size:13px;font-weight:700;letter-spacing:.08em}
+.jar-empty{fill:var(--faint);font-size:12px;font-family:var(--ff-body)}
+.spk.low{fill:var(--e-low)}.spk.mid{fill:var(--e-mid)}.spk.high{fill:var(--e-high)}.spk.win{fill:var(--lav)}
+.spk-glow{opacity:.22}
+.spk-new{transform-box:fill-box;transform-origin:center;animation:pop .7s ease-out}
+@keyframes pop{from{transform:scale(.1);opacity:0}to{transform:scale(1);opacity:1}}
+
+/* Fristen und Erinnerungen */
+.dl-toggle{display:flex;align-items:center;gap:8px;background:none;border:1px dashed var(--line);border-radius:12px;padding:10px 12px;color:var(--muted);text-align:left;width:100%}
+.dl-toggle[aria-expanded="true"]{border-style:solid;color:var(--fg)}
+.dl-toggle svg{width:20px;height:20px;flex:none}
+.dl-box{display:flex;flex-direction:column;gap:10px;background:var(--surface-2);border-radius:12px;padding:12px}
+.dl-row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.dl-row label{display:flex;flex-direction:column;gap:4px;font-size:.8em;color:var(--muted);min-width:0}
+.dl-row .field{background:var(--surface);padding:10px 12px;min-width:0}
+.badge{display:inline-flex;align-items:center;gap:4px;font-size:.92em;font-weight:700;padding:3px 10px;border-radius:99px;background:var(--surface-2);color:var(--fg);border:0;line-height:1.35;text-align:left}
+.task .meta{font-size:.84em}
+.task.dl .meta{font-size:.9em;row-gap:6px}
+.plan-list{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:6px}
+.plan-list li{display:flex;gap:8px}
+.plan-list li::before{content:"✓";color:var(--mint);font-weight:700}
+.btn.buy{font-size:1.05em;min-height:54px}
+.linkbtn{background:none;border:0;color:var(--muted);font-size:.85em;text-decoration:underline;text-underline-offset:3px;padding:6px 2px}
+.linkbtn:hover{color:var(--fg)}
+.sub-note{margin:0;font-size:.78em;color:var(--muted);text-align:center;line-height:1.45}
+.fb-done{display:flex;gap:10px;align-items:flex-start;background:color-mix(in srgb,var(--mint) 16%,var(--surface));border-radius:12px;padding:12px 14px}
+.fly{position:fixed;left:0;top:0;width:26px;height:26px;pointer-events:none;z-index:30}
+
+.badge.soon{background:color-mix(in srgb,var(--peach) 35%,var(--surface-2))}
+.badge.over{background:color-mix(in srgb,var(--lav) 30%,var(--surface-2))}
+button.badge{cursor:pointer}
+.calrow{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.calrow a,.calrow button{font-size:.8em;font-weight:700;color:var(--fg);background:var(--surface-2);border:1px solid var(--line);border-radius:10px;padding:6px 10px;text-decoration:none}
+.dl-list{gap:8px}
+.task.dl{border:1px solid var(--line);border-bottom:1px solid var(--line);border-radius:14px;padding:10px 8px 10px 10px;background:color-mix(in srgb,var(--sky) 13%,var(--surface))}
+.task.dl:last-child{border-bottom:1px solid var(--line)}
+.task.dl.soon{background:color-mix(in srgb,var(--peach) 22%,var(--surface));border-color:color-mix(in srgb,var(--peach) 55%,var(--line))}
+.task.dl.over{background:color-mix(in srgb,var(--peach) 34%,var(--surface));border-color:var(--peach)}
+.task.dl .txt>div:first-child{font-weight:700}
+.task.dl .badge{background:color-mix(in srgb,var(--bg) 35%,transparent)}
+.wk{display:grid;grid-template-columns:repeat(7,1fr);gap:5px}
+.wk .chip{min-width:0;text-align:center;padding:8px 0}
+.wk-time{display:flex;align-items:center;gap:8px;font-size:.85em;color:var(--muted);flex-wrap:wrap}
+.wk-time .field{width:auto;background:var(--surface);padding:8px 10px}
+.dl-hint{font-size:.78em;color:var(--faint);margin:0}
+.remind{display:flex;flex-direction:column;gap:10px;background:color-mix(in srgb,var(--peach) 16%,var(--surface));border:1px solid color-mix(in srgb,var(--peach) 40%,var(--line));border-radius:var(--r);padding:14px 16px}
+.remind .t{font-weight:700;overflow-wrap:anywhere}
+.ai-note{display:flex;align-items:center;gap:8px;font-size:.85em;color:var(--muted)}
+.ai-dot{width:8px;height:8px;border-radius:50%;background:var(--faint);flex:none}
+.ai-dot.on{background:var(--mint)}
+.thinking{display:inline-flex;gap:4px}
+.thinking i{width:6px;height:6px;border-radius:50%;background:var(--lav);animation:blink 1.2s infinite}
+.thinking i:nth-child(2){animation-delay:.2s}.thinking i:nth-child(3){animation-delay:.4s}
+@keyframes blink{0%,80%,100%{opacity:.25}40%{opacity:1}}
+.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
+.cal .wd{font-size:.7em;color:var(--faint);text-align:center}
+.cal .d{aspect-ratio:1;max-width:100%;border-radius:10px;background:var(--surface-2);display:grid;place-items:center;font-size:.72em;color:var(--faint);font-variant-numeric:tabular-nums}
+.cal .d.l1{background:color-mix(in srgb,var(--lav) 30%,var(--surface-2));color:var(--fg)}
+.cal .d.l2{background:color-mix(in srgb,var(--lav) 55%,var(--surface-2));color:var(--fg)}
+.cal .d.l3{background:var(--lav);color:var(--lav-ink)}
+.cal .d.today{outline:2px solid var(--fg);outline-offset:-2px}
+.cal .d.empty{background:transparent}
+.entries{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:14px}
+.day h3{font-size:.85em;color:var(--muted);margin-bottom:6px}
+.entry{display:flex;gap:10px;align-items:baseline;padding:4px 0}
+.entry .txt{flex:1;min-width:0;overflow-wrap:anywhere}
+.entry .when{font-size:.75em;color:var(--faint);font-variant-numeric:tabular-nums}
+.welcome{background:color-mix(in srgb,var(--mint) 18%,var(--surface));border:1px solid color-mix(in srgb,var(--mint) 35%,var(--line));border-radius:var(--r);padding:14px 16px}
+
+/* Mehr */
+.setrow{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}
+.setrow:last-child{border-bottom:0}
+.setrow .lbl{min-width:0}
+.toggle{position:relative;width:52px;height:30px;flex:none;border-radius:99px;border:0;background:var(--surface-2);transition:background .2s}
+.toggle::after{content:"";position:absolute;top:3px;left:3px;width:24px;height:24px;border-radius:50%;background:var(--fg);transition:transform .2s}
+.toggle[aria-checked="true"]{background:var(--mint)}
+.toggle[aria-checked="true"]::after{transform:translateX(22px);background:var(--mint-ink)}
+.status{display:inline-flex;align-items:center;gap:6px;font-size:.8em;font-weight:700;padding:4px 10px;border-radius:99px;background:var(--surface-2)}
+.status.ok{background:var(--mint);color:var(--mint-ink)}
+.status.trial{background:var(--sky);color:var(--lav-ink)}
+.lock{border:1px dashed var(--line);border-radius:var(--r);padding:16px;display:flex;flex-direction:column;gap:10px}
+.msg{font-size:.88em;min-height:1.3em}
+.msg.err{color:var(--peach)}.msg.ok{color:var(--mint)}
+.confirm{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+
+/* Tab-Leiste */
+nav.tabs{position:fixed;left:0;right:0;bottom:0;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-top:1px solid var(--line);padding:8px 8px calc(8px + env(safe-area-inset-bottom,0px));z-index:10}
+nav.tabs .in{max-width:560px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:4px}
+nav.tabs button{background:none;border:0;border-radius:12px;padding:6px 2px;display:flex;flex-direction:column;align-items:center;gap:2px;font-size:.72em;color:var(--faint)}
+nav.tabs button svg{width:24px;height:24px}
+nav.tabs button[aria-selected="true"]{color:var(--fg)}
+nav.tabs button[aria-selected="true"] svg{color:var(--lav)}
+
+.toast span{white-space:nowrap}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(84px + env(safe-area-inset-bottom,0px));background:var(--fg);color:var(--bg);border-radius:14px;padding:10px 12px 10px 16px;display:flex;gap:12px;align-items:center;font-size:.9em;z-index:20;max-width:calc(100% - 32px);box-shadow:0 8px 24px rgba(0,0,0,.25)}
+.toast button{background:transparent;border:1px solid currentColor;color:inherit;border-radius:10px;padding:4px 10px;font-weight:700}
+
+.calm *{animation:none!important;transition:none!important}
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
+</style>
+
+<div class="app" id="app">
+  <header class="top">
+    <div>
+      <div class="brand">FocusHer</div>
+      <h1 id="hello">Hallo</h1>
+    </div>
+    <div class="date" id="today"></div>
+  </header>
+
+  <!-- HEUTE -->
+  <section class="screen" id="s-heute" data-screen="heute">
+    <div id="welcomeBack" class="welcome" hidden></div>
+    <div id="reminders" class="stack" hidden></div>
+    <div class="stack" id="dlWrap" hidden>
+      <div class="row" style="justify-content:space-between">
+        <h2>Mit Deadline</h2>
+        <span class="small muted" id="dlCount"></span>
+      </div>
+      <ul class="tasks dl-list" id="dlList"></ul>
+    </div>
+    <div class="card energy" aria-labelledby="eHead">
+      <div class="row" style="justify-content:space-between">
+        <h2 id="eHead">Wie viel Kapazität hast du gerade?</h2>
+      </div>
+      <div class="battery" id="battery" data-l="1" aria-hidden="true"><span></span><span></span><span></span></div>
+      <input type="range" id="energy" min="0" max="2" step="1" value="1" aria-label="Energielevel" aria-valuetext="Mittel">
+      <div class="scale"><span id="sc0">Wenig</span><span id="sc1">Mittel</span><span id="sc2">Viel</span></div>
+      <div class="energy-hint muted" id="eHint"></div>
+    </div>
+
+    <div id="focusWrap"></div>
+
+    <div class="stack">
+      <div class="row" style="justify-content:space-between">
+        <h2>Passt gerade</h2>
+        <span class="small muted" id="fitCount"></span>
+      </div>
+      <ul class="tasks" id="fitList"></ul>
+      <details class="later" id="laterBox">
+        <summary id="laterSum">Später, mit mehr Energie</summary>
+        <ul class="tasks" id="laterList"></ul>
+      </details>
+    </div>
+
+    <form class="card stack" id="addForm" autocomplete="off">
+      <h3>Neue Aufgabe</h3>
+      <div class="addrow">
+        <input class="field" id="addInput" placeholder="z. B. Paket zur Post bringen" maxlength="140">
+        <button class="btn" type="submit" aria-label="Aufgabe hinzufügen">+</button>
+      </div>
+      <div class="chips" id="addEnergy" role="group" aria-label="Benötigte Energie">
+        <button type="button" class="chip" data-e="low" aria-pressed="false"><span class="dot low"></span>Wenig</button>
+        <button type="button" class="chip" data-e="mid" aria-pressed="true"><span class="dot mid"></span>Mittel</button>
+        <button type="button" class="chip" data-e="high" aria-pressed="false"><span class="dot high"></span>Viel</button>
+      </div>
+      <button type="button" class="dl-toggle" id="dlToggle" aria-expanded="false" aria-controls="dlBox">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>
+        <span id="dlToggleTxt">Deadline und Erinnerung hinzufügen</span>
+      </button>
+      <div class="dl-box" id="dlBox" hidden>
+        <div class="dl-row">
+          <label for="dlDate">Fällig am<input class="field" type="date" id="dlDate"></label>
+          <label for="dlTime">Uhrzeit<input class="field" type="time" id="dlTime" value="18:00"></label>
+        </div>
+        <div class="small muted">Erinnere mich</div>
+        <div class="chips" id="dlRem" role="group" aria-label="Erinnerungen">
+          <button type="button" class="chip" data-m="10080" aria-pressed="false">1 Woche vorher</button>
+          <button type="button" class="chip" data-m="4320" aria-pressed="false">3 Tage vorher</button>
+          <button type="button" class="chip" data-m="1440" aria-pressed="true">1 Tag vorher</button>
+          <button type="button" class="chip" data-m="morning" aria-pressed="false">Am Morgen, 8 Uhr</button>
+          <button type="button" class="chip" data-m="180" aria-pressed="false">3 Std. vorher</button>
+          <button type="button" class="chip" data-m="60" aria-pressed="true">1 Std. vorher</button>
+          <button type="button" class="chip" data-m="15" aria-pressed="false">15 Min. vorher</button>
+        </div>
+        <div class="small muted">Bis dahin regelmäßig erinnern an</div>
+        <div class="wk" id="dlDays" role="group" aria-label="Wochentage für Erinnerungen">
+          <button type="button" class="chip" data-d="1" aria-pressed="false">Mo</button>
+          <button type="button" class="chip" data-d="2" aria-pressed="false">Di</button>
+          <button type="button" class="chip" data-d="3" aria-pressed="false">Mi</button>
+          <button type="button" class="chip" data-d="4" aria-pressed="false">Do</button>
+          <button type="button" class="chip" data-d="5" aria-pressed="false">Fr</button>
+          <button type="button" class="chip" data-d="6" aria-pressed="false">Sa</button>
+          <button type="button" class="chip" data-d="0" aria-pressed="false">So</button>
+        </div>
+        <div class="wk-time">
+          <button type="button" class="chip" id="dlEvery">Jeden Tag</button>
+          <button type="button" class="chip" id="dlWork">Mo bis Fr</button>
+          <label for="dlDayTime" style="display:flex;align-items:center;gap:6px">um <input class="field" type="time" id="dlDayTime" value="09:00"> Uhr</label>
+        </div>
+        <p class="dl-hint">Ohne Datum erinnert dich FocusHer an diesen Tagen, bis die Aufgabe erledigt ist.</p>
+        <button type="button" class="btn ghost" id="dlClear" style="min-height:38px;padding:8px 12px">Deadline entfernen</button>
+      </div>
+      <p class="small muted" style="margin:0">Zu groß? Im Tab <b>Zerlegen</b> machst du daraus kleine Schritte.</p>
+    </form>
+  </section>
+
+  <!-- ZERLEGEN -->
+  <section class="screen" id="s-zerlegen" data-screen="zerlegen" hidden>
+    <div class="stack">
+      <span class="eyebrow">Aufgaben-Zerleger</span>
+      <h2>Was fühlt sich gerade zu groß an?</h2>
+      <p class="muted" style="margin:0">Schreib die Aufgabe so, wie sie dir im Kopf herumgeht. Daraus werden 3 bis 5 Schritte, und der erste ist immer leicht.</p>
+    </div>
+    <form class="card stack" id="decForm" autocomplete="off">
+      <textarea class="field" id="decInput" maxlength="200" placeholder="z. B. Steuererklärung machen"></textarea>
+      <div class="chips" id="decSuggest" aria-label="Beispiele"></div>
+      <div class="row" style="justify-content:space-between">
+        <div class="chips" id="decCount" role="group" aria-label="Anzahl der Schritte">
+          <button type="button" class="chip" data-n="3" aria-pressed="false">3 Schritte</button>
+          <button type="button" class="chip" data-n="4" aria-pressed="true">4</button>
+          <button type="button" class="chip" data-n="5" aria-pressed="false">5</button>
+        </div>
+      </div>
+      <button class="btn block" type="submit" id="decBtn">Zerlegen</button>
+      <div class="ai-note" id="aiNote"><span class="ai-dot" id="aiDot"></span><span id="aiTxt">KI wird verbunden …</span></div>
+      <div class="msg" id="decMsg"></div>
+    </form>
+
+    <div class="stack" id="decResult" hidden>
+      <div class="row" style="justify-content:space-between">
+        <h2 id="decTitle">Deine Schritte</h2>
+        <button class="btn soft" type="button" id="decAgain">Andere Variante</button>
+      </div>
+      <p class="small muted" style="margin:0">Tippe auf einen Text, um ihn zu ändern. Tippe auf das Energie-Etikett, um es zu wechseln.</p>
+      <ol class="steps" id="decSteps"></ol>
+      <button class="btn block" type="button" id="decAdd">Alle in „Heute“ übernehmen</button>
+    </div>
+    <div id="decLock"></div>
+  </section>
+
+  <!-- JOURNAL -->
+  <section class="screen" id="s-journal" data-screen="journal" hidden>
+    <div class="stack">
+      <span class="eyebrow">Funken-Journal</span>
+      <h2>Alles, was du geschafft hast, bleibt hier.</h2>
+      <p class="muted" style="margin:0">Hier gibt es keine Serie, die reißen kann. Jeder Funke zählt, auch nach einer Pause.</p>
+    </div>
+    <div class="stats">
+      <div class="stat"><b id="stTotal">0</b><span>Funken gesamt</span></div>
+      <div class="stat"><b id="stWeek">0</b><span>diese Woche</span></div>
+      <div class="stat"><b id="stDays">0</b><span>Tage mit Funken im Monat</span></div>
+    </div>
+    <div class="jarbox">
+      <svg id="jarSvg" viewBox="0 0 240 290" role="img" aria-label="Funkenglas der letzten 30 Tage"></svg>
+      <button class="linkbtn" type="button" id="replayJar">Letzte Funken nochmal einfüllen</button>
+      <p class="small muted" style="margin:0;text-align:center">Jeder Funke ist etwas, das du geschafft hast. Das Glas zeigt die letzten 30 Tage.<br><span class="dot low"></span>leicht <span class="dot mid"></span>mittel <span class="dot high"></span>groß <span class="dot" style="background:var(--lav)"></span>eigener Erfolg</p>
+    </div>
+
+    <form class="card stack" id="winForm" autocomplete="off">
+      <h3>Kleiner Erfolg, der auf keiner Liste stand</h3>
+      <input class="field" id="winInput" maxlength="140" placeholder="z. B. Ich habe heute Wasser getrunken">
+      <div class="chips" id="winMood" role="group" aria-label="Wie fühlt es sich an?"></div>
+      <button class="btn" type="submit">Ins Glas legen</button>
+    </form>
+
+    <div class="card stack">
+      <div class="row" style="justify-content:space-between">
+        <h3>Dein Monat</h3>
+        <span class="small muted" id="calMonth"></span>
+      </div>
+      <div class="cal" id="cal"></div>
+      <p class="small muted" style="margin:0">Leere Tage sind einfach leer. Sie sind kein Fehler.</p>
+    </div>
+
+    <div class="stack">
+      <h2>Verlauf</h2>
+      <ul class="entries" id="entries"></ul>
+      <div id="histLock"></div>
+    </div>
+  </section>
+
+  <!-- MEHR -->
+  <section class="screen" id="s-mehr" data-screen="mehr" hidden>
+    <div class="card stack" id="unlockCard">
+      <div class="row" style="justify-content:space-between">
+        <h2>FocusHer Vollversion</h2>
+        <span class="status" id="planStatus"></span>
+      </div>
+      <p class="muted" style="margin:0" id="planText"></p>
+      <ul class="plan-list" id="planList">
+        <li>Unbegrenzt Aufgaben zerlegen</li>
+        <li>Dein ganzes Funken-Journal, ohne Zeitgrenze</li>
+        <li>KI-Zerleger und alle neuen Funktionen</li>
+      </ul>
+      <div class="stack" id="buyBox" style="gap:10px">
+        <button class="btn block buy" type="button" id="buyBtn">Vollversion holen · <span id="buyPrice">29,99 €</span> pro Jahr</button>
+        <p class="sub-note">Das sind etwa 2,50 € im Monat. Das Abo verlängert sich jedes Jahr automatisch und lässt sich jederzeit in den Einstellungen deines Apple- oder Google-Kontos kündigen, spätestens 24 Stunden vor Ablauf.</p>
+        <div class="msg" id="buyMsg"></div>
+        <div class="row" style="justify-content:center;gap:18px">
+          <button class="linkbtn" type="button" id="restoreBtn">Kauf wiederherstellen</button>
+          <a class="linkbtn" href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/" target="_blank" rel="noopener" id="termsLink">Nutzungsbedingungen</a>
+          <a class="linkbtn" href="https://vellunaprints.de/focusher/datenschutz" target="_blank" rel="noopener" id="privacyLink">Datenschutz</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3 style="margin-bottom:4px">Darstellung</h3>
+      <div class="setrow">
+        <div class="lbl">Dunkler Modus</div>
+        <button class="toggle" role="switch" id="tgDark" aria-checked="true" aria-label="Dunkler Modus"></button>
+      </div>
+      <div class="setrow">
+        <div class="lbl">Reizarmer Modus<div class="small muted">Keine Animationen, kein Begrüßungstext</div></div>
+        <button class="toggle" role="switch" id="tgCalm" aria-checked="false" aria-label="Reizarmer Modus"></button>
+      </div>
+      <div class="setrow">
+        <div class="lbl">Textgröße</div>
+        <div class="chips" id="sizeChips">
+          <button type="button" class="chip" data-s="m" aria-pressed="true">A</button>
+          <button type="button" class="chip" data-s="l" aria-pressed="false" style="font-size:1em">A</button>
+          <button type="button" class="chip" data-s="xl" aria-pressed="false" style="font-size:1.15em">A</button>
+        </div>
+      </div>
+      <div class="setrow">
+        <div class="lbl">Dein Name<div class="small muted">Für die Begrüßung, freiwillig</div></div>
+        <input class="field" id="nameInput" maxlength="24" style="max-width:150px" placeholder="optional">
+      </div>
+    </div>
+
+    <form class="card stack" id="fbForm" autocomplete="off">
+      <div>
+        <h3>Feedback geben</h3>
+        <p class="small muted" style="margin:4px 0 0">Was hilft dir, was fehlt, was nervt? Jede Nachricht wird gelesen und hilft, FocusHer besser zu machen.</p>
+      </div>
+      <div class="chips" id="fbType" role="group" aria-label="Art des Feedbacks">
+        <button type="button" class="chip" data-t="idee" aria-pressed="true">Idee</button>
+        <button type="button" class="chip" data-t="fehler" aria-pressed="false">Etwas klappt nicht</button>
+        <button type="button" class="chip" data-t="lob" aria-pressed="false">Lob</button>
+      </div>
+      <textarea class="field" id="fbText" maxlength="1500" placeholder="Schreib einfach los, ein Satz reicht."></textarea>
+      <button class="btn" type="submit" id="fbBtn">Feedback senden</button>
+      <div class="msg" id="fbMsg"></div>
+    </form>
+
+    <div class="card">
+      <h3 style="margin-bottom:4px">Erinnerungen</h3>
+      <div class="setrow">
+        <div class="lbl">Mitteilungen auf diesem Gerät<div class="small muted" id="notifNote">Erinnert dich auch, wenn FocusHer im Hintergrund offen ist</div></div>
+        <button class="toggle" role="switch" id="tgNotif" aria-checked="false" aria-label="Mitteilungen"></button>
+      </div>
+      <p class="small muted" style="margin:10px 0 0">Damit eine Erinnerung sicher ankommt, auch wenn die App geschlossen ist, trag die Aufgabe zusätzlich in deinen Kalender ein. Tippe dafür in der Liste auf das Datum der Aufgabe.</p>
+    </div>
+
+    <div class="stack" style="align-items:center;gap:8px">
+      <p class="small muted" style="text-align:center;margin:0">Alles bleibt auf diesem Gerät. Kein Konto, keine Töne.<br>FocusHer ersetzt keine ärztliche oder therapeutische Begleitung.<br>Ein Projekt von VellunaPrintsDesign</p>
+      <div class="confirm" id="resetWrap" style="justify-content:center"></div>
+      <div class="msg" id="dataMsg"></div>
+    </div>
+  </section>
+</div>
+
+<nav class="tabs" aria-label="Bereiche">
+  <div class="in" role="tablist">
+    <button role="tab" data-go="heute" aria-selected="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6l1.4 1.4M17 17l1.4 1.4M5.6 18.4 7 17M17 7l1.4-1.4"/></svg>Heute</button>
+    <button role="tab" data-go="zerlegen" aria-selected="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="4" width="18" height="5" rx="2"/><path d="M6 13h12M8 17h8M10 21h4"/></svg>Zerlegen</button>
+    <button role="tab" data-go="journal" aria-selected="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M8 3h8M9 3v3c-2.5 1-4 3.2-4 6v6a3 3 0 0 0 3 3h8a3 3 0 0 0 3-3v-6c0-2.8-1.5-5-4-6V3"/><circle cx="10" cy="15" r="1.2" fill="currentColor"/><circle cx="14" cy="13" r="1.2" fill="currentColor"/><circle cx="13" cy="17" r="1.2" fill="currentColor"/></svg>Journal</button>
+    <button role="tab" data-go="mehr" aria-selected="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="5" cy="12" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="19" cy="12" r="1.5"/></svg>Mehr</button>
+  </div>
+</nav>
+
+<div class="toast" id="toast" hidden role="status"><span id="toastTxt"></span><button type="button" id="toastUndo">Rückgängig</button></div>
+
+<script>
+(function(){
+"use strict";
+/* ---------- Speicher (LocalStorage, mit Ausweichlösung im Arbeitsspeicher) ---------- */
+const mem = {};
+const store = {
+  get(k, d){ try{ const v = localStorage.getItem("fh_"+k); return v==null ? (k in mem ? mem[k] : d) : JSON.parse(v); }catch(e){ return k in mem ? mem[k] : d; } },
+  set(k, v){ mem[k] = v; try{ localStorage.setItem("fh_"+k, JSON.stringify(v)); }catch(e){} },
+  clear(){ for(const k of Object.keys(mem)) delete mem[k]; try{ Object.keys(localStorage).filter(k=>k.startsWith("fh_")).forEach(k=>localStorage.removeItem(k)); }catch(e){} }
+};
+
+const TRIAL_DAYS = 7;
+const FREE_DECOMPOSE_PER_DAY = 1;
+const FREE_HISTORY_DAYS = 7;
+const $ = s => document.querySelector(s);
+const $$ = s => Array.from(document.querySelectorAll(s));
+const uid = () => Math.random().toString(36).slice(2,10) + Date.now().toString(36).slice(-4);
+const dayKey = (d=new Date()) => { const x=new Date(d); return x.getFullYear()+"-"+String(x.getMonth()+1).padStart(2,"0")+"-"+String(x.getDate()).padStart(2,"0"); };
+const DAY = 86400000;
+const E = ["low","mid","high"];
+const ELABEL = {low:"Wenig", mid:"Mittel", high:"Viel"};
+const ESHORT = {low:"leicht", mid:"mittel", high:"groß"};
+
+let S = {};
+function load(){
+  S.tasks = store.get("tasks", null);
+  S.journal = store.get("journal", []);
+  S.energy = store.get("energy", 1);
+  S.settings = Object.assign({theme:"dark", calm:false, size:"m", name:"", notif:false}, store.get("settings", {}));
+  S.trialStart = store.get("trialStart", null);
+  S.unlocked = store.get("unlocked", false);
+  S.decUse = store.get("decUse", {day:"", n:0});
+  S.lastVisit = store.get("lastVisit", null);
+  S.jarSeen = store.get("jarSeen", 0);
+  if(!S.trialStart){ S.trialStart = Date.now(); store.set("trialStart", S.trialStart); }
+  if(!S.tasks){ S.tasks = seedTasks(); save(); }
+}
+let syncTimer = null;
+function save(){
+  store.set("tasks",S.tasks); store.set("journal",S.journal); store.set("energy",S.energy); store.set("settings",S.settings); store.set("decUse",S.decUse);
+  // In der App: Erinnerungen als echte Mitteilungen auf dem Gerät planen
+  const NS_ = window.FocusHerStore;
+  if(NS_ && NS_.syncReminders){ clearTimeout(syncTimer); syncTimer = setTimeout(() => { try{ NS_.syncReminders(S.tasks); }catch(e){} }, 400); }
+}
+function seedTasks(){
+  const now = Date.now();
+  return [
+    {id:uid(), title:"Ein Glas Wasser trinken", energy:"low", done:false, created:now, example:true},
+    {id:uid(), title:"Drei Mails nur lesen, nicht beantworten", energy:"low", done:false, created:now, example:true},
+    {id:uid(), title:"Wäsche in die Maschine", energy:"mid", done:false, created:now, example:true},
+    {id:uid(), title:"Termin beim Zahnarzt vereinbaren", energy:"mid", done:false, created:now, example:true},
+    {id:uid(), title:"Schreibtisch komplett aufräumen", energy:"high", done:false, created:now, example:true}
+  ];
+}
+
+/* ---------- Testphase und Freischaltung ---------- */
+function trialLeft(){ return Math.max(0, Math.ceil((S.trialStart + TRIAL_DAYS*DAY - Date.now())/DAY)); }
+function isFull(){ return S.unlocked || trialLeft() > 0; }
+const ALPH = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+function fnv(str){ let h = 0x811c9dc5; for(let i=0;i<str.length;i++){ h ^= str.charCodeAt(i); h = Math.imul(h, 0x01000193) >>> 0; } return h >>> 0; }
+function checkPart(a,b){ let h = fnv("velluna-fh-26|"+a+"|"+b), out=""; for(let i=0;i<4;i++){ out += ALPH[h % 32]; h = Math.floor(h/32) ^ fnv(out+a); h >>>= 0; } return out; }
+function keyValid(raw){
+  const k = raw.toUpperCase().replace(/\s/g,"");
+  const m = /^FH-([A-Z2-9]{4})-([A-Z2-9]{4})-([A-Z2-9]{4})$/.exec(k);
+  return !!m && checkPart(m[1],m[2]) === m[3];
+}
+
+/* ---------- Zerleger: Bausteine für typische Alltagsaufgaben ---------- */
+const LIB = [
+  {k:["putz","aufräum","aufraeum","sauber","küche","kueche","bad ","badezimmer","wohnung","zimmer","schreibtisch","staub","saug","chaos"],
+   a:[["Timer auf 10 Minuten stellen, Musik an","low"],["Nur eine Fläche freiräumen, alles in einen Korb","mid"],["Müll und Geschirr zuerst rausbringen","low"],["Sachen aus dem Korb an ihren Platz bringen","mid"],["Fläche abwischen oder saugen","mid"],["Kurz anschauen, was jetzt frei ist","low"]],
+   b:[["Einen Müllbeutel holen und 5 Dinge wegwerfen","low"],["Alles Geschirr in die Küche tragen","low"],["Kleidung in einen Haufen sammeln","mid"],["Eine Ecke komplett fertig machen","high"],["Foto vom Ergebnis machen","low"],["Pause, bevor die nächste Ecke dran ist","low"]]},
+  {k:["wäsche","waesche","waschen","bügeln","buegeln","falten"],
+   a:[["Wäschekorb zur Maschine tragen","low"],["Eine Ladung sortieren, nur hell oder nur dunkel","low"],["Waschmittel rein, Programm starten","low"],["Wecker fürs Aufhängen stellen","low"],["Aufhängen, falten darf warten","mid"],["Trockene Wäsche in einen Korb, nicht sofort falten","low"]],
+   b:[["Nur Socken und Unterwäsche zusammensuchen","low"],["Maschine starten","low"],["Handy-Wecker stellen","low"],["Aufhängen mit einem Podcast","mid"],["Fünf Teile falten, dann aufhören dürfen","mid"]]},
+  {k:["steuer","finanz","rechnung","formular","antrag","behörde","behoerde","amt","versicherung","bank","elster","wiso","kündig","kuendig","vertrag","unterlagen"],
+   a:[["Datei oder Ordner öffnen, nur öffnen","low"],["Alle nötigen Unterlagen auf einen Stapel legen","mid"],["Nachschauen, was genau fehlt, und notieren","mid"],["Das erste Feld oder den ersten Punkt ausfüllen","mid"],["25 Minuten am Stück weitermachen, dann Pause","high"],["Notieren, wo du aufgehört hast","low"]],
+   b:[["Frist heraussuchen und in den Kalender eintragen","low"],["Einen leeren Umschlag oder Ordner beschriften","low"],["Belege der Reihe nach hineinlegen","mid"],["Den schwersten Teil in einem Block erledigen","high"],["Abschicken oder speichern und abhaken","mid"]]},
+  {k:["mail","e-mail","email","nachricht","anruf","anrufen","telefon","termin","arzt","zahnarzt","melden","antworten","schreiben an"],
+   a:[["Kontakt oder Nummer heraussuchen","low"],["Drei Stichpunkte notieren, was du sagen willst","low"],["Entwurf schreiben, darf holprig sein","mid"],["Abschicken oder anrufen","high"],["Termin sofort im Kalender eintragen","low"]],
+   b:[["Prüfen, ob es Online-Buchung oder Mail statt Anruf gibt","low"],["Kalender öffnen und zwei freie Zeiten notieren","low"],["Den ersten Satz fertig formulieren","mid"],["Kontakt aufnehmen","high"],["Kurz durchatmen und abhaken","low"]]},
+  {k:["einkauf","einkaufen","supermarkt","besorg","drogerie","apotheke","post","paket"],
+   a:[["Kühlschrank und Vorräte kurz checken","low"],["Liste mit höchstens 10 Dingen schreiben","low"],["Tasche, Schlüssel und Liste an die Tür legen","low"],["Losgehen, nur die Liste zählt","high"],["Einkäufe direkt einräumen","mid"]],
+   b:[["Prüfen, ob Liefern oder Abholen möglich ist","low"],["Alles in eine Einkaufs-App tippen","low"],["Schuhe anziehen","low"],["Einkauf erledigen","high"],["Kühle Sachen zuerst einräumen","mid"]]},
+  {k:["koch","essen","mahlzeit","meal","vorkoch","backen","frühstück","fruehstueck","abendessen"],
+   a:[["Ein einfaches Gericht auswählen","low"],["Zutaten auf die Arbeitsfläche stellen","low"],["Schneiden und vorbereiten","mid"],["Kochen","mid"],["Topf direkt einweichen","low"]],
+   b:[["Etwas mit höchstens 5 Zutaten wählen","low"],["Wasser aufsetzen","low"],["Gemüse schneiden mit Musik","mid"],["Doppelte Menge kochen für morgen","high"],["Reste in eine Dose füllen","low"]]},
+  {k:["präsentation","praesentation","bericht","projekt","hausarbeit","bewerbung","text","artikel","buch","konzept","angebot","schreiben"],
+   a:[["Leeres Dokument mit Titel anlegen","low"],["Fünf Stichpunkte als Gliederung notieren","mid"],["Den leichtesten Abschnitt zuerst schreiben","mid"],["Den Rest grob füllen, perfekt wird es später","high"],["Einmal durchlesen und speichern","mid"]],
+   b:[["Alte Notizen oder Vorlagen zusammensuchen","low"],["Sprachnotiz: 2 Minuten erzählen, worum es geht","low"],["Sprachnotiz in Stichpunkte übertragen","mid"],["Einen Abschnitt komplett schreiben","high"],["Jemandem zeigen oder Feedback-Termin setzen","mid"]]},
+  {k:["sport","training","spazier","bewegung","joggen","laufen","yoga","fitness","gym"],
+   a:[["Sportsachen rauslegen","low"],["Umziehen, das zählt schon","low"],["5 Minuten anfangen","mid"],["Weitermachen, solange es sich gut anfühlt","high"],["Wasser trinken und abhaken","low"]],
+   b:[["Eine Playlist oder ein Video auswählen","low"],["Schuhe anziehen und vor die Tür gehen","mid"],["Eine Runde um den Block","mid"],["Wenn es passt: noch eine Runde","high"],["Kurz dehnen","low"]]},
+  {k:["ausmist","keller","schrank","kleider","dachboden","garage","sortier","entrümpel","entruempel"],
+   a:[["Drei Kisten beschriften: Behalten, Weg, Unsicher","low"],["Nur ein Fach oder eine Schublade ausräumen","mid"],["Jedes Teil in eine Kiste legen, ohne zu grübeln","high"],["Die Weg-Kiste sofort ins Auto oder vor die Tür","mid"],["Das Fach sauber wieder einräumen","mid"]],
+   b:[["Timer auf 15 Minuten","low"],["Fünf Dinge finden, die sicher weg können","low"],["Ein Regalbrett leer machen","mid"],["Spendensack zubinden","low"],["Termin für die nächste Runde eintragen","low"]]},
+  {k:["feier","party","geburtstag","hochzeit","einladung","gäste","gaeste"],
+   a:[["Datum und Uhrzeit festlegen","low"],["Gästeliste mit Namen aufschreiben","low"],["Einladungen verschicken","mid"],["Essen, Getränke und Deko auf eine Liste schreiben","mid"],["Einkauf erledigen und Raum vorbereiten","high"],["Am Vortag alles bereitstellen","mid"]],
+   b:[["Drei Ideen für das Motto notieren","low"],["Budget grob festlegen","low"],["Ort reservieren oder Platz zuhause klären","mid"],["Einladung als Nachricht schreiben und senden","mid"],["Besorgungen auf zwei Tage verteilen","high"]]},
+  {k:["urlaub","reise","koffer","packen","verreisen","flug","ausflug"],
+   a:[["Koffer oder Tasche hervorholen","low"],["Packliste mit Kategorien schreiben","low"],["Kleidung für alle Tage aufs Bett legen","mid"],["Alles einpacken, Ausweis und Ladekabel zuerst","high"],["Tickets und Unterlagen griffbereit legen","low"]],
+   b:[["Reisedaten und Unterkunft prüfen","low"],["Erledigungen vor der Abfahrt notieren","low"],["Pflanzen, Post und Haustiere organisieren","mid"],["Packen nach Liste","high"],["Wohnung kurz abschließen und checken","low"]]},
+  {k:["umzug","umziehen","kisten","neue wohnung"],
+   a:[["Fünf Umzugskartons aufbauen","low"],["Einen Raum auswählen, mit dem du beginnst","low"],["Einen Karton füllen und beschriften","mid"],["Den Raum fertig einpacken","high"],["Kartons an einer Wand stapeln","mid"]],
+   b:[["Umzugstermin und Helfer festlegen","low"],["Adressänderungen auf eine Liste schreiben","low"],["Erste drei Adressen online ändern","mid"],["Schränke Fach für Fach ausräumen","high"],["Kiste mit Dingen für den ersten Tag packen","mid"]]},
+  {k:["lern","prüfung","pruefung","klausur","kurs","studium","vokabel","lesen"],
+   a:[["Material an einem Platz sammeln","low"],["Ein konkretes Kapitel oder Thema auswählen","low"],["20 Minuten lernen mit Timer","high"],["Drei Dinge aufschreiben, die hängen geblieben sind","mid"],["Nächstes Thema notieren","low"]],
+   b:[["Handy in einen anderen Raum legen","low"],["Inhaltsverzeichnis überfliegen","low"],["Karteikarten zu einem Thema schreiben","mid"],["Karten einmal durchgehen","mid"],["Belohnung einplanen","low"]]}
+];
+const GENERIC = {
+  a:[["In einem Satz notieren, wann „{T}“ fertig ist","low"],["Alles hinlegen, was du dafür brauchst","low"],["Den kleinsten Teil 5 Minuten lang machen","mid"],["Den größten Teil am Stück erledigen","high"],["Ergebnis kurz prüfen und abhaken","low"]],
+  b:[["Notieren, was dich bei „{T}“ gerade bremst","low"],["Den allerersten Handgriff aufschreiben","low"],["Genau diesen Handgriff jetzt machen","mid"],["Den nächsten Teil mit Timer erledigen","high"],["Notieren, wo du stehst und was als Nächstes kommt","low"]]
+};
+function pickTemplate(text){
+  const t = " " + text.toLowerCase() + " ";
+  let best = null, score = 0;
+  for(const tpl of LIB){ const s = tpl.k.reduce((n,k)=>n + (t.includes(k)?1:0), 0); if(s>score){ score=s; best=tpl; } }
+  return best || GENERIC;
+}
+function decompose(text, n, variant){
+  const tpl = pickTemplate(text);
+  const src = (variant%2 ? tpl.b : tpl.a).slice();
+  // Kürzen: erster und letzter Schritt bleiben, aus der Mitte fällt weg
+  while(src.length > n){ src.splice(src.length-2, 1); }
+  // Der erste Schritt ist immer leicht
+  src[0] = [src[0][0], "low"];
+  const short = text.length > 40 ? text.slice(0,40) + "…" : text;
+  return src.map(([t,e]) => ({t: t.replace("{T}", short), e}));
+}
+
+/* KI-Zerleger: fragt Claude über die Plattform; ohne KI greift die Logik oben */
+let samplePromise = null;
+function getSample(){
+  if(!samplePromise){
+    samplePromise = (window.claude && typeof window.claude.use === "function")
+      ? window.claude.use("sample").catch(() => null)
+      : Promise.resolve(null);
+  }
+  return samplePromise;
+}
+let aiOff = false;
+function setAiNote(state){
+  const dot = $("#aiDot"), t = $("#aiTxt");
+  dot.className = "ai-dot" + (state === "on" ? " on" : "");
+  t.textContent = state === "on" ? "KI-Zerleger aktiv. Die Schritte passen genau zu deiner Aufgabe."
+    : state === "wait" ? "KI wird verbunden …"
+    : "Offline-Zerleger aktiv. Die Schritte kommen aus festen Vorlagen.";
+}
+async function aiDecompose(text, n, variant, energy, signal){
+  const NS_ = window.FocusHerStore;
+  if(NS_ && NS_.decompose){
+    const out = await NS_.decompose({task: text, n, energy, variant: !!variant});
+    const steps = (out || []).map(x => ({t: String(x.schritt || "").trim(), e: E.includes(x.energie) ? x.energie : "mid"})).filter(s => s.t).slice(0, 6);
+    if(steps.length < 2) throw {code:"invalid_json"};
+    steps[0].e = "low"; return steps;
+  }
+  const sample = await getSample();
+  if(!sample || aiOff) return null;
+  const elabel = ["wenig","mittel","viel"][energy];
+  const prompt =
+`Du hilfst einem erwachsenen Menschen mit ADHS, eine Aufgabe anzufangen, die sich zu groß anfühlt.
+Aufgabe: "${text.replace(/"/g,"'")}"
+Energie gerade: ${elabel}.
+
+Zerlege genau diese Aufgabe in genau ${n} Schritte in der richtigen Reihenfolge.
+Regeln:
+- Jeder Schritt ist eine konkrete, sichtbare Handlung, die sich direkt auf diese Aufgabe bezieht. Keine allgemeinen Produktivitätstipps.
+- Schritt 1 dauert höchstens 2 Minuten und kostet kaum Überwindung.
+- Höchstens 12 Wörter pro Schritt. Deutsch, Du-Form, freundlich, ohne Nummerierung.
+- Alle Schritte zusammen erledigen die Aufgabe wirklich.
+- Falls die Aufgabe unklar ist, wähle die wahrscheinlichste Bedeutung im deutschen Alltag.
+- "energie" ist "low" (unter 5 Minuten, leicht), "mid" oder "high" (lang oder anstrengend).${variant ? "\n- Wähle diesmal eine andere Herangehensweise als die naheliegendste." : ""}
+
+Antworte nur mit einem JSON-Array, zum Beispiel:
+[{"schritt":"Steuerordner aus dem Regal holen","energie":"low"}]`;
+  const out = await sample.json(prompt, {modelTier:"quick", cache: variant ? false : true, signal});
+  if(!Array.isArray(out)) throw {code:"invalid_json"};
+  const steps = out.map(x => ({t: String((x && (x.schritt || x.step || x.t)) || "").trim(), e: E.includes(x && x.energie) ? x.energie : "mid"}))
+    .filter(s => s.t).slice(0, 6);
+  if(steps.length < 2) throw {code:"invalid_json"};
+  steps[0].e = "low";
+  return steps;
+}
+
+/* ---------- Darstellung ---------- */
+function applySettings(){
+  const r = document.documentElement;
+  r.setAttribute("data-theme", S.settings.theme);
+  r.setAttribute("data-size", S.settings.size);
+  document.body.classList.toggle("calm", !!S.settings.calm);
+  $("#tgDark").setAttribute("aria-checked", S.settings.theme==="dark");
+  $("#tgCalm").setAttribute("aria-checked", !!S.settings.calm);
+  $$("#sizeChips .chip").forEach(c => c.setAttribute("aria-pressed", c.dataset.s===S.settings.size));
+  $("#nameInput").value = S.settings.name || "";
+  const meta = document.querySelector('meta[name="theme-color"]');
+  if(meta) meta.setAttribute("content", S.settings.theme==="dark" ? "#16141b" : "#f5f2f7");
+}
+function greeting(){
+  const h = new Date().getHours();
+  const base = h<5 ? "Gute Nacht" : h<11 ? "Guten Morgen" : h<17 ? "Hallo" : h<22 ? "Guten Abend" : "Gute Nacht";
+  $("#hello").textContent = S.settings.name ? base + ", " + S.settings.name : base;
+  $("#today").textContent = new Date().toLocaleDateString("de-DE", {weekday:"long", day:"numeric", month:"long"});
+}
+
+/* ---------- Heute ---------- */
+const HINTS = [
+  "Wenig Energie ist ein echter Zustand und kein Versagen. Hier stehen nur Dinge, die kaum Kraft kosten.",
+  "Ein mittlerer Tag. Leichte und mittlere Aufgaben stehen oben, große warten unten.",
+  "Gute Kapazität. Die großen Brocken stehen jetzt vorne, solange es sich gut anfühlt."
+];
+function renderEnergy(){
+  const l = S.energy;
+  $("#energy").value = l;
+  $("#energy").setAttribute("aria-valuetext", ELABEL[E[l]]);
+  $("#battery").dataset.l = l;
+  [0,1,2].forEach(i => { const el = $("#sc"+i); el.innerHTML = ""; const txt = ["Wenig","Mittel","Viel"][i]; if(i===l){ const b=document.createElement("b"); b.textContent=txt; el.appendChild(b);} else el.textContent = txt; });
+  $("#eHint").textContent = HINTS[l];
+}
+function taskLi(t, dl){
+  const li = document.createElement("li");
+  li.className = "task" + (t.done ? " done" : "");
+  const btn = document.createElement("button");
+  btn.className = "check"; btn.type="button";
+  btn.setAttribute("aria-label", (t.done ? "Wieder öffnen: " : "Erledigt: ") + t.title);
+  btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
+  btn.addEventListener("click", e => toggleTask(t.id, e.currentTarget));
+  const txt = document.createElement("div"); txt.className="txt";
+  const title = document.createElement("div"); title.textContent = t.title; txt.appendChild(title);
+  const meta = document.createElement("div"); meta.className="meta";
+  const e = document.createElement("span"); e.innerHTML = '<span class="dot '+t.energy+'"></span>'; e.appendChild(document.createTextNode(ESHORT[t.energy])); meta.appendChild(e);
+  let cal = null;
+  const hasWeekly = t.weekly && t.weekly.days && t.weekly.days.length;
+  if(dl && !t.done){
+    const left = t.deadline ? t.deadline - Date.now() : Infinity;
+    li.classList.add("dl", left < 0 ? "over" : left < 2*DAY ? "soon" : "later");
+  }
+  if((t.deadline || hasWeekly) && !t.done){
+    const left = t.deadline ? t.deadline - Date.now() : Infinity;
+    const bd = document.createElement("button"); bd.type = "button";
+    bd.className = "badge" + (left < 0 ? " over" : left < DAY ? " soon" : "");
+    const parts = [];
+    if(t.deadline) parts.push(left < 0 ? fmtDue(t.deadline) : "Fällig " + fmtDue(t.deadline));
+    if(hasWeekly) parts.push("erinnert " + weeklyText(t.weekly));
+    else if((t.rem||[]).length) parts.push(t.rem.length + "× Erinnerung");
+    bd.textContent = parts.join(" · ");
+    bd.setAttribute("aria-expanded","false"); bd.setAttribute("aria-label", parts.join(", ") + ". In den Kalender eintragen");
+    bd.addEventListener("click", () => {
+      const open = bd.getAttribute("aria-expanded") === "true";
+      bd.setAttribute("aria-expanded", !open);
+      if(open){ cal && cal.remove(); cal = null; } else { cal = calRow(t); txt.appendChild(cal); }
+    });
+    meta.appendChild(bd);
+  }
+  if(t.parent){ const p=document.createElement("span"); p.textContent = "Teil von: " + t.parent; meta.appendChild(p); }
+  if(t.example){ const x=document.createElement("span"); x.className="tag"; x.textContent="Beispiel"; meta.appendChild(x); }
+  txt.appendChild(meta);
+  const del = document.createElement("button"); del.className="del"; del.type="button"; del.setAttribute("aria-label","Löschen: "+t.title); del.textContent="×";
+  del.addEventListener("click", () => removeTask(t.id));
+  li.append(btn, txt, del);
+  return li;
+}
+function renderToday(){
+  const lvl = S.energy;
+  const allOpen = S.tasks.filter(t => !t.done);
+  // Alles mit Deadline oder wiederkehrender Erinnerung steht oben in einem eigenen Block, unabhängig von der Energie
+  const dlTasks = allOpen.filter(t => t.deadline || (t.weekly && t.weekly.days.length))
+    .sort((a,b) => (a.deadline || Infinity) - (b.deadline || Infinity));
+  const dlWrap = $("#dlWrap"), dlList = $("#dlList"); dlList.innerHTML = "";
+  dlTasks.forEach(t => dlList.appendChild(taskLi(t, true)));
+  dlWrap.hidden = dlTasks.length === 0;
+  $("#dlCount").textContent = dlTasks.length === 1 ? "1 Aufgabe" : dlTasks.length + " Aufgaben";
+  const open = allOpen.filter(t => !dlTasks.includes(t));
+  const fits = open.filter(t => E.indexOf(t.energy) <= lvl);
+  const later = open.filter(t => !fits.includes(t));
+  // Bei viel Energie zuerst die großen Brocken, sonst die leichtesten
+  fits.sort((a,b) => lvl===2 ? E.indexOf(b.energy)-E.indexOf(a.energy) : E.indexOf(a.energy)-E.indexOf(b.energy));
+  const doneToday = S.tasks.filter(t => t.done && dayKey(t.doneAt)===dayKey());
+
+  const fw = $("#focusWrap"); fw.innerHTML = "";
+  if(fits.length){
+    const f = fits[0];
+    const card = document.createElement("div"); card.className="focus";
+    const btn = document.createElement("button"); btn.className="check big"; btn.type="button";
+    btn.setAttribute("aria-label","Erledigt: "+f.title);
+    btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
+    btn.addEventListener("click", e => toggleTask(f.id, e.currentTarget));
+    const body = document.createElement("div"); body.className="body";
+    body.innerHTML = '<span class="eyebrow">Nur diese eine Sache</span>';
+    const title = document.createElement("div"); title.className="title"; title.textContent = f.title; body.appendChild(title);
+    const sub = document.createElement("div"); sub.className="small muted"; sub.style.marginTop="6px";
+    sub.textContent = f.parent ? "Teil von: " + f.parent : "Der Rest kann warten.";
+    body.appendChild(sub);
+    card.append(btn, body); fw.appendChild(card);
+  } else if(open.length || dlTasks.length){
+    if(!open.length){ fw.innerHTML = ""; }
+    else fw.innerHTML = '<div class="note">Gerade passt nichts zu deiner Energie. Das ist in Ordnung. Ruh dich aus oder lege unten eine sehr kleine Aufgabe an.</div>';
+  } else {
+    fw.innerHTML = '<div class="note">Deine Liste ist leer. Wenn dir etwas einfällt, trag es unten ein. Sonst darfst du einfach sein.</div>';
+  }
+
+  const fl = $("#fitList"); fl.innerHTML = "";
+  fits.slice(1).forEach(t => fl.appendChild(taskLi(t)));
+  doneToday.forEach(t => fl.appendChild(taskLi(t)));
+  $("#fitCount").textContent = doneToday.length ? doneToday.length + " heute erledigt" : "";
+  const ll = $("#laterList"); ll.innerHTML = "";
+  later.forEach(t => ll.appendChild(taskLi(t)));
+  $("#laterBox").hidden = later.length === 0;
+  $("#laterSum").textContent = "Später, mit mehr Energie (" + later.length + ")";
+}
+function toggleTask(id, srcEl){
+  const t = S.tasks.find(x => x.id===id); if(!t) return;
+  if(!t.done){
+    t.done = true; t.doneAt = Date.now();
+    const j = {id:uid(), ts:Date.now(), text:t.title, kind:"task", energy:t.energy, taskId:t.id};
+    S.journal.unshift(j);
+    flySpark(srcEl, t.energy);
+    save(); renderAll();
+    showToast("Funke gesammelt", () => { t.done=false; delete t.doneAt; S.journal = S.journal.filter(x => x.id!==j.id); save(); renderAll(); });
+  } else {
+    t.done = false; delete t.doneAt;
+    S.journal = S.journal.filter(x => x.taskId!==t.id || dayKey(x.ts)!==dayKey());
+    save(); renderAll();
+  }
+}
+function removeTask(id){
+  const idx = S.tasks.findIndex(x => x.id===id); if(idx<0) return;
+  const [t] = S.tasks.splice(idx,1); save(); renderAll();
+  showToast("Aufgabe gelöscht", () => { S.tasks.splice(idx,0,t); save(); renderAll(); });
+}
+let addE = "mid";
+$("#addEnergy").addEventListener("click", e => { const b = e.target.closest(".chip"); if(!b) return; addE = b.dataset.e; $$("#addEnergy .chip").forEach(c => c.setAttribute("aria-pressed", c===b)); });
+/* Deadline-Eingabe */
+function openDl(open){
+  $("#dlBox").hidden = !open; $("#dlToggle").setAttribute("aria-expanded", open);
+  $("#dlToggleTxt").textContent = open ? "Deadline und Erinnerung" : "Deadline und Erinnerung hinzufügen";
+}
+$("#dlToggle").addEventListener("click", () => openDl($("#dlBox").hidden));
+$("#dlClear").addEventListener("click", () => { $("#dlDate").value = ""; openDl(false); });
+$("#dlRem").addEventListener("click", e => { const b=e.target.closest(".chip"); if(!b) return; b.setAttribute("aria-pressed", b.getAttribute("aria-pressed")!=="true"); });
+$("#dlDays").addEventListener("click", e => { const b=e.target.closest(".chip"); if(!b) return; b.setAttribute("aria-pressed", b.getAttribute("aria-pressed")!=="true"); });
+function setDays(list){ $$("#dlDays .chip").forEach(c => c.setAttribute("aria-pressed", list.includes(+c.dataset.d))); }
+$("#dlEvery").addEventListener("click", () => setDays([0,1,2,3,4,5,6]));
+$("#dlWork").addEventListener("click", () => setDays([1,2,3,4,5]));
+const WD = ["So","Mo","Di","Mi","Do","Fr","Sa"];
+function weeklyText(w){
+  const d = w.days.slice().sort((a,b) => ((a+6)%7) - ((b+6)%7));
+  const names = d.length === 7 ? "täglich" : d.join() === "1,2,3,4,5" ? "Mo–Fr" : d.map(x => WD[x]).join(", ");
+  return names + " " + w.time;
+}
+$("#addForm").addEventListener("submit", e => {
+  e.preventDefault();
+  const v = $("#addInput").value.trim(); if(!v) return;
+  const t = {id:uid(), title:v, energy:addE, done:false, created:Date.now()};
+  if(!$("#dlBox").hidden){
+    if($("#dlDate").value){
+      const d = new Date($("#dlDate").value + "T" + ($("#dlTime").value || "18:00"));
+      if(!isNaN(d)){ t.deadline = d.getTime(); t.rem = $$("#dlRem .chip").filter(c => c.getAttribute("aria-pressed")==="true").map(c => c.dataset.m); }
+    }
+    const days = $$("#dlDays .chip").filter(c => c.getAttribute("aria-pressed")==="true").map(c => +c.dataset.d);
+    if(days.length) t.weekly = {days, time: $("#dlDayTime").value || "09:00"};
+    if(t.deadline || t.weekly){ t.ack = []; t.snooze = {}; }
+  }
+  S.tasks.unshift(t);
+  $("#addInput").value = ""; $("#dlDate").value = ""; setDays([]); openDl(false);
+  save(); renderToday(); checkReminders();
+});
+
+/* Fristen, Erinnerungen, Kalender */
+const REM_LABEL = {"10080":"in einer Woche","4320":"in 3 Tagen","1440":"morgen","morning":"heute","180":"in 3 Stunden","60":"in einer Stunde","15":"in 15 Minuten","due":"jetzt"};
+function remTime(t, r){
+  if(r === "due") return t.deadline;
+  if(r === "morning"){ const d = new Date(t.deadline); d.setHours(8,0,0,0); return d.getTime() < t.deadline ? d.getTime() : null; }
+  return t.deadline - (+r)*60000;
+}
+function activeReminders(){
+  const now = Date.now(), out = [];
+  const ok = (t, r, at) => {
+    if(at == null || at > now || at < t.created - 60000) return;
+    if((t.ack||[]).includes(r)) return;
+    if(t.snooze && t.snooze[r] && t.snooze[r] > now) return;
+    out.push({t, r, at});
+  };
+  S.tasks.forEach(t => {
+    if(t.done) return;
+    if(t.deadline) (t.rem || []).concat("due").forEach(r => ok(t, r, remTime(t, r)));
+    // Wiederkehrende Erinnerung: die jüngste fällige an einem der gewählten Wochentage
+    if(t.weekly && t.weekly.days.length){
+      const [hh, mm] = (t.weekly.time || "09:00").split(":").map(Number);
+      for(let back=0; back<7; back++){
+        const d = new Date(now - back*DAY); d.setHours(hh, mm, 0, 0);
+        if(!t.weekly.days.includes(d.getDay()) || d.getTime() > now) continue;
+        if(t.deadline && d.getTime() > t.deadline) continue;
+        ok(t, "w" + dayKey(d), d.getTime()); break;
+      }
+    }
+  });
+  // pro Aufgabe nur die neueste fällige Erinnerung zeigen
+  const best = {};
+  out.forEach(x => { if(!best[x.t.id] || x.at > best[x.t.id].at) best[x.t.id] = x; });
+  return Object.values(best).sort((a,b) => a.t.deadline - b.t.deadline);
+}
+function fmtDue(ts){
+  const d = new Date(ts), now = new Date();
+  const time = d.toLocaleTimeString("de-DE",{hour:"2-digit",minute:"2-digit"});
+  const k = dayKey(d);
+  if(ts < now.getTime()) return "Frist war " + (k===dayKey(now) ? "heute " + time : d.toLocaleDateString("de-DE",{day:"numeric",month:"numeric"}));
+  if(k === dayKey(now)) return "heute " + time;
+  if(k === dayKey(now.getTime()+DAY)) return "morgen " + time;
+  return d.toLocaleDateString("de-DE",{weekday:"short", day:"numeric", month:"numeric"}) + ", " + time;
+}
+const pad = n => String(n).padStart(2,"0");
+const icsDate = ts => { const d = new Date(ts); return d.getUTCFullYear()+pad(d.getUTCMonth()+1)+pad(d.getUTCDate())+"T"+pad(d.getUTCHours())+pad(d.getUTCMinutes())+"00Z"; };
+function googleUrl(t){
+  return "https://calendar.google.com/calendar/render?action=TEMPLATE&text=" + encodeURIComponent(t.title)
+    + "&dates=" + icsDate(t.deadline - 30*60000) + "/" + icsDate(t.deadline)
+    + "&details=" + encodeURIComponent("Aus FocusHer. Erster kleiner Schritt reicht.");
+}
+const BYDAY = ["SU","MO","TU","WE","TH","FR","SA"];
+function weeklyStart(t){
+  // nächster gewählter Wochentag zur Erinnerungszeit
+  const [hh, mm] = t.weekly.time.split(":").map(Number);
+  for(let i=0; i<8; i++){ const d = new Date(Date.now() + i*DAY); d.setHours(hh, mm, 0, 0); if(t.weekly.days.includes(d.getDay()) && d.getTime() > Date.now()) return d.getTime(); }
+  return Date.now();
+}
+function rrule(t){ return "RRULE:FREQ=WEEKLY;BYDAY=" + t.weekly.days.map(d => BYDAY[d]).join(",") + (t.deadline ? ";UNTIL=" + icsDate(t.deadline) : ""); }
+function googleWeeklyUrl(t){
+  const s = weeklyStart(t);
+  return "https://calendar.google.com/calendar/render?action=TEMPLATE&text=" + encodeURIComponent("Erinnerung: " + t.title)
+    + "&dates=" + icsDate(s) + "/" + icsDate(s + 15*60000) + "&recur=" + encodeURIComponent(rrule(t))
+    + "&details=" + encodeURIComponent("Aus FocusHer. Ein kleiner Schritt zählt schon.");
+}
+function icsText(t){
+  const esc = s => s.replace(/[\\,;]/g, m => "\\"+m).replace(/\n/g,"\\n");
+  const alarm = m => "BEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:" + esc(t.title) + "\r\nTRIGGER:-PT" + m + "M\r\nEND:VALARM\r\n";
+  let ev = "";
+  if(t.deadline){
+    const alarms = (t.rem||[]).map(r => { const at = remTime(t,r); return at==null ? "" : alarm(Math.round((t.deadline-at)/60000)); }).join("");
+    ev += "BEGIN:VEVENT\r\nUID:" + t.id + "@focusher\r\nDTSTAMP:" + icsDate(Date.now())
+      + "\r\nDTSTART:" + icsDate(t.deadline - 30*60000) + "\r\nDTEND:" + icsDate(t.deadline) + "\r\nSUMMARY:" + esc(t.title) + "\r\n" + alarms + "END:VEVENT\r\n";
+  }
+  if(t.weekly && t.weekly.days.length){
+    const s = weeklyStart(t);
+    ev += "BEGIN:VEVENT\r\nUID:" + t.id + "-w@focusher\r\nDTSTAMP:" + icsDate(Date.now())
+      + "\r\nDTSTART:" + icsDate(s) + "\r\nDTEND:" + icsDate(s + 15*60000) + "\r\n" + rrule(t) + "\r\nSUMMARY:" + esc("Erinnerung: " + t.title) + "\r\n" + alarm(0) + "END:VEVENT\r\n";
+  }
+  return "BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//VellunaPrintsDesign//FocusHer//DE\r\n" + ev + "END:VCALENDAR\r\n";
+}
+const inViewer = !!window.claude;
+function calRow(t){
+  const row = document.createElement("div"); row.className = "calrow";
+  if(t.deadline){
+    const g = document.createElement("a"); g.href = googleUrl(t); g.target = "_blank"; g.rel = "noopener"; g.textContent = "Deadline in Google Kalender";
+    row.appendChild(g);
+  }
+  if(t.weekly && t.weekly.days.length){
+    const w = document.createElement("a"); w.href = googleWeeklyUrl(t); w.target = "_blank"; w.rel = "noopener"; w.textContent = "Wiederholung in Google Kalender";
+    row.appendChild(w);
+  }
+  if(!inViewer && !window.FocusHerStore){
+    const a = document.createElement("a"); a.textContent = "In Apple Kalender (iPhone)";
+    a.href = URL.createObjectURL(new Blob([icsText(t)], {type:"text/calendar"})); a.download = "focusher-" + t.id + ".ics";
+    row.appendChild(a);
+  }
+  return row;
+}
+let notified = new Set();
+function checkReminders(){
+  const list = activeReminders();
+  const box = $("#reminders"); box.innerHTML = "";
+  box.hidden = list.length === 0;
+  list.forEach(({t, r}) => {
+    const card = document.createElement("div"); card.className = "remind"; card.setAttribute("role","status");
+    const eb = document.createElement("span"); eb.className = "eyebrow"; eb.textContent = "Erinnerung";
+    const tt = document.createElement("div"); tt.className = "t"; tt.textContent = t.title;
+    const sub = document.createElement("div"); sub.className = "small";
+    const weeklyR = r.charAt(0) === "w";
+    sub.textContent = r === "due" ? "Die Frist ist jetzt erreicht (" + fmtDue(t.deadline) + "). Ein kleiner Schritt reicht, oder plane sie neu."
+      : weeklyR ? "Deine Erinnerung für heute." + (t.deadline ? " Fällig " + fmtDue(t.deadline) + "." : " Ein kleiner Schritt zählt schon.")
+      : "Fällig " + REM_LABEL[r] + ": " + fmtDue(t.deadline) + ".";
+    const row = document.createElement("div"); row.className = "row";
+    const b1 = document.createElement("button"); b1.className = "btn"; b1.type="button"; b1.textContent = "Erledigt";
+    b1.addEventListener("click", e => toggleTask(t.id, e.currentTarget));
+    const b2 = document.createElement("button"); b2.className = "btn soft"; b2.type="button"; b2.textContent = "In 30 Min. nochmal";
+    b2.addEventListener("click", () => { t.snooze = t.snooze || {}; t.snooze[r] = Date.now() + 30*60000; save(); checkReminders(); });
+    const b3 = document.createElement("button"); b3.className = "btn ghost"; b3.type="button"; b3.textContent = "Okay";
+    b3.addEventListener("click", () => { t.ack = (t.ack||[]).concat(r); save(); checkReminders(); });
+    row.append(b1,b2,b3);
+    card.append(eb, tt, sub, row); box.appendChild(card);
+    const key = t.id + r + (t.snooze && t.snooze[r] || "");
+    if(!notified.has(key)){
+      notified.add(key);
+      if(S.settings.notif && canNotify() && Notification.permission === "granted"){
+        try{ new Notification("FocusHer: " + t.title, {body: r==="due" ? "Die Frist ist jetzt erreicht." : weeklyR ? "Deine Erinnerung für heute." : "Fällig " + REM_LABEL[r] + ".", tag: key, silent: true}); }catch(e){}
+      }
+    }
+  });
+}
+setInterval(() => { checkReminders(); }, 30000);
+document.addEventListener("visibilitychange", () => { if(!document.hidden){ checkReminders(); renderToday(); } });
+$("#energy").addEventListener("input", e => { S.energy = +e.target.value; save(); renderEnergy(); renderToday(); });
+
+/* ---------- Zerlegen ---------- */
+const SUGGEST = ["Steuererklärung machen","Küche aufräumen","Arzttermin vereinbaren","Präsentation vorbereiten","Kleiderschrank ausmisten"];
+let decN = 4, decVariant = 0, decSteps = [], decTask = "";
+SUGGEST.forEach(s => { const b=document.createElement("button"); b.type="button"; b.className="chip suggest"; b.textContent=s; b.addEventListener("click",()=>{ $("#decInput").value=s; $("#decInput").focus(); }); $("#decSuggest").appendChild(b); });
+$("#decCount").addEventListener("click", e => { const b=e.target.closest(".chip"); if(!b) return; decN=+b.dataset.n; $$("#decCount .chip").forEach(c=>c.setAttribute("aria-pressed", c===b)); if(decSteps.length && decTask){ runDecompose(); } });
+function canDecompose(){ if(isFull()) return true; return S.decUse.day!==dayKey() || S.decUse.n < FREE_DECOMPOSE_PER_DAY; }
+function countDecompose(){ if(S.decUse.day!==dayKey()) S.decUse={day:dayKey(), n:0}; S.decUse.n++; save(); }
+let decCtl = null;
+async function runDecompose(){
+  if(decCtl) decCtl.abort();
+  const ctl = decCtl = new AbortController();
+  const msg = $("#decMsg"); msg.className = "msg"; msg.textContent = "";
+  $("#decTitle").textContent = "„" + (decTask.length>40 ? decTask.slice(0,40)+"…" : decTask) + "“";
+  $("#decResult").hidden = false;
+  const ol = $("#decSteps");
+  ol.innerHTML = '<li class="ai-note"><span class="thinking"><i></i><i></i><i></i></span>Ich überlege mir passende Schritte …</li>';
+  $("#decAdd").disabled = true; $("#decAgain").disabled = true; $("#decBtn").disabled = true;
+  let steps = null;
+  try{
+    steps = await aiDecompose(decTask, decN, decVariant, S.energy, ctl.signal);
+    if(steps) setAiNote("on");
+  }catch(e){
+    if(e && e.code === "cancelled") return;
+    if(e && ["not_granted","sampling_disabled","not_declared","capability_disabled","capability_removed"].includes(e.code)){ aiOff = true; setAiNote("off"); }
+    msg.textContent = e && e.code === "rate_limited" ? "Die KI braucht gerade eine kurze Pause. Hier sind Schritte aus den Vorlagen." : "Die KI war gerade nicht erreichbar. Hier sind Schritte aus den Vorlagen.";
+  }
+  if(ctl !== decCtl) return;
+  decSteps = steps || decompose(decTask, decN, decVariant);
+  $("#decAdd").disabled = false; $("#decAgain").disabled = false; $("#decBtn").disabled = false;
+  renderSteps();
+}
+function renderSteps(){
+  const ol = $("#decSteps"); ol.innerHTML = "";
+  decSteps.forEach((s,i) => {
+    const li = document.createElement("li"); li.className="step";
+    const inp = document.createElement("textarea"); inp.rows = 1; inp.value = s.t; inp.id = "step"+i; inp.setAttribute("aria-label","Schritt "+(i+1));
+    const fit = () => { inp.style.height = "auto"; inp.style.height = inp.scrollHeight + "px"; };
+    inp.addEventListener("input", () => { decSteps[i].t = inp.value.replace(/\n/g," "); fit(); });
+    requestAnimationFrame(fit);
+    const eb = document.createElement("button"); eb.type="button"; eb.className="ebtn "+s.e; eb.textContent = ESHORT[s.e];
+    eb.setAttribute("aria-label","Energie für Schritt "+(i+1)+": "+ESHORT[s.e]+". Tippen zum Wechseln");
+    eb.addEventListener("click", () => { decSteps[i].e = E[(E.indexOf(s.e)+1)%3]; renderSteps(); });
+    const del = document.createElement("button"); del.type="button"; del.className="del"; del.textContent="×"; del.setAttribute("aria-label","Schritt entfernen");
+    del.addEventListener("click", () => { if(decSteps.length>1){ decSteps.splice(i,1); renderSteps(); } });
+    li.append(inp, eb, del); ol.appendChild(li);
+  });
+}
+$("#decForm").addEventListener("submit", e => {
+  e.preventDefault();
+  const v = $("#decInput").value.trim();
+  const msg = $("#decMsg"); msg.className="msg"; msg.textContent="";
+  if(!v){ msg.className="msg err"; msg.textContent = "Schreib zuerst die Aufgabe ins Feld."; return; }
+  if(!canDecompose()){ renderDecLock(true); return; }
+  countDecompose(); decTask = v; decVariant = 0; runDecompose(); renderDecLock(false);
+});
+$("#decAgain").addEventListener("click", () => { decVariant++; runDecompose(); });
+$("#decAdd").addEventListener("click", () => {
+  const steps = decSteps.filter(s => s.t.trim());
+  const now = Date.now();
+  steps.slice().reverse().forEach((s,i) => S.tasks.unshift({id:uid(), title:s.t.trim(), energy:s.e, done:false, created:now+i, parent:decTask}));
+  save(); decSteps=[]; $("#decResult").hidden = true; $("#decInput").value="";
+  const m=$("#decMsg"); m.className="msg ok"; m.textContent = steps.length + " Schritte stehen jetzt unter „Heute“.";
+  renderToday();
+});
+function renderDecLock(blocked){
+  const w = $("#decLock"); w.innerHTML = "";
+  if(isFull()) return;
+  const used = S.decUse.day===dayKey() ? S.decUse.n : 0;
+  const box = document.createElement("div"); box.className = "lock";
+  box.innerHTML = '<span class="eyebrow">Kostenlose Version</span>';
+  const p = document.createElement("p"); p.style.margin="0";
+  p.textContent = blocked ? "Für heute ist dein kostenloser Zerleger aufgebraucht. Morgen geht es wieder, oder du schaltest die Vollversion frei." : "Kostenlos kannst du eine Aufgabe pro Tag zerlegen (heute: "+used+" von "+FREE_DECOMPOSE_PER_DAY+").";
+  const b = document.createElement("button"); b.className="btn soft"; b.type="button"; b.textContent="Vollversion ansehen"; b.addEventListener("click", ()=>go("mehr"));
+  box.append(p,b); w.appendChild(box);
+}
+
+/* ---------- Journal ---------- */
+const MOODS = ["ruhig","stolz","erleichtert","müde, aber da"];
+let winMood = "";
+MOODS.forEach(m => { const b=document.createElement("button"); b.type="button"; b.className="chip"; b.textContent=m; b.setAttribute("aria-pressed","false");
+  b.addEventListener("click",()=>{ winMood = winMood===m ? "" : m; $$("#winMood .chip").forEach(c=>c.setAttribute("aria-pressed", c.textContent===winMood)); }); $("#winMood").appendChild(b); });
+$("#winForm").addEventListener("submit", e => {
+  e.preventDefault(); const v = $("#winInput").value.trim(); if(!v) return;
+  const j = {id:uid(), ts:Date.now(), text:v, kind:"win", mood:winMood};
+  S.journal.unshift(j); $("#winInput").value=""; winMood=""; $$("#winMood .chip").forEach(c=>c.setAttribute("aria-pressed","false"));
+  save(); renderJournal(true);
+});
+$("#replayJar").addEventListener("click", () => {
+  const recent = S.journal.filter(j => Date.now()-j.ts < 30*DAY).sort((a,b) => b.ts-a.ts);
+  const since = recent.length ? recent[Math.min(recent.length, 8)-1].ts - 1 : 0;
+  renderJar(recent, since);
+});
+function renderJournal(animate){
+  const now = Date.now();
+  const startWeek = (()=>{ const d=new Date(); const wd=(d.getDay()+6)%7; d.setHours(0,0,0,0); return d.getTime()-wd*DAY; })();
+  const m0 = new Date(); m0.setDate(1); m0.setHours(0,0,0,0);
+  $("#stTotal").textContent = S.journal.length;
+  $("#stWeek").textContent = S.journal.filter(j => j.ts>=startWeek).length;
+  const monthDays = new Set(S.journal.filter(j => j.ts>=m0.getTime()).map(j => dayKey(j.ts)));
+  $("#stDays").textContent = monthDays.size;
+
+  renderJar(S.journal.filter(j => now-j.ts < 30*DAY), animate ? S.jarSeen : null);
+  if(!$("#s-journal").hidden){ S.jarSeen = Date.now(); store.set("jarSeen", S.jarSeen); }
+
+  // Kalender
+  const cal = $("#cal"); cal.innerHTML = "";
+  ["Mo","Di","Mi","Do","Fr","Sa","So"].forEach(w => { const x=document.createElement("div"); x.className="wd"; x.textContent=w; cal.appendChild(x); });
+  const counts = {}; S.journal.forEach(j => { const k=dayKey(j.ts); counts[k]=(counts[k]||0)+1; });
+  const first = new Date(m0); const offset = (first.getDay()+6)%7;
+  const dim = new Date(first.getFullYear(), first.getMonth()+1, 0).getDate();
+  for(let i=0;i<offset;i++){ const x=document.createElement("div"); x.className="d empty"; cal.appendChild(x); }
+  for(let d=1; d<=dim; d++){
+    const dt = new Date(first.getFullYear(), first.getMonth(), d); const k = dayKey(dt); const c = counts[k]||0;
+    const x=document.createElement("div"); x.className = "d" + (c>=5?" l3":c>=2?" l2":c>=1?" l1":"") + (k===dayKey()?" today":"");
+    x.textContent = d; x.setAttribute("aria-label", d+". "+(c? c+" Funken":"keine Einträge")); cal.appendChild(x);
+  }
+  $("#calMonth").textContent = first.toLocaleDateString("de-DE",{month:"long", year:"numeric"});
+
+  // Verlauf
+  const ul = $("#entries"); ul.innerHTML = "";
+  const limit = isFull() ? Infinity : FREE_HISTORY_DAYS*DAY;
+  const visible = S.journal.filter(j => now-j.ts < limit);
+  const hidden = S.journal.length - visible.length;
+  const byDay = {};
+  visible.forEach(j => { (byDay[dayKey(j.ts)] = byDay[dayKey(j.ts)] || []).push(j); });
+  const keys = Object.keys(byDay).sort().reverse();
+  if(!keys.length) ul.innerHTML = '<li class="muted small">Noch keine Einträge. Erledigte Aufgaben erscheinen hier automatisch.</li>';
+  keys.slice(0,30).forEach(k => {
+    const li = document.createElement("li"); li.className="day";
+    const h = document.createElement("h3"); const d = new Date(k+"T12:00:00");
+    h.textContent = k===dayKey() ? "Heute" : k===dayKey(now-DAY) ? "Gestern" : d.toLocaleDateString("de-DE",{weekday:"long", day:"numeric", month:"long"});
+    li.appendChild(h);
+    byDay[k].forEach(j => {
+      const r = document.createElement("div"); r.className="entry";
+      const dot = document.createElement("span"); dot.className="dot " + (j.kind==="win"?"":(j.energy||"low")); if(j.kind==="win") dot.style.background="var(--lav)";
+      const t = document.createElement("span"); t.className="txt"; t.textContent = j.text + (j.mood ? " · " + j.mood : "");
+      const w = document.createElement("span"); w.className="when"; w.textContent = new Date(j.ts).toLocaleTimeString("de-DE",{hour:"2-digit",minute:"2-digit"});
+      r.append(dot,t,w); li.appendChild(r);
+    });
+    ul.appendChild(li);
+  });
+  const hl = $("#histLock"); hl.innerHTML = "";
+  if(hidden>0){
+    const box=document.createElement("div"); box.className="lock";
+    const p=document.createElement("p"); p.style.margin="0"; p.textContent = hidden + " ältere Funken sind sicher gespeichert. Mit der Vollversion siehst du deinen ganzen Verlauf.";
+    const b=document.createElement("button"); b.className="btn soft"; b.type="button"; b.textContent="Vollversion ansehen"; b.addEventListener("click",()=>go("mehr"));
+    box.append(p,b); hl.appendChild(box);
+  }
+}
+
+/* Das Funkenglas: ein Einmachglas, das sich von unten mit Funken füllt */
+const NS = "http://www.w3.org/2000/svg";
+const JAR_BODY = "M74,44 L74,60 C74,70 36,76 36,108 L36,250 C36,270 50,280 70,280 L170,280 C190,280 204,270 204,250 L204,108 C204,76 166,70 166,60 L166,44 Z";
+function svgEl(tag, attrs){ const el = document.createElementNS(NS, tag); for(const k in attrs) el.setAttribute(k, attrs[k]); return el; }
+function hash01(s){ return (fnv(s) % 1000) / 1000; }
+function jarSlots(){
+  // Plätze im Glas, von unten nach oben, leicht versetzt wie aufgeschüttet
+  const slots = [];
+  for(let row=0; row<12; row++){
+    const y = 264 - row*17;
+    const inset = y < 112 ? 30 + (112-y)*0.9 : 0;
+    const x0 = 54 + inset + (row%2 ? 10 : 0), x1 = 186 - inset;
+    const rowSlots = [];
+    for(let x=x0; x<=x1; x+=20) rowSlots.push([x, y]);
+    // jede Reihe füllt sich von der Mitte nach außen
+    rowSlots.sort((a,b) => Math.abs(a[0]-120) - Math.abs(b[0]-120));
+    slots.push(...rowSlots);
+  }
+  return slots;
+}
+const SLOTS = jarSlots();
+function sparkShape(cx, cy, s, rot){
+  const k = s*0.22;
+  return "M"+cx+","+(cy-s)+" C"+(cx+k)+","+(cy-k)+" "+(cx+k)+","+(cy-k)+" "+(cx+s)+","+cy
+    +" C"+(cx+k)+","+(cy+k)+" "+(cx+k)+","+(cy+k)+" "+cx+","+(cy+s)
+    +" C"+(cx-k)+","+(cy+k)+" "+(cx-k)+","+(cy+k)+" "+(cx-s)+","+cy
+    +" C"+(cx-k)+","+(cy-k)+" "+(cx-k)+","+(cy-k)+" "+cx+","+(cy-s)+" Z";
+}
+/* Bewegung: nur der reizarme Modus der App schaltet sie ganz ab.
+   Wenn das Gerät "Bewegung reduzieren" meldet, wird sie ruhiger statt abgeschaltet. */
+function osReducedMotion(){ try{ return matchMedia("(prefers-reduced-motion: reduce)").matches; }catch(e){ return false; } }
+function canAnimate(){ return !S.settings.calm && typeof Element.prototype.animate === "function"; }
+const SPARK_COLOR = {low:"var(--e-low)", mid:"var(--e-mid)", high:"var(--e-high)", win:"var(--lav)"};
+function flySpark(fromEl, kind){
+  // Ein Funke fliegt vom Haken zum Journal-Symbol unten, das Glas-Symbol hüpft kurz
+  const tab = document.querySelector('nav.tabs button[data-go="journal"]');
+  if(!canAnimate() || !fromEl || !tab) return;
+  const a = fromEl.getBoundingClientRect(), b = tab.querySelector("svg").getBoundingClientRect();
+  if(!a.width) return;
+  const sx = a.left + a.width/2 - 13, sy = a.top + a.height/2 - 13, ex = b.left + b.width/2 - 13, ey = b.top + b.height/2 - 13;
+  const el = document.createElementNS(NS, "svg"); el.setAttribute("viewBox","-13 -13 26 26"); el.setAttribute("class","fly");
+  const glow = svgEl("circle", {cx:0, cy:0, r:12}); glow.style.fill = SPARK_COLOR[kind] || SPARK_COLOR.low; glow.style.opacity = ".25";
+  const star = svgEl("path", {d: sparkShape(0, 0, 10, 0)}); star.style.fill = SPARK_COLOR[kind] || SPARK_COLOR.low;
+  el.append(glow, star); document.body.appendChild(el);
+  const mx = (sx + ex)/2 + 40, my = Math.min(sy, ey) - 120;
+  const soft = osReducedMotion();
+  const anim = el.animate(soft ? [
+      {transform:`translate(${sx}px,${sy}px)`, opacity:1},
+      {transform:`translate(${ex}px,${ey}px) scale(.6)`, opacity:.9}
+    ] : [
+      {transform:`translate(${sx}px,${sy}px) scale(.4) rotate(0deg)`, opacity:0},
+      {transform:`translate(${sx}px,${sy-24}px) scale(1.25) rotate(60deg)`, opacity:1, offset:.18},
+      {transform:`translate(${mx}px,${my}px) scale(1) rotate(160deg)`, opacity:1, offset:.55},
+      {transform:`translate(${ex}px,${ey}px) scale(.55) rotate(300deg)`, opacity:.9}
+    ], {duration: soft ? 600 : 1000, easing:"cubic-bezier(.4,0,.2,1)"});
+  anim.onfinish = () => {
+    el.remove();
+    tab.querySelector("svg").animate([{transform:"scale(1)"},{transform:"scale(1.4)"},{transform:"scale(1)"}], {duration:450, easing:"ease-out"});
+  };
+}
+
+function renderJar(items, animateSince){
+  const svg = $("#jarSvg"); svg.innerHTML = "";
+  const motion = animateSince != null && canAnimate();
+  const soft = osReducedMotion();
+  const falling = [];
+  const defs = svgEl("defs", {}); const cp = svgEl("clipPath", {id:"jarClip"}); cp.appendChild(svgEl("path", {d:JAR_BODY})); defs.appendChild(cp); svg.appendChild(defs);
+  svg.appendChild(svgEl("path", {d:JAR_BODY, class:"jar-glass"}));
+  const g = svgEl("g", {"clip-path":"url(#jarClip)"}); svg.appendChild(g);
+  const list = items.slice().sort((a,b) => a.ts - b.ts).slice(-SLOTS.length);
+  list.forEach((j, i) => {
+    const [bx, by] = SLOTS[i];
+    const jx = bx + (hash01(j.id+"x")-.5)*7, jy = by + (hash01(j.id+"y")-.5)*5;
+    const cls = j.kind === "win" ? "win" : (j.energy || "low");
+    const size = j.kind === "win" ? 10 : j.energy === "high" ? 10.5 : j.energy === "mid" ? 9 : 8;
+    const grp = svgEl("g", {});
+    if(motion && j.ts > animateSince){ falling.push({grp, dist: jy - 18}); }
+    grp.appendChild(svgEl("circle", {cx:jx, cy:jy, r:size+3, class:"spk spk-glow "+cls}));
+    grp.appendChild(svgEl("path", {d:sparkShape(jx, jy, size, 0), class:"spk "+cls}));
+    const tt = svgEl("title", {}); tt.textContent = j.text; grp.appendChild(tt);
+    g.appendChild(grp);
+  });
+  if(!list.length){
+    const t1 = svgEl("text", {x:120, y:186, "text-anchor":"middle", class:"jar-empty"}); t1.textContent = "Noch leer.";
+    const t2 = svgEl("text", {x:120, y:204, "text-anchor":"middle", class:"jar-empty"}); t2.textContent = "Dein erster Funke kommt hierher.";
+    svg.append(t1, t2);
+  }
+  svg.appendChild(svgEl("path", {d:"M50,124 L50,236", class:"jar-shine"}));
+  svg.appendChild(svgEl("path", {d:"M58,250 L58,262", class:"jar-shine"}));
+  // Deckel
+  const lid = svgEl("g", {});
+  lid.appendChild(svgEl("rect", {x:62, y:12, width:116, height:34, rx:8, class:"jar-lid"}));
+  [22,30,38].forEach(y => lid.appendChild(svgEl("line", {x1:70, x2:170, y1:y, y2:y, class:"jar-lid-line"})));
+  svg.appendChild(lid);
+  if(falling.length){
+    // Deckel öffnet sich, die neuen Funken fallen nacheinander hinein, dann schließt er sich wieder
+    const shown = falling.slice(-12);
+    const step = 320, fall = 900, total = 450 + shown.length*step + fall + 350;
+    lid.style.transformBox = "view-box"; lid.style.transformOrigin = "178px 46px";
+    lid.animate([
+      {transform:"translate(0,0) rotate(0deg)"},
+      {transform:"translate(14px,-8px) rotate(18deg)", offset: 380/total},
+      {transform:"translate(14px,-8px) rotate(18deg)", offset: 1 - 380/total},
+      {transform:"translate(0,0) rotate(0deg)"}
+    ], {duration: total, easing:"ease-in-out"});
+    shown.forEach((f, i) => {
+      f.grp.animate(soft ? [
+        {transform:"translate(0px," + (-f.dist) + "px)", opacity: 0},
+        {opacity: 1, offset: .2},
+        {transform:"translate(0px,0px)", opacity: 1}
+      ] : [
+        {transform:"translate(0px," + (-f.dist) + "px) rotate(-40deg)", opacity: 0},
+        {opacity: 1, offset: .12},
+        {transform:"translate(0px,0px) rotate(0deg)", opacity: 1, offset: .72, easing:"ease-out"},
+        {transform:"translate(0px,-7px) rotate(8deg)", opacity: 1, offset: .86, easing:"ease-in"},
+        {transform:"translate(0px,0px) rotate(0deg)", opacity: 1}
+      ], {duration: fall, delay: 450 + i*step, easing:"cubic-bezier(.45,0,.9,.5)", fill:"backwards"});
+      f.grp.style.transformBox = "fill-box"; f.grp.style.transformOrigin = "center";
+    });
+  }
+  svg.setAttribute("aria-label", "Funkenglas: " + items.length + " Funken in den letzten 30 Tagen");
+}
+
+/* ---------- Mehr ---------- */
+/* Kauf: in der iOS- und Android-App stellt die App-Hülle window.FocusHerStore bereit
+   (purchase, restore, price) und der Kauf läuft über Apple bzw. Google.
+   FocusHer gibt es nur als App; im Browser zeigt der Knopf nur einen Hinweis. */
+const STORE = window.FocusHerStore || null;
+const APP_VERSION = (window.FocusHerStore && window.FocusHerStore.version) || "0.7";
+function unlockNow(msgEl, text){ S.unlocked = true; store.set("unlocked", true); if(msgEl){ msgEl.className="msg ok"; msgEl.textContent = text; } renderAll(); }
+function renderPlan(){
+  const st = $("#planStatus"), tx = $("#planText");
+  if(STORE && STORE.price) $("#buyPrice").textContent = STORE.price;
+  if(S.unlocked){
+    st.className="status ok"; st.textContent="Freigeschaltet";
+    tx.textContent="Danke! Dein Jahresabo ist aktiv, alle Funktionen sind freigeschaltet.";
+    $("#buyBox").hidden = true; $("#planList").hidden = true; return;
+  }
+  $("#buyBox").hidden = false; $("#planList").hidden = false;
+  const left = trialLeft();
+  if(left>0){ st.className="status trial"; st.textContent = "Test: noch " + left + (left===1?" Tag":" Tage");
+    tx.textContent = "Du testest gerade alles 7 Tage kostenlos. Danach bleiben Aufgaben, Deadlines, Erinnerungen und die letzten 7 Tage im Journal kostenlos."; }
+  else { st.className="status"; st.textContent="Kostenlose Version";
+    tx.textContent = "Deine 7 Testtage sind vorbei, alle deine Daten sind noch da. Mit dem Jahresabo bekommst du unbegrenztes Zerlegen und deinen ganzen Verlauf zurück."; }
+}
+/* Feedback: in der Store-App über window.FocusHerStore.sendFeedback (z. B. Base44-Datenbank),
+   in dieser Vorschau in die Datenbank des Artefakts. */
+let fbType = "idee";
+$("#fbType").addEventListener("click", e => { const b=e.target.closest(".chip"); if(!b) return; fbType=b.dataset.t; $$("#fbType .chip").forEach(c=>c.setAttribute("aria-pressed", c===b)); });
+let dbPromise = null;
+function getDb(){ if(!dbPromise) dbPromise = (window.claude && window.claude.use) ? window.claude.use("db").catch(() => null) : Promise.resolve(null); return dbPromise; }
+$("#fbForm").addEventListener("submit", async e => {
+  e.preventDefault();
+  const text = $("#fbText").value.trim(), m = $("#fbMsg");
+  if(!text){ m.className = "msg err"; m.textContent = "Schreib bitte kurz, worum es geht."; return; }
+  const entry = {typ: fbType, text, zeit: new Date().toISOString(), version: APP_VERSION, plattform: (STORE && STORE.platform) || "web",
+    status: S.unlocked ? "abo" : (trialLeft() > 0 ? "test" : "kostenlos"), aufgaben: S.tasks.length, funken: S.journal.length};
+  $("#fbBtn").disabled = true; m.className = "msg"; m.textContent = "Wird gesendet …";
+  let sent = false;
+  try{
+    if(STORE && STORE.sendFeedback){ await STORE.sendFeedback(entry); sent = true; }
+    else { const db = await getDb(); if(db){ await db.collection("feedback").add(entry); sent = true; } }
+  }catch(err){ sent = false; }
+  $("#fbBtn").disabled = false;
+  if(sent){
+    $("#fbText").value = "";
+    m.className = "msg ok"; m.textContent = "Danke dir! Dein Feedback ist angekommen.";
+  } else {
+    const q = store.get("fbQueue", []); q.push(entry); store.set("fbQueue", q);
+    m.className = "msg"; m.textContent = "Gerade keine Verbindung. Dein Feedback ist gespeichert und wird beim nächsten Mal gesendet.";
+    $("#fbText").value = "";
+  }
+});
+async function flushFeedback(){
+  const q = store.get("fbQueue", []); if(!q.length) return;
+  try{
+    const rest = [];
+    for(const entry of q){
+      try{
+        if(STORE && STORE.sendFeedback) await STORE.sendFeedback(entry);
+        else { const db = await getDb(); if(!db) throw 0; await db.collection("feedback").add(entry); }
+      }catch(e){ rest.push(entry); }
+    }
+    store.set("fbQueue", rest);
+  }catch(e){}
+}
+$("#buyBtn").addEventListener("click", async () => {
+  const m = $("#buyMsg"); m.className = "msg"; m.textContent = "";
+  if(STORE && STORE.purchase){
+    $("#buyBtn").disabled = true; m.textContent = "Kauf wird geöffnet …";
+    try{ const ok = await STORE.purchase(); if(ok) unlockNow(m, "Freigeschaltet. Viel Freude mit FocusHer!"); else m.textContent = ""; }
+    catch(e){ m.className = "msg err"; m.textContent = "Der Kauf hat nicht geklappt. Es wurde nichts abgebucht. Versuch es bitte später noch einmal."; }
+    $("#buyBtn").disabled = false;
+  } else {
+    m.textContent = "In der App aus dem App Store oder Google Play kaufst du hier direkt über Apple oder Google. In dieser Browser-Vorschau gibt es noch keinen Kauf.";
+  }
+});
+$("#restoreBtn").addEventListener("click", async () => {
+  const m = $("#buyMsg"); m.className = "msg";
+  if(STORE && STORE.restore){
+    m.textContent = "Käufe werden geprüft …";
+    try{ const ok = await STORE.restore(); if(ok) unlockNow(m, "Dein Kauf ist wiederhergestellt."); else m.textContent = "Mit diesem Apple- oder Google-Konto wurde noch kein Kauf gefunden."; }
+    catch(e){ m.className = "msg err"; m.textContent = "Das Wiederherstellen hat nicht geklappt. Prüfe deine Internetverbindung."; }
+  } else {
+    m.textContent = "Wiederherstellen funktioniert in der App aus dem App Store oder Google Play.";
+  }
+});
+
+$("#tgDark").addEventListener("click", () => { S.settings.theme = S.settings.theme==="dark" ? "light" : "dark"; save(); applySettings(); });
+$("#tgCalm").addEventListener("click", () => { S.settings.calm = !S.settings.calm; save(); applySettings(); });
+$("#sizeChips").addEventListener("click", e => { const b=e.target.closest(".chip"); if(!b) return; S.settings.size=b.dataset.s; save(); applySettings(); });
+$("#nameInput").addEventListener("input", e => { S.settings.name = e.target.value.trim(); save(); greeting(); });
+/* Mitteilungen (nur wenn Browser und Gerät sie erlauben) */
+const canNotify = () => typeof Notification !== "undefined";
+function renderNotif(){
+  const tg = $("#tgNotif"), note = $("#notifNote");
+  if(STORE && STORE.notifStatus){
+    STORE.notifStatus().then(st => {
+      tg.setAttribute("aria-checked", st === "granted");
+      note.textContent = st === "granted" ? "An: Erinnerungen kommen auch, wenn FocusHer geschlossen ist."
+        : st === "denied" ? "Mitteilungen sind aus. Du kannst sie in den iPhone-Einstellungen unter Mitteilungen > FocusHer erlauben."
+        : "Erlaube Mitteilungen, damit Erinnerungen auch bei geschlossener App ankommen.";
+    }).catch(() => {});
+    return;
+  }
+  const granted = canNotify() && Notification.permission === "granted";
+  tg.setAttribute("aria-checked", !!(S.settings.notif && granted));
+  if(!canNotify()){ note.textContent = "Auf diesem Gerät nicht verfügbar. Auf dem iPhone geht es, wenn FocusHer zum Home-Bildschirm hinzugefügt wurde."; tg.disabled = true; }
+  else if(Notification.permission === "denied"){ note.textContent = "Mitteilungen sind für FocusHer blockiert. Du kannst sie in den Einstellungen des Browsers erlauben."; }
+}
+$("#tgNotif").addEventListener("click", async () => {
+  if(STORE && STORE.notifRequest){ await STORE.notifRequest().catch(() => {}); save(); renderNotif(); return; }
+  if(!canNotify()) return;
+  if(S.settings.notif){ S.settings.notif = false; save(); renderNotif(); return; }
+  try{
+    const p = Notification.permission === "granted" ? "granted" : await Notification.requestPermission();
+    S.settings.notif = p === "granted";
+  }catch(e){ S.settings.notif = false; }
+  if(!S.settings.notif){ $("#notifNote").textContent = "Hier konnten keine Mitteilungen erlaubt werden. Die Erinnerungen erscheinen dann oben in der App und in deinem Kalender."; }
+  save(); renderNotif();
+});
+function resetBtnBack(){
+  const w=$("#resetWrap"); w.innerHTML = "";
+  const b=document.createElement("button"); b.className="btn ghost"; b.type="button"; b.textContent="Alle Daten löschen"; b.style.minHeight="38px"; b.style.padding="8px 14px"; b.style.fontSize=".85em";
+  b.addEventListener("click", askReset); w.appendChild(b);
+}
+function askReset(){
+  const w = $("#resetWrap"); w.innerHTML = "";
+  const p = document.createElement("span"); p.className="small"; p.textContent = "Wirklich alle Aufgaben und Funken löschen?";
+  const yes = document.createElement("button"); yes.className="btn ghost"; yes.type="button"; yes.textContent="Ja, löschen";
+  const no = document.createElement("button"); no.className="btn soft"; no.type="button"; no.textContent="Abbrechen";
+  yes.addEventListener("click", () => {
+    const keep = {trialStart:S.trialStart, unlocked:S.unlocked};
+    store.clear(); store.set("trialStart",keep.trialStart); store.set("unlocked",keep.unlocked); store.set("tasks",[]);
+    load(); applySettings(); renderAll(); resetBtnBack();
+    const m=$("#dataMsg"); m.className="msg ok"; m.textContent="Alles gelöscht. Du startest mit einer leeren Liste.";
+  });
+  no.addEventListener("click", resetBtnBack);
+  w.append(p,yes,no);
+}
+
+/* ---------- Navigation, Hinweis-Leiste, Begrüßung nach Pause ---------- */
+function go(name){
+  $$("section.screen").forEach(s => s.hidden = s.dataset.screen !== name);
+  $$("nav.tabs button").forEach(b => b.setAttribute("aria-selected", b.dataset.go===name));
+  try{ sessionStorage.setItem("fh_tab", name); }catch(e){}
+  window.scrollTo(0,0);
+  if(name==="journal") renderJournal(true);
+  if(name==="zerlegen") renderDecLock(false);
+  if(name==="mehr") renderPlan();
+}
+$$("nav.tabs button").forEach(b => b.addEventListener("click", () => go(b.dataset.go)));
+let toastTimer = null, undoFn = null;
+function showToast(text, undo){
+  $("#toastTxt").textContent = text; undoFn = undo; $("#toastUndo").hidden = !undo; $("#toast").hidden = false;
+  clearTimeout(toastTimer); toastTimer = setTimeout(() => { $("#toast").hidden = true; undoFn = null; }, 5000);
+}
+$("#toastUndo").addEventListener("click", () => { if(undoFn) undoFn(); undoFn=null; $("#toast").hidden = true; });
+function welcomeBack(){
+  const w = $("#welcomeBack");
+  if(S.lastVisit && !S.settings.calm){
+    const gap = Math.floor((Date.now()-S.lastVisit)/DAY);
+    if(gap >= 2){ w.textContent = "Schön, dass du wieder da bist. Hier ist nichts verloren gegangen: deine " + S.journal.length + " Funken sind alle noch im Glas."; w.hidden = false; }
+  }
+  S.lastVisit = Date.now(); store.set("lastVisit", S.lastVisit);
+}
+function renderAll(){ greeting(); renderEnergy(); renderToday(); renderJournal(); renderPlan(); renderDecLock(false); checkReminders(); renderNotif(); }
+setAiNote("wait");
+if(window.FocusHerStore && window.FocusHerStore.decompose) setAiNote("on"); else getSample().then(s => setAiNote(s ? "on" : "off"));
+setTimeout(flushFeedback, 3000);
+
+window.addEventListener("fh-entitlement", e => {
+  const active = !!(e.detail && e.detail.active);
+  if(active !== S.unlocked){ S.unlocked = active; store.set("unlocked", active); renderAll(); }
+});
+load(); applySettings(); welcomeBack(); renderAll(); resetBtnBack();
+let startTab = "heute"; try{ startTab = sessionStorage.getItem("fh_tab") || "heute"; }catch(e){}
+go(startTab);
+})();
+</script>

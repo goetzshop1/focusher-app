@@ -1,0 +1,21 @@
+{
+  "appId": "de.vellunaprints.focusher",
+  "appName": "FocusHer",
+  "webDir": "www",
+  "backgroundColor": "#16141b",
+  "ios": {
+    "contentInset": "never",
+    "scheme": "FocusHer",
+    "backgroundColor": "#16141b"
+  },
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 600,
+      "backgroundColor": "#16141b",
+      "showSpinner": false
+    },
+    "LocalNotifications": {
+      "iconColor": "#c7b6ee"
+    }
+  }
+}
