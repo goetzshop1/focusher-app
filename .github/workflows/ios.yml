@@ -2,8 +2,8 @@ name: iOS bauen und zu App Store Connect hochladen
 
 on:
   push:
-    tags:
-      - "ios-v*"
+    branches:
+      - release-ios
   workflow_dispatch:
     inputs:
       version:
