@@ -1,35 +1,5 @@
 App: FocusHer 6819870035 Primärsprache: de-DE Inhaltsrechte: DOES_NOT_USE_THIRD_PARTY_CONTENT
 App-Info: 420405c6-03e5-4cd2-8bc9-c9f83ade483a PREPARE_FOR_SUBMISSION
 Version: 1.0.0 PREPARE_FOR_SUBMISSION 5821f437-6385-4150-87f1-f006696a591b
-Altersfreigabe abgelehnt: PATCH /ageRatingDeclarations/420405c6-03e5-4cd2-8bc9-c9f83ade483a: 409 {
-  "errors" : [ {
-    "id" : "68e918c9-ee68-4c52-8106-91fc5b19cfa2",
-    "status" : "409",
-    "code" : "ENTITY_ERROR.ATTRIBUTE.TYPE",
-    "title" : "An attribute in the provided entity has the wrong type",
-    "detail" : "Unexpected json type provided for attribute 'socialMedia'. Expected a BOOLEAN but got STRING",
-    "source" : {
-      "pointer" : "/data/attributes/socialMedia"
-    }
-  }, {
-    "id" : "b40c4bb9-133c-4219-8159-d3c63b77ce5c",
-    "status" : "409",
-    "code" : "ENTITY_ERROR.ATTRIBUTE.TYPE",
-    "title" : "An attribute in the provided entity has the wrong type",
-    "detail" : "Unexpected json type provided for attribute 'socialMediaAgeRestricted'. Expected a BOOLEAN but got STRING",
-    "source" : {
-      "pointer" : "/data/attributes/socialMediaAgeRestricted"
-    }
-  } ]
-}
-Aktuelle Werte: {"advertising": null, "alcoholTobaccoOrDrugUseOrReferences": null, "contests": null, "gambling": null, "gamblingSimulated": null, "gunsOrOtherWeapons": null, "healthOrWellnessTopics": null, "kidsAgeBand": null, "lootBox": null, "medicalOrTreatmentInformation": null, "messagingAndChat": null, "parentalControls": null, "profanityOrCrudeHumor": null, "ageAssurance": null, "sexualContentGraphicAndNudity": null, "sexualContentOrNudity": null, "socialMedia": null, "socialMediaAgeRestricted": null, "horrorOrFearThemes": null, "matureOrSuggestiveThemes": null, "unrestrictedWebAccess": null, "userGeneratedContent": null, "violenceCartoonOrFantasy": null, "violenceRealisticProlongedGraphicOrSadistic": null, "violenceRealistic": null, "ageRatingOverride": "NONE", "ageRatingOverrideV2": "NONE", "koreaAgeRatingOverride": "NONE", "gracRatingClassificationNumber": null, "developerAgeRatingInfoUrl": null}
 OK Altersfreigabe: alles Nein/Keine -> ['advertising', 'ageAssurance', 'alcoholTobaccoOrDrugUseOrReferences', 'contests', 'gambling', 'gamblingSimulated', 'gunsOrOtherWeapons', 'healthOrWellnessTopics', 'horrorOrFearThemes', 'lootBox', 'matureOrSuggestiveThemes', 'medicalOrTreatmentInformation', 'messagingAndChat', 'parentalControls', 'profanityOrCrudeHumor', 'sexualContentGraphicAndNudity', 'sexualContentOrNudity', 'socialMedia', 'socialMediaAgeRestricted', 'unrestrictedWebAccess', 'userGeneratedContent', 'violenceCartoonOrFantasy', 'violenceRealistic', 'violenceRealisticProlongedGraphicOrSadistic']
-OK Verfügbarkeit: DEU, AUT, CHE, LIE, LUX
-Abo-Gruppe: FocusHer 22448375
-  Gruppen-Sprachen: [('de-DE', 'FocusHer', 'PREPARE_FOR_SUBMISSION')]
-Abo: focusher_jahr FocusHer READY_TO_SUBMIT ONE_YEAR 6819877479
-  Sprachen: [('de-DE', 'FocusHer Vollversion', 'PREPARE_FOR_SUBMISSION')]
-  Preise in 175 Ländern, z. B. ['99.99', '24.99', '24.99'] DEU dabei: True
-  Verfügbarkeit: gesetzt
-  Prüfbild: vorhanden
-Run 2 Wed Oct  7 05:27:30 UTC 2026
+Run 3 Wed Oct  7 05:28:49 UTC 2026
