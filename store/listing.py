@@ -177,7 +177,7 @@ def s_age():
         if k in skip:
             continue
         if isinstance(v, bool) or k in ("gambling", "unrestrictedWebAccess", "lootBox", "messagingAndChat", "parentalControls",
-                                        "ageAssurance", "userGeneratedContent", "advertising", "healthOrWellnessTopics", "seventeenPlus"):
+                                        "ageAssurance", "userGeneratedContent", "advertising", "healthOrWellnessTopics", "seventeenPlus", "socialMedia", "socialMediaAgeRestricted"):
             attrs[k] = False
         elif v is None or isinstance(v, str):
             attrs[k] = "NONE"
