@@ -1,6 +1,10 @@
 App: FocusHer 6819870035 Primärsprache: de-DE Inhaltsrechte: DOES_NOT_USE_THIRD_PARTY_CONTENT
 App-Info: 420405c6-03e5-4cd2-8bc9-c9f83ade483a INVALID_BINARY
 Version: 1.0.0 INVALID_BINARY 5821f437-6385-4150-87f1-f006696a591b
+Build: 6 VALID 
+Build: 5 VALID 
+Build: 4 VALID 
+OK Build 6 ausgewählt
 Abo-Gruppe: FocusHer 22448375
   Gruppen-Sprachen: [('de-DE', 'FocusHer', 'PREPARE_FOR_SUBMISSION')]
 Abo: focusher_jahr FocusHer READY_TO_SUBMIT ONE_YEAR 6819877479
@@ -8,5 +12,25 @@ Abo: focusher_jahr FocusHer READY_TO_SUBMIT ONE_YEAR 6819877479
   Preise in 175 Ländern, z. B. ['99.99', '24.99', '24.99'] DEU dabei: True
   Verfügbarkeit: gesetzt
   Prüfbild: vorhanden
-Build an Version: {'type': 'builds', 'id': '177a42ce-3862-452a-a2b6-b17d501bf154', 'attributes': {'version': '5', 'uploadedDate': '2026-10-06T15:39:29-07:00', 'expirationDate': '2027-01-04T14:39:29-08:00', 'expired': False, 'minOsVersion': '15.0', 'lsMinimumSystemVersion': None, 'computedMinMacOsVersion': '12.0', 'computedMinVisionOsVersion': '1.0', 'iconAssetToken': {'templateUrl': 'https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/29/60/3b/29603b83-7770-e69d-b4ff-2a34069cc59a/AppIcon60x60@2x.png/{w}x{h}bb.{f}', 'width': 120, 'height': 120}, 'processingState': 'VALID', 'buildAudienceType': 'APP_STORE_ELIGIBLE', 'usesNonExemptEncryption': False}, 'relationships': {'preReleaseVersion': {'links': {'self': 'https://api.appstoreconnect.apple.com/v1/builds/177a42ce-3862-452a-a2b6-b17d501bf154/relationships/preReleaseVersion', 'related': 'https://api.appstoreconnect.apple.com/v1/builds/177a42ce-3862-452a-a2b6-b17d501bf154/preReleaseVersion'}}, 'individualTesters': {'links': {'self': 'https://api.appstoreconnect.apple.com/v1/builds/177a42ce-3862-452a-a2b6-b17d501bf154/relationships/individualTesters', 'related': 'https://api.appstoreconnect.apple.com/v1/builds/177a42ce-3862-452a-a2b6-b17d501bf154/individualTesters'}}, 'betaGroups': {'links': {'self': 'https://api.appstoreconnect.apple.com/v1/builds/177a42ce-3862-452a-a2b6-b17d501bf154/relationships/betaGroups'}}, 'betaBuildLocalizations': {'links': {'self': 'https://api.appstoreconnect.apple.com/v1/builds/177a42ce-3862-452a-a2b6-b17d501bf154/relationships/betaBuildLocalizations', 'related': 'https://api.appstoreconnect.apple.com/v1/builds/177a42ce-3862-452a-a2b6-b17d501bf154/betaBuildLocalizations'}}, 'appEncryptionDeclaration': {'links': {'self': 'https://api.appstoreconnect.apple.com/v1/builds/177a42ce-3862-452a-a2b6-b17d501bf154/relationships/appEncryptionDeclaration', 'related': 'https://api.appstoreconnect.apple.com/v1/builds/177a42ce-3862-452a-a2b6-b17d501bf154/appEncryptionDeclaration'}}, 'betaAppReviewSubmission': {'links': {'self': 'https://api.appstoreconnect.apple.com/v1/builds/177a42ce-3862-452a-a2b6-b17d501bf154/relationships/betaAppReviewSubmission', 'related': 'https://api.appstoreconnect.apple.com/v1/builds/177a42ce-3862-452a-a2b6-b17d501bf154/betaAppReviewSubmission'}}, 'app': {'links': {'self': 'https://api.appstoreconnect.apple.com/v1/builds/177a42ce-3862-452a-a2b6-b17d501bf154/relationships/app', 'related': 'https://api.appstoreconnect.apple.com/v1/builds/177a42ce-3862-452a-a2b6-b17d501bf154/app'}}, 'buildBetaDetail': {'links': {'self': 'https://api.appstoreconnect.apple.com/v1/builds/177a42ce-3862-452a-a2b6-b17d501bf154/relationships/buildBetaDetail', 'related': 'https://api.appstoreconnect.apple.com/v1/builds/177a42ce-3862-452a-a2b6-b17d501bf154/buildBetaDetail'}}, 'appStoreVersion': {'links': {'self': 'https://api.appstoreconnect.apple.com/v1/builds/177a42ce-3862-452a-a2b6-b17d501bf154/relationships/appStoreVersion', 'related': 'https://api.appstoreconnect.apple.com/v1/builds/177a42ce-3862-452a-a2b6-b17d501bf154/appStoreVersion'}}, 'icons': {'links': {'self': 'https://api.appstoreconnect.apple.com/v1/builds/177a42ce-3862-452a-a2b6-b17d501bf154/relationships/icons', 'related': 'https://api.appstoreconnect.apple.com/v1/builds/177a42ce-3862-452a-a2b6-b17d501bf154/icons'}}, 'perfPowerMetrics': {'links': {'related': 'https://api.appstoreconnect.apple.com/v1/builds/177a42ce-3862-452a-a2b6-b17d501bf154/perfPowerMetrics'}}, 'diagnosticSignatures': {'links': {'self': 'https://api.appstoreconnect.apple.com/v1/builds/177a42ce-3862-452a-a2b6-b17d501bf154/relationships/diagnosticSignatures', 'related': 'https://api.appstoreconnect.apple.com/v1/builds/177a42ce-3862-452a-a2b6-b17d501bf154/diagnosticSignatures'}}}, 'links': {'self': 'https://api.appstoreconnect.apple.com/v1/builds/177a42ce-3862-452a-a2b6-b17d501bf154'}}
-Run 5 Wed Oct  7 15:31:36 UTC 2026
+OK Version zur Einreichung hinzugefügt
+FEHLER Abo einreichen: POST /subscriptionSubmissions: 409 {
+  "errors" : [ {
+    "id" : "a8bcc4b4-27bc-4096-aa43-63b847135fad",
+    "status" : "409",
+    "code" : "STATE_ERROR.INVALID_REQUEST_ENTITY_STATE_INVALID",
+    "title" : "This subscription is not in a valid state.",
+    "detail" : "This subscription cannot be reviewed, please check associated errors.",
+    "meta" : {
+      "associatedErrors" : {
+        "/v1/subscriptions/6819877479" : [ {
+          "id" : "15303756-7385-4047-924a-2fd5e9c78601",
+          "status" : "409",
+          "code" : "STATE_ERROR.FIRST_SUBSCRIPTION_MUST_BE_SUBMITTED_ON_VERSION",
+          "title" : "The first subscription for an app must be submitted for review at the same time that you submit an app version."
+        } ]
+      }
+    }
+  } ]
+}
+NICHT eingereicht, weil das Abo nicht mitkam. Einreichung bleibt als Entwurf.
+Run 6 Wed Oct  7 15:55:56 UTC 2026
