@@ -364,11 +364,8 @@ def status():
 
 def submit():
     load()
+    step("Build", s_build)
     step("Abo", lambda: s_subscription(fix=False))
-    for s in C.subs:
-        if s["attributes"].get("state") in ("READY_TO_SUBMIT", "MISSING_METADATA", "DEVELOPER_ACTION_NEEDED", "REJECTED"):
-            step("Abo einreichen", lambda s=s: (call("POST", "/subscriptionSubmissions", json={"data": {"type": "subscriptionSubmissions",
-                 "relationships": {"subscription": {"data": {"type": "subscriptions", "id": s["id"]}}}}}), log("OK Abo zur Prüfung vorgemerkt")))
     subs = call("GET", "/reviewSubmissions", params={"filter[app]": C.app_id, "filter[platform]": "IOS"})["data"]
     open_s = [x for x in subs if x["attributes"]["state"] in ("READY_FOR_REVIEW",)]
     rs = open_s[0] if open_s else call("POST", "/reviewSubmissions", json={"data": {"type": "reviewSubmissions", "attributes": {"platform": "IOS"},
@@ -377,8 +374,22 @@ def submit():
         call("POST", "/reviewSubmissionItems", json={"data": {"type": "reviewSubmissionItems", "relationships": {
             "reviewSubmission": {"data": {"type": "reviewSubmissions", "id": rs["id"]}},
             "appStoreVersion": {"data": {"type": "appStoreVersions", "id": C.version["id"]}}}}})
+        log("OK Version zur Einreichung hinzugefügt")
     except RuntimeError as e:
         log("Version hinzufügen:", str(e)[:1200])
+    ok_sub = True
+    for s in C.subs:
+        if s["attributes"].get("state") in ("READY_TO_SUBMIT", "DEVELOPER_ACTION_NEEDED", "REJECTED"):
+            try:
+                call("POST", "/subscriptionSubmissions", json={"data": {"type": "subscriptionSubmissions",
+                     "relationships": {"subscription": {"data": {"type": "subscriptions", "id": s["id"]}}}}})
+                log("OK Abo", s["attributes"].get("productId"), "mit der Version eingereicht")
+            except RuntimeError as e:
+                ok_sub = False
+                log("FEHLER Abo einreichen:", str(e)[:2000])
+    if not ok_sub and os.environ.get("FORCE") != "1":
+        log("NICHT eingereicht, weil das Abo nicht mitkam. Einreichung bleibt als Entwurf.")
+        return
     try:
         call("PATCH", f"/reviewSubmissions/{rs['id']}", json={"data": {"type": "reviewSubmissions", "id": rs["id"], "attributes": {"submitted": True}}})
         log("OK EINGEREICHT: Version", VERSION, "wartet auf die Prüfung")
