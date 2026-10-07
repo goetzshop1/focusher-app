@@ -41,8 +41,27 @@ def setup():
     sh("openssl", "req", "-new", "-newkey", "rsa:2048", "-nodes", "-keyout", key, "-out", csr, "-subj", "/CN=FocusHer CI/O=VellunaPrintsDesign/C=DE")
     csr_text = open(csr).read()
 
+    # 0) Alte CI-Zertifikate von früheren Builds widerrufen (Platz für das neue schaffen)
+    for c in call("GET", "/certificates", params={"filter[certificateType]": "DISTRIBUTION", "limit": 200})["data"]:
+        if "FocusHer CI" in (c["attributes"].get("name") or "") or "FocusHer CI" in (c["attributes"].get("displayName") or ""):
+            try:
+                call("DELETE", f"/certificates/{c['id']}")
+                print("Altes CI-Zertifikat widerrufen:", c["id"])
+            except Exception as e:
+                print("Konnte altes Zertifikat nicht widerrufen:", e)
+
     # 1) Verteilungszertifikat anlegen
-    cert = call("POST", "/certificates", json={"data": {"type": "certificates", "attributes": {"csrContent": csr_text, "certificateType": "DISTRIBUTION"}}})["data"]
+    body = {"data": {"type": "certificates", "attributes": {"csrContent": csr_text, "certificateType": "DISTRIBUTION"}}}
+    try:
+        cert = call("POST", "/certificates", json=body)["data"]
+    except Exception:
+        # Höchstzahl erreicht: ältestes Verteilungszertifikat widerrufen und erneut versuchen
+        old = sorted(call("GET", "/certificates", params={"filter[certificateType]": "DISTRIBUTION", "limit": 200})["data"],
+                     key=lambda c: c["attributes"].get("expirationDate", ""))
+        if old:
+            call("DELETE", f"/certificates/{old[0]['id']}")
+            print("Ältestes Zertifikat widerrufen:", old[0]["id"])
+        cert = call("POST", "/certificates", json=body)["data"]
     cert_id = cert["id"]
     der = base64.b64decode(cert["attributes"]["certificateContent"])
     cer, pem, p12 = (os.path.join(work, n) for n in ("dist.cer", "dist.pem", "dist.p12"))
@@ -94,13 +113,14 @@ def cleanup():
     if not os.path.exists(STATE):
         return
     st = json.load(open(STATE))
-    for path in (f"/profiles/{st['profile_id']}", f"/certificates/{st['cert_id']}"):
+    # Zertifikat bleibt gültig, sonst wird die Signatur des Builds bei der Einreichung ungültig (ITMS-90035)
+    for path in (f"/profiles/{st['profile_id']}",):
         try:
             call("DELETE", path)
         except Exception as e:
             print("Aufräumen fehlgeschlagen:", path, e)
     subprocess.run(["security", "delete-keychain", st["keychain"]])
-    print("Zertifikat widerrufen und Profil gelöscht.")
+    print("Profil gelöscht, Zertifikat bleibt gültig.")
 
 
 if __name__ == "__main__":

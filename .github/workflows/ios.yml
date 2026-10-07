@@ -138,7 +138,7 @@ jobs:
           tail -n 20 build/export.log
           echo "Build $APP_VERSION ($BUILD_NUMBER) hochgeladen. Er erscheint nach 10–30 Minuten in TestFlight."
 
-      - name: Zertifikat widerrufen und Profil löschen
+      - name: Profil löschen (Zertifikat bleibt gültig)
         if: always()
         run: python3 scripts/asc_signing.py cleanup || true
 
