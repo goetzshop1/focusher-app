@@ -248,6 +248,10 @@ def s_build():
         log("FEHLER: kein gültiger Build für", VERSION)
         return
     b = max(ok, key=lambda x: int(x["attributes"]["version"]))
+    if int(b["attributes"]["version"]) < int(os.environ.get("MIN_BUILD", "0")):
+        C.build_ok = False
+        log("Build", os.environ.get("MIN_BUILD"), "ist noch nicht fertig verarbeitet. Abbruch.")
+        return
     call("PATCH", f"/appStoreVersions/{C.version['id']}/relationships/build", json={"data": {"type": "builds", "id": b["id"]}})
     log("OK Build", b["attributes"]["version"], "ausgewählt")
 
@@ -364,7 +368,10 @@ def status():
 
 def submit():
     load()
+    C.build_ok = True
     step("Build", s_build)
+    if not C.build_ok:
+        return
     step("Abo", lambda: s_subscription(fix=False))
     subs = call("GET", "/reviewSubmissions", params={"filter[app]": C.app_id, "filter[platform]": "IOS"})["data"]
     open_s = [x for x in subs if x["attributes"]["state"] in ("READY_FOR_REVIEW",)]
