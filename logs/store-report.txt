@@ -1,191 +1,35 @@
-App: FocusHer 6819870035 Primärsprache: de-DE Inhaltsrechte: None
+App: FocusHer 6819870035 Primärsprache: de-DE Inhaltsrechte: DOES_NOT_USE_THIRD_PARTY_CONTENT
 App-Info: 420405c6-03e5-4cd2-8bc9-c9f83ade483a PREPARE_FOR_SUBMISSION
-Version: 1.0 PREPARE_FOR_SUBMISSION 5821f437-6385-4150-87f1-f006696a591b
-OK Inhaltsrechte: keine Inhalte Dritter
-OK Kategorien: Produktivität / Lifestyle
-App-Info-Sprachen: ['de-DE']
-OK Untertitel + Datenschutz-URL
-Altersfreigabe, zweiter Versuch: PATCH /ageRatingDeclarations/420405c6-03e5-4cd2-8bc9-c9f83ade483a: 409 {
+Version: 1.0.0 PREPARE_FOR_SUBMISSION 5821f437-6385-4150-87f1-f006696a591b
+Altersfreigabe abgelehnt: PATCH /ageRatingDeclarations/420405c6-03e5-4cd2-8bc9-c9f83ade483a: 409 {
   "errors" : [ {
-    "id" : "4f39a3c2-072d-4439-b5a3-e8291598aeb5",
+    "id" : "68e918c9-ee68-4c52-8106-91fc5b19cfa2",
     "status" : "409",
     "code" : "ENTITY_ERROR.ATTRIBUTE.TYPE",
     "title" : "An attribute in the provided entity has the wrong type",
-    "detail" : "Unexp
-  Feld advertising nicht gesetzt: PATCH /ageRatingDeclarations/420405c6-03e5-4cd2-8bc9-c9f83ade483a: 409 {
-  "errors" : [ {
-    "id" : "6a2e7298-f301-42ae-a5f6-b37615fadc3d",
-    "status" : "409",
-    "code" : "ENTITY_ERROR.ATTRIBUTE.
-  Feld alcoholTobaccoOrDrugUseOrReferences nicht gesetzt: PATCH /ageRatingDeclarations/420405c6-03e5-4cd2-8bc9-c9f83ade483a: 409 {
-  "errors" : [ {
-    "id" : "311c1a2a-a344-44f1-b778-406689505819",
-    "status" : "409",
-    "code" : "ENTITY_ERROR.ATTRIBUTE.
-  Feld contests nicht gesetzt: PATCH /ageRatingDeclarations/420405c6-03e5-4cd2-8bc9-c9f83ade483a: 409 {
-  "errors" : [ {
-    "id" : "af07e513-ab8c-4f3f-aa3b-d98de9e5639a",
-    "status" : "409",
-    "code" : "ENTITY_ERROR.ATTRIBUTE.
-  Feld gambling nicht gesetzt: PATCH /ageRatingDeclarations/420405c6-03e5-4cd2-8bc9-c9f83ade483a: 409 {
-  "errors" : [ {
-    "id" : "dc017bcf-5653-44d9-b86b-7e12f470d986",
-    "status" : "409",
-    "code" : "ENTITY_ERROR.ATTRIBUTE.
-  Feld gamblingSimulated nicht gesetzt: PATCH /ageRatingDeclarations/420405c6-03e5-4cd2-8bc9-c9f83ade483a: 409 {
-  "errors" : [ {
-    "id" : "ccb6b2e0-887d-462a-a75b-01754d6b4e87",
-    "status" : "409",
-    "code" : "ENTITY_ERROR.ATTRIBUTE.
-  Feld gunsOrOtherWeapons nicht gesetzt: PATCH /ageRatingDeclarations/420405c6-03e5-4cd2-8bc9-c9f83ade483a: 409 {
-  "errors" : [ {
-    "id" : "7666ac8e-77d3-4cd7-9d4a-47bf212b541f",
-    "status" : "409",
-    "code" : "ENTITY_ERROR.ATTRIBUTE.
-  Feld healthOrWellnessTopics nicht gesetzt: PATCH /ageRatingDeclarations/420405c6-03e5-4cd2-8bc9-c9f83ade483a: 409 {
-  "errors" : [ {
-    "id" : "1877402b-8af6-4b39-bbdc-4ce27f75f961",
-    "status" : "409",
-    "code" : "ENTITY_ERROR.ATTRIBUTE.
-  Feld lootBox nicht gesetzt: PATCH /ageRatingDeclarations/420405c6-03e5-4cd2-8bc9-c9f83ade483a: 409 {
-  "errors" : [ {
-    "id" : "d142b697-ca16-46c8-a257-c6cad1ab6c67",
-    "status" : "409",
-    "code" : "ENTITY_ERROR.ATTRIBUTE.
-  Feld medicalOrTreatmentInformation nicht gesetzt: PATCH /ageRatingDeclarations/420405c6-03e5-4cd2-8bc9-c9f83ade483a: 409 {
-  "errors" : [ {
-    "id" : "cb9da8f2-5f1a-4774-a3c2-57088d15a0e0",
-    "status" : "409",
-    "code" : "ENTITY_ERROR.ATTRIBUTE.
-  Feld messagingAndChat nicht gesetzt: PATCH /ageRatingDeclarations/420405c6-03e5-4cd2-8bc9-c9f83ade483a: 409 {
-  "errors" : [ {
-    "id" : "505a9d27-9b70-46c6-bcb0-12f5d0ce17ee",
-    "status" : "409",
-    "code" : "ENTITY_ERROR.ATTRIBUTE.
-  Feld parentalControls nicht gesetzt: PATCH /ageRatingDeclarations/420405c6-03e5-4cd2-8bc9-c9f83ade483a: 409 {
-  "errors" : [ {
-    "id" : "1c32b4b8-4092-4f26-9c15-7f70c20fd958",
-    "status" : "409",
-    "code" : "ENTITY_ERROR.ATTRIBUTE.
-  Feld profanityOrCrudeHumor nicht gesetzt: PATCH /ageRatingDeclarations/420405c6-03e5-4cd2-8bc9-c9f83ade483a: 409 {
-  "errors" : [ {
-    "id" : "dcb49276-af2d-41f7-8e6a-207af3d6fb04",
-    "status" : "409",
-    "code" : "ENTITY_ERROR.ATTRIBUTE.
-  Feld ageAssurance nicht gesetzt: PATCH /ageRatingDeclarations/420405c6-03e5-4cd2-8bc9-c9f83ade483a: 409 {
-  "errors" : [ {
-    "id" : "68459bfb-14e5-49b2-aa8a-08bd94268429",
-    "status" : "409",
-    "code" : "ENTITY_ERROR.ATTRIBUTE.
-  Feld sexualContentGraphicAndNudity nicht gesetzt: PATCH /ageRatingDeclarations/420405c6-03e5-4cd2-8bc9-c9f83ade483a: 409 {
-  "errors" : [ {
-    "id" : "98d9cec1-054d-4d40-b313-c3c70d1b80d0",
-    "status" : "409",
-    "code" : "ENTITY_ERROR.ATTRIBUTE.
-  Feld sexualContentOrNudity nicht gesetzt: PATCH /ageRatingDeclarations/420405c6-03e5-4cd2-8bc9-c9f83ade483a: 409 {
-  "errors" : [ {
-    "id" : "a324d733-bef6-4d96-a4ba-6eee5dd426e1",
-    "status" : "409",
-    "code" : "ENTITY_ERROR.ATTRIBUTE.
-  Feld socialMedia nicht gesetzt: PATCH /ageRatingDeclarations/420405c6-03e5-4cd2-8bc9-c9f83ade483a: 409 {
-  "errors" : [ {
-    "id" : "31f46ebc-e489-410a-a254-07407fe3ccb1",
-    "status" : "409",
-    "code" : "ENTITY_ERROR.ATTRIBUTE.
-  Feld socialMediaAgeRestricted nicht gesetzt: PATCH /ageRatingDeclarations/420405c6-03e5-4cd2-8bc9-c9f83ade483a: 409 {
-  "errors" : [ {
-    "id" : "315d2a63-7bcd-4231-b82f-9765ddf9bb2c",
-    "status" : "409",
-    "code" : "ENTITY_ERROR.ATTRIBUTE.
-  Feld horrorOrFearThemes nicht gesetzt: PATCH /ageRatingDeclarations/420405c6-03e5-4cd2-8bc9-c9f83ade483a: 409 {
-  "errors" : [ {
-    "id" : "ebe393ff-14a8-4bc5-bfa2-6952544d9fab",
-    "status" : "409",
-    "code" : "ENTITY_ERROR.ATTRIBUTE.
-  Feld matureOrSuggestiveThemes nicht gesetzt: PATCH /ageRatingDeclarations/420405c6-03e5-4cd2-8bc9-c9f83ade483a: 409 {
-  "errors" : [ {
-    "id" : "6cde1f62-1886-426e-acc5-f6e1952fe1fa",
-    "status" : "409",
-    "code" : "ENTITY_ERROR.ATTRIBUTE.
-  Feld unrestrictedWebAccess nicht gesetzt: PATCH /ageRatingDeclarations/420405c6-03e5-4cd2-8bc9-c9f83ade483a: 409 {
-  "errors" : [ {
-    "id" : "975e793a-37ca-4230-8221-ac74a80a3a88",
-    "status" : "409",
-    "code" : "ENTITY_ERROR.ATTRIBUTE.
-  Feld userGeneratedContent nicht gesetzt: PATCH /ageRatingDeclarations/420405c6-03e5-4cd2-8bc9-c9f83ade483a: 409 {
-  "errors" : [ {
-    "id" : "ae1f398f-4b3f-4a96-9396-239eac5a9b31",
-    "status" : "409",
-    "code" : "ENTITY_ERROR.ATTRIBUTE.
-  Feld violenceCartoonOrFantasy nicht gesetzt: PATCH /ageRatingDeclarations/420405c6-03e5-4cd2-8bc9-c9f83ade483a: 409 {
-  "errors" : [ {
-    "id" : "7f46026c-d452-4c83-b9aa-40a49bdd84f7",
-    "status" : "409",
-    "code" : "ENTITY_ERROR.ATTRIBUTE.
-  Feld violenceRealisticProlongedGraphicOrSadistic nicht gesetzt: PATCH /ageRatingDeclarations/420405c6-03e5-4cd2-8bc9-c9f83ade483a: 409 {
-  "errors" : [ {
-    "id" : "7dc0615e-f3bb-4b8b-8e23-e78a95698503",
-    "status" : "409",
-    "code" : "ENTITY_ERROR.ATTRIBUTE.
-  Feld violenceRealistic nicht gesetzt: PATCH /ageRatingDeclarations/420405c6-03e5-4cd2-8bc9-c9f83ade483a: 409 {
-  "errors" : [ {
-    "id" : "a95b03fa-768e-4dcf-be3a-9251b337c85f",
-    "status" : "409",
-    "code" : "ENTITY_ERROR.ATTRIBUTE.
-  Feld gracRatingClassificationNumber nicht gesetzt: PATCH /ageRatingDeclarations/420405c6-03e5-4cd2-8bc9-c9f83ade483a: 409 {
-  "errors" : [ {
-    "id" : "6cad21be-d33c-4258-9563-3a5713f0a73e",
-    "status" : "409",
-    "code" : "STATE_ERROR.KOREA_AGE_R
-OK Altersfreigabe: alles Nein/Keine -> ['advertising', 'ageAssurance', 'alcoholTobaccoOrDrugUseOrReferences', 'contests', 'gambling', 'gamblingSimulated', 'gracRatingClassificationNumber', 'gunsOrOtherWeapons', 'healthOrWellnessTopics', 'horrorOrFearThemes', 'lootBox', 'matureOrSuggestiveThemes', 'medicalOrTreatmentInformation', 'messagingAndChat', 'parentalControls', 'profanityOrCrudeHumor', 'sexualContentGraphicAndNudity', 'sexualContentOrNudity', 'socialMedia', 'socialMediaAgeRestricted', 'unrestrictedWebAccess', 'userGeneratedContent', 'violenceCartoonOrFantasy', 'violenceRealistic', 'violenceRealisticProlongedGraphicOrSadistic']
-OK Preis: kostenlos
-FEHLER bei Verfügbarkeit: POST /v2/appAvailabilities: 409 {
-  "errors" : [ {
-    "id" : "cfc9a4b8-231a-410c-9e33-7ae20f03a9e3",
-    "status" : "409",
-    "code" : "ENTITY_ERROR.RELATIONSHIP.INVALID",
-    "title" : "The provided entity includes a relationship with an invalid value",
-    "detail" : "The relationship 'territoryAvailabilities.territory' expects an included resource with type 'territories' and id 'STP' but no matching resource was included.",
+    "detail" : "Unexpected json type provided for attribute 'socialMedia'. Expected a BOOLEAN but got STRING",
     "source" : {
-      "pointer" : "/included"
+      "pointer" : "/data/attributes/socialMedia"
     }
   }, {
-    "id" : "4abe3de4-ea87-4a4b-8c34-97ed78fb9b38",
+    "id" : "b40c4bb9-133c-4219-8159-d3c63b77ce5c",
     "status" : "409",
-    "code" : "ENTITY_ERROR.RELATIONSHIP.INVALID",
-    "title" : "The provided entity includes a relationship with an invalid value",
-    "detail" : "The relationship 'territoryAvailabilities.territory' expects an included resource with type 'territories' and id 'ATG' but no matching resource was included.",
+    "code" : "ENTITY_ERROR.ATTRIBUTE.TYPE",
+    "title" : "An attribute in the provided entity has the wrong type",
+    "detail" : "Unexpected json type provided for attribute 'socialMediaAgeRestricted'. Expected a BOOLEAN but got STRING",
     "source" : {
-      "pointer" : "/included"
+      "pointer" : "/data/attributes/socialMediaAgeRestricted"
     }
-  }, {
-    "id" : "fcea14f3-d7ff-41d6-ba4e-06c8477afbb5",
-    "status" : "409",
-    "code" : "ENTITY_ERROR.RELATIONSHIP.INVALID",
-    "title" : "The provided entity includes a relationship with an invalid value",
-    "detail" : "The relationship 'territoryAvailabilities.territory' expects an included resource with type 'territories' and id 'KNA' but no matching resource was included.",
-    "source" : {
-      "pointer" : "/included"
-    }
-  }, {
-    "id" : "e9461cb9-b00f-4a33-9772-edcfca794d66",
-    "status" : "409",
-    "code" : "ENTITY_ERROR.RELATIONSHIP.INVALID",
-    "title" : "The provided enti
-OK Version 1.0.0 Copyright, automatische Veröffentlichung nach Freigabe
-Build: 5 VALID 
-Build: 4 VALID 
-OK Build 5 ausgewählt
-OK Beschreibung, Werbetext, Schlüsselwörter, Support-URL (2166 Zeichen)
-Vorhandene Screenshot-Gruppen: []
-OK Screenshots 6,9": ['COMPLETE', 'COMPLETE', 'COMPLETE', 'COMPLETE', 'COMPLETE']
-OK Prüfer-Kontakt und Hinweise
+  } ]
+}
+Aktuelle Werte: {"advertising": null, "alcoholTobaccoOrDrugUseOrReferences": null, "contests": null, "gambling": null, "gamblingSimulated": null, "gunsOrOtherWeapons": null, "healthOrWellnessTopics": null, "kidsAgeBand": null, "lootBox": null, "medicalOrTreatmentInformation": null, "messagingAndChat": null, "parentalControls": null, "profanityOrCrudeHumor": null, "ageAssurance": null, "sexualContentGraphicAndNudity": null, "sexualContentOrNudity": null, "socialMedia": null, "socialMediaAgeRestricted": null, "horrorOrFearThemes": null, "matureOrSuggestiveThemes": null, "unrestrictedWebAccess": null, "userGeneratedContent": null, "violenceCartoonOrFantasy": null, "violenceRealisticProlongedGraphicOrSadistic": null, "violenceRealistic": null, "ageRatingOverride": "NONE", "ageRatingOverrideV2": "NONE", "koreaAgeRatingOverride": "NONE", "gracRatingClassificationNumber": null, "developerAgeRatingInfoUrl": null}
+OK Altersfreigabe: alles Nein/Keine -> ['advertising', 'ageAssurance', 'alcoholTobaccoOrDrugUseOrReferences', 'contests', 'gambling', 'gamblingSimulated', 'gunsOrOtherWeapons', 'healthOrWellnessTopics', 'horrorOrFearThemes', 'lootBox', 'matureOrSuggestiveThemes', 'medicalOrTreatmentInformation', 'messagingAndChat', 'parentalControls', 'profanityOrCrudeHumor', 'sexualContentGraphicAndNudity', 'sexualContentOrNudity', 'socialMedia', 'socialMediaAgeRestricted', 'unrestrictedWebAccess', 'userGeneratedContent', 'violenceCartoonOrFantasy', 'violenceRealistic', 'violenceRealisticProlongedGraphicOrSadistic']
+OK Verfügbarkeit: DEU, AUT, CHE, LIE, LUX
 Abo-Gruppe: FocusHer 22448375
-  Gruppen-Sprachen: []
-  OK Gruppen-Sprache Deutsch angelegt
-Abo: focusher_jahr FocusHer MISSING_METADATA ONE_YEAR 6819877479
+  Gruppen-Sprachen: [('de-DE', 'FocusHer', 'PREPARE_FOR_SUBMISSION')]
+Abo: focusher_jahr FocusHer READY_TO_SUBMIT ONE_YEAR 6819877479
   Sprachen: [('de-DE', 'FocusHer Vollversion', 'PREPARE_FOR_SUBMISSION')]
   Preise in 175 Ländern, z. B. ['99.99', '24.99', '24.99'] DEU dabei: True
   Verfügbarkeit: gesetzt
   Prüfbild: vorhanden
-Run 1 Wed Oct  7 05:25:49 UTC 2026
+Run 2 Wed Oct  7 05:27:30 UTC 2026
