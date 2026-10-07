@@ -1,5 +1,31 @@
 App: FocusHer 6819870035 Primärsprache: de-DE Inhaltsrechte: DOES_NOT_USE_THIRD_PARTY_CONTENT
 App-Info: 420405c6-03e5-4cd2-8bc9-c9f83ade483a PREPARE_FOR_SUBMISSION
 Version: 1.0.0 PREPARE_FOR_SUBMISSION 5821f437-6385-4150-87f1-f006696a591b
-OK Altersfreigabe: alles Nein/Keine -> ['advertising', 'ageAssurance', 'alcoholTobaccoOrDrugUseOrReferences', 'contests', 'gambling', 'gamblingSimulated', 'gunsOrOtherWeapons', 'healthOrWellnessTopics', 'horrorOrFearThemes', 'lootBox', 'matureOrSuggestiveThemes', 'medicalOrTreatmentInformation', 'messagingAndChat', 'parentalControls', 'profanityOrCrudeHumor', 'sexualContentGraphicAndNudity', 'sexualContentOrNudity', 'socialMedia', 'socialMediaAgeRestricted', 'unrestrictedWebAccess', 'userGeneratedContent', 'violenceCartoonOrFantasy', 'violenceRealistic', 'violenceRealisticProlongedGraphicOrSadistic']
-Run 3 Wed Oct  7 05:28:49 UTC 2026
+Abo-Gruppe: FocusHer 22448375
+  Gruppen-Sprachen: [('de-DE', 'FocusHer', 'PREPARE_FOR_SUBMISSION')]
+Abo: focusher_jahr FocusHer READY_TO_SUBMIT ONE_YEAR 6819877479
+  Sprachen: [('de-DE', 'FocusHer Vollversion', 'PREPARE_FOR_SUBMISSION')]
+  Preise in 175 Ländern, z. B. ['99.99', '24.99', '24.99'] DEU dabei: True
+  Verfügbarkeit: gesetzt
+  Prüfbild: vorhanden
+FEHLER bei Abo einreichen: POST /subscriptionSubmissions: 409 {
+  "errors" : [ {
+    "id" : "903ec636-b333-415a-8a03-9339087eacfa",
+    "status" : "409",
+    "code" : "STATE_ERROR.INVALID_REQUEST_ENTITY_STATE_INVALID",
+    "title" : "This subscription is not in a valid state.",
+    "detail" : "This subscription cannot be reviewed, please check associated errors.",
+    "meta" : {
+      "associatedErrors" : {
+        "/v1/subscriptions/6819877479" : [ {
+          "id" : "f9133dc2-0bfe-401f-b1c0-cbedbcbe8c5b",
+          "status" : "409",
+          "code" : "STATE_ERROR.FIRST_SUBSCRIPTION_MUST_BE_SUBMITTED_ON_VERSION",
+          "title" : "The first subscription for an app must be submitted for review at the same time that you submit an app version."
+        } ]
+      }
+    }
+  } ]
+}
+OK EINGEREICHT: Version 1.0.0 wartet auf die Prüfung
+Run 4 Wed Oct  7 14:21:02 UTC 2026
