@@ -1,0 +1,44 @@
+name: Store-Eintrag pflegen (App Store Connect API)
+
+on:
+  push:
+    branches:
+      - store
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  listing:
+    runs-on: ubuntu-latest
+    env:
+      API_KEY_ID: Z7T5YKSW7U
+      API_ISSUER: 951bd4e3-5906-4027-aa20-7cbb4507902b
+    steps:
+      - uses: actions/checkout@v4
+      - name: Schlüssel und Pakete
+        env:
+          P8: ${{ secrets.APPSTORE_P8 }}
+        run: |
+          mkdir -p ~/.asc && printf '%s\n' "$P8" > ~/.asc/key.p8
+          echo "KEY_PATH=$HOME/.asc/key.p8" >> $GITHUB_ENV
+          pip install --quiet pyjwt cryptography requests
+      - name: Ausführen
+        run: |
+          MODE=$(cat store/MODE 2>/dev/null || echo status)
+          REPORT_PATH=/tmp/report.txt python3 store/listing.py $MODE
+      - name: Bericht in ci-logs ablegen
+        if: always()
+        run: |
+          rm -rf ~/.asc
+          git config user.name "ci" && git config user.email "ci@users.noreply.github.com"
+          git fetch origin ci-logs 2>/dev/null && git checkout -B ci-logs origin/ci-logs || git checkout --orphan ci-logs
+          git rm -rf --cached . >/dev/null 2>&1 || true
+          mkdir -p logs && cp /tmp/report.txt logs/store-report.txt 2>/dev/null || echo "kein Bericht" > logs/store-report.txt
+          echo "Run ${{ github.run_number }} $(date)" >> logs/store-report.txt
+          git add logs/store-report.txt && git commit -m "Store-Bericht ${{ github.run_number }}" && git push -f origin ci-logs
