@@ -31,6 +31,7 @@ jobs:
       - name: Ausführen
         run: |
           MODE=$(cat store/MODE 2>/dev/null || echo status)
+          export STEPS=$(cat store/STEPS 2>/dev/null || true)
           REPORT_PATH=/tmp/report.txt python3 store/listing.py $MODE
       - name: Bericht in ci-logs ablegen
         if: always()

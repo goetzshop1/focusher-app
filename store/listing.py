@@ -172,7 +172,7 @@ def s_info_loc():
 def s_age():
     d = call("GET", f"/appInfos/{C.info['id']}/ageRatingDeclaration")["data"]
     attrs = {}
-    skip = {"kidsAgeBand", "ageRatingOverride", "ageRatingOverrideV2", "koreaAgeRatingOverride", "developerAgeRatingInfoUrl"}
+    skip = {"kidsAgeBand", "ageRatingOverride", "ageRatingOverrideV2", "koreaAgeRatingOverride", "developerAgeRatingInfoUrl", "gracRatingClassificationNumber"}
     for k, v in d["attributes"].items():
         if k in skip:
             continue
@@ -185,12 +185,8 @@ def s_age():
         call("PATCH", f"/ageRatingDeclarations/{d['id']}", json={"data": {"type": "ageRatingDeclarations", "id": d["id"], "attributes": attrs}})
     except RuntimeError as e:
         # unbekannte Felder einzeln weglassen
-        log("Altersfreigabe, zweiter Versuch:", str(e)[:300])
-        for k in list(attrs):
-            try:
-                call("PATCH", f"/ageRatingDeclarations/{d['id']}", json={"data": {"type": "ageRatingDeclarations", "id": d["id"], "attributes": {k: attrs[k]}}})
-            except RuntimeError as e2:
-                log("  Feld", k, "nicht gesetzt:", str(e2)[:200])
+        log("Altersfreigabe abgelehnt:", str(e)[:3000])
+        log("Aktuelle Werte:", json.dumps(d["attributes"]))
     log("OK Altersfreigabe: alles Nein/Keine ->", sorted(attrs))
 
 
@@ -221,10 +217,11 @@ def s_availability():
         log("Verfügbarkeit ist schon gesetzt:", av["data"]["id"])
         return
     data, inc = [], []
-    for i, t in enumerate(TERRITORIES):
+    allt = [t["id"] for t in call("GET", "/territories", params={"limit": 200})["data"]]
+    for i, t in enumerate(allt):
         lid = "${t%d}" % i
         data.append({"type": "territoryAvailabilities", "id": lid})
-        inc.append({"type": "territoryAvailabilities", "id": lid, "attributes": {"available": True},
+        inc.append({"type": "territoryAvailabilities", "id": lid, "attributes": {"available": t in TERRITORIES},
                     "relationships": {"territory": {"data": {"type": "territories", "id": t}}}})
     call("POST", "/v2/appAvailabilities", json={"data": {"type": "appAvailabilities", "attributes": {"availableInNewTerritories": False},
          "relationships": {"app": {"data": {"type": "apps", "id": C.app_id}}, "territoryAvailabilities": {"data": data}}}, "included": inc})
@@ -350,6 +347,9 @@ def setup():
                      ("Altersfreigabe", s_age), ("Preis", s_price), ("Verfügbarkeit", s_availability), ("Version", s_version),
                      ("Build", s_build), ("Versionstexte", s_version_loc), ("Screenshots", s_screens), ("Prüfer-Infos", s_review),
                      ("Abo", s_subscription)]:
+        only = os.environ.get("STEPS")
+        if only and name not in only.split(","):
+            continue
         if name in ("Screenshots",) and not getattr(C, "vloc", None):
             continue
         step(name, fn)
