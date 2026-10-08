@@ -1,9 +1,11 @@
 App: FocusHer 6819870035 Primärsprache: de-DE Inhaltsrechte: DOES_NOT_USE_THIRD_PARTY_CONTENT
-App-Info: 420405c6-03e5-4cd2-8bc9-c9f83ade483a REJECTED
-Version: 1.0.0 REJECTED 5821f437-6385-4150-87f1-f006696a591b
-Build: 7 VALID 
-Build: 6 VALID 
-Build: 5 VALID 
-Build: 4 VALID 
-OK Build 7 ausgewählt
-Run 8 Thu Oct  8 08:31:24 UTC 2026
+App-Info: 420405c6-03e5-4cd2-8bc9-c9f83ade483a READY_FOR_SALE
+Version: 1.0.0 READY_FOR_SALE 5821f437-6385-4150-87f1-f006696a591b
+Abo-Gruppe: FocusHer 22448375
+  Gruppen-Sprachen: [('de-DE', 'FocusHer', 'APPROVED')]
+Abo: focusher_jahr FocusHer APPROVED ONE_YEAR 6819877479
+  Sprachen: [('de-DE', 'FocusHer Vollversion', 'APPROVED')]
+  Preise in 175 Ländern, z. B. ['99.99', '24.99', '24.99'] DEU dabei: True
+  Verfügbarkeit: gesetzt
+  Prüfbild: vorhanden
+Run 9 Thu Oct  8 22:08:29 UTC 2026
