@@ -59,13 +59,13 @@ const head = `<!doctype html>
 <html lang="de">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
 <meta name="format-detection" content="telephone=no">
 ${title}
 <style>
 :root{color-scheme:dark}
-html{-webkit-text-size-adjust:100%;padding-top:env(safe-area-inset-top,0px)}
-body{margin:0;-webkit-tap-highlight-color:transparent;overscroll-behavior-y:none}
+html{-webkit-text-size-adjust:100%;touch-action:manipulation;padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;touch-action:manipulation;-webkit-tap-highlight-color:transparent;overscroll-behavior-y:none}
 img{max-width:100%}
 [hidden]{display:none!important}
 </style>

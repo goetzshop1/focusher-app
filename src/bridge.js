@@ -163,7 +163,8 @@ if(native){
     if(!ok) return;
     try{
       const pkg = await currentPackage();
-      if(pkg && pkg.product && pkg.product.priceString){
+      // Nur Euro/Franken anzeigen (Testumgebungen liefern teils Dollar-Preise)
+      if(pkg && pkg.product && pkg.product.priceString && ["EUR","CHF"].includes(pkg.product.currencyCode)){
         window.FocusHerStore.price = pkg.product.priceString;
         const el = document.getElementById("buyPrice"); if(el) el.textContent = pkg.product.priceString;
       }
