@@ -1,0 +1,107 @@
+name: Android bauen (AAB für Google Play)
+
+on:
+  push:
+    branches:
+      - release-android
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  android:
+    runs-on: ubuntu-latest
+    env:
+      APP_VERSION: "1.0.0"
+      VERSION_CODE: ${{ github.run_number }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+
+      - name: Signatur-Schlüssel prüfen
+        env:
+          KS: ${{ secrets.ANDROID_KEYSTORE_B64 }}
+          KP: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+        run: |
+          [ -n "$KS" ] || { echo "::error::Secret ANDROID_KEYSTORE_B64 fehlt"; exit 1; }
+          [ -n "$KP" ] || { echo "::error::Secret ANDROID_KEYSTORE_PASSWORD fehlt"; exit 1; }
+
+      - name: Pakete installieren
+        run: npm install --no-audit --no-fund
+
+      - name: App-Oberfläche bauen
+        env:
+          REVENUECAT_ANDROID_KEY: ${{ secrets.REVENUECAT_ANDROID_KEY }}
+        run: npm run build:web
+
+      - name: Android-Projekt erzeugen
+        run: |
+          [ -d android ] || npx cap add android
+          npx cap sync android
+          npx @capacitor/assets generate --android --iconBackgroundColor '#16141b' --splashBackgroundColor '#16141b' --splashBackgroundColorDark '#16141b'
+
+      - name: Version und Einstellungen
+        run: |
+          G=android/app/build.gradle
+          sed -i "s/versionCode [0-9]*/versionCode $VERSION_CODE/" $G
+          sed -i "s/versionName \"[^\"]*\"/versionName \"$APP_VERSION\"/" $G
+          grep -E "versionCode|versionName|targetSdk|minSdk" $G android/variables.gradle || true
+          # Benachrichtigungen (Android 13+)
+          M=android/app/src/main/AndroidManifest.xml
+          grep -q POST_NOTIFICATIONS $M || sed -i 's#</manifest>#    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />\n</manifest>#' $M
+          # nur Hochformat
+          sed -i 's#<activity#<activity android:screenOrientation="portrait"#' $M
+          grep -n "permission\|screenOrientation" $M
+
+      - name: AAB bauen
+        run: |
+          cd android
+          chmod +x gradlew
+          ./gradlew --no-daemon bundleRelease > ../build-android.log 2>&1 || { tail -n 80 ../build-android.log; exit 1; }
+          tail -n 5 ../build-android.log
+          ls -la app/build/outputs/bundle/release/
+
+      - name: AAB signieren
+        env:
+          KS: ${{ secrets.ANDROID_KEYSTORE_B64 }}
+          KP: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+        run: |
+          echo "$KS" | base64 -d > $RUNNER_TEMP/upload.jks
+          IN=android/app/build/outputs/bundle/release/app-release.aab
+          mkdir -p out
+          cp $IN out/FocusHer-$APP_VERSION-$VERSION_CODE.aab
+          jarsigner -keystore $RUNNER_TEMP/upload.jks -storepass "$KP" -keypass "$KP" -sigalg SHA256withRSA -digestalg SHA-256 out/FocusHer-$APP_VERSION-$VERSION_CODE.aab focusher
+          jarsigner -verify out/FocusHer-$APP_VERSION-$VERSION_CODE.aab | tail -n 2
+          rm -f $RUNNER_TEMP/upload.jks
+
+      - name: AAB im Branch android-builds ablegen
+        run: |
+          cp out/*.aab /tmp/
+          git config user.name "ci" && git config user.email "ci@users.noreply.github.com"
+          git fetch origin android-builds 2>/dev/null && git checkout -B android-builds origin/android-builds || git checkout --orphan android-builds
+          git rm -rf --cached . >/dev/null 2>&1 || true
+          rm -rf builds && mkdir -p builds && cp /tmp/*.aab builds/
+          git add builds && git commit -m "Android-Build $VERSION_CODE" && git push -f origin android-builds
+
+      - name: Protokoll bei Fehler ablegen
+        if: failure()
+        run: |
+          mkdir -p /tmp/logs && cp build-android.log /tmp/logs/ 2>/dev/null || echo "kein Log" > /tmp/logs/build-android.log
+          git config user.name "ci" && git config user.email "ci@users.noreply.github.com"
+          git fetch origin ci-logs 2>/dev/null && git checkout -B ci-logs origin/ci-logs || git checkout --orphan ci-logs
+          git rm -rf --cached . >/dev/null 2>&1 || true
+          mkdir -p logs && cp /tmp/logs/* logs/
+          git add logs && git commit -m "Android-Protokoll ${{ github.run_number }}" && git push -f origin ci-logs

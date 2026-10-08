@@ -64,7 +64,7 @@ const head = `<!doctype html>
 ${title}
 <style>
 :root{color-scheme:dark}
-html{-webkit-text-size-adjust:100%;touch-action:manipulation;padding-top:env(safe-area-inset-top,0px)}
+html{-webkit-text-size-adjust:100%;touch-action:manipulation;padding-top:max(env(safe-area-inset-top,0px),var(--safe-area-inset-top,0px))}
 body{margin:0;touch-action:manipulation;-webkit-tap-highlight-color:transparent;overscroll-behavior-y:none}
 img{max-width:100%}
 [hidden]{display:none!important}

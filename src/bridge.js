@@ -5,6 +5,7 @@ import { Capacitor } from "@capacitor/core";
 import { LocalNotifications } from "@capacitor/local-notifications";
 import { Purchases, LOG_LEVEL } from "@revenuecat/purchases-capacitor";
 import { App } from "@capacitor/app";
+import { StatusBar, Style } from "@capacitor/status-bar";
 
 const CFG = window.FOCUSHER_CONFIG || {};
 const ENTITLEMENT = CFG.entitlement || "focusher_pro";
@@ -154,6 +155,14 @@ if(native){
     async notifStatus(){ const p = await LocalNotifications.checkPermissions(); return p.display; },
     async notifRequest(){ const p = await LocalNotifications.requestPermissions(); return p.display; }
   };
+
+  // Android-Testphase: solange kein Google-Play-Abo angebunden ist, bekommen Tester die Vollversion
+  if(platform === "android" && !rcKey()){
+    setTimeout(() => window.dispatchEvent(new CustomEvent("fh-entitlement", { detail: { active: true } })), 300);
+    window.FocusHerStore.purchase = async () => true;
+    window.FocusHerStore.restore = async () => true;
+  }
+  if(platform === "android"){ try{ StatusBar.setStyle({ style: Style.Dark }); StatusBar.setBackgroundColor({ color: "#16141b" }); }catch(e){} }
 
   // Abo-Status beim Start und beim Zurückkehren in die App prüfen
   setTimeout(refreshEntitlement, 300);

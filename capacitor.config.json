@@ -17,5 +17,9 @@
     "LocalNotifications": {
       "iconColor": "#c7b6ee"
     }
+  },
+  "android": {
+    "backgroundColor": "#16141b",
+    "adjustMarginsForEdgeToEdge": "force"
   }
 }
