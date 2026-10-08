@@ -1,36 +1,5 @@
 App: FocusHer 6819870035 Primärsprache: de-DE Inhaltsrechte: DOES_NOT_USE_THIRD_PARTY_CONTENT
-App-Info: 420405c6-03e5-4cd2-8bc9-c9f83ade483a INVALID_BINARY
-Version: 1.0.0 INVALID_BINARY 5821f437-6385-4150-87f1-f006696a591b
-Build: 6 VALID 
-Build: 5 VALID 
-Build: 4 VALID 
-OK Build 6 ausgewählt
-Abo-Gruppe: FocusHer 22448375
-  Gruppen-Sprachen: [('de-DE', 'FocusHer', 'PREPARE_FOR_SUBMISSION')]
-Abo: focusher_jahr FocusHer READY_TO_SUBMIT ONE_YEAR 6819877479
-  Sprachen: [('de-DE', 'FocusHer Vollversion', 'PREPARE_FOR_SUBMISSION')]
-  Preise in 175 Ländern, z. B. ['99.99', '24.99', '24.99'] DEU dabei: True
-  Verfügbarkeit: gesetzt
-  Prüfbild: vorhanden
-OK Version zur Einreichung hinzugefügt
-FEHLER Abo einreichen: POST /subscriptionSubmissions: 409 {
-  "errors" : [ {
-    "id" : "a8bcc4b4-27bc-4096-aa43-63b847135fad",
-    "status" : "409",
-    "code" : "STATE_ERROR.INVALID_REQUEST_ENTITY_STATE_INVALID",
-    "title" : "This subscription is not in a valid state.",
-    "detail" : "This subscription cannot be reviewed, please check associated errors.",
-    "meta" : {
-      "associatedErrors" : {
-        "/v1/subscriptions/6819877479" : [ {
-          "id" : "15303756-7385-4047-924a-2fd5e9c78601",
-          "status" : "409",
-          "code" : "STATE_ERROR.FIRST_SUBSCRIPTION_MUST_BE_SUBMITTED_ON_VERSION",
-          "title" : "The first subscription for an app must be submitted for review at the same time that you submit an app version."
-        } ]
-      }
-    }
-  } ]
-}
-NICHT eingereicht, weil das Abo nicht mitkam. Einreichung bleibt als Entwurf.
-Run 6 Wed Oct  7 15:55:56 UTC 2026
+App-Info: 420405c6-03e5-4cd2-8bc9-c9f83ade483a REJECTED
+Version: 1.0.0 REJECTED 5821f437-6385-4150-87f1-f006696a591b
+OK Prüfer-Kontakt und Hinweise
+Run 7 Thu Oct  8 06:34:08 UTC 2026
