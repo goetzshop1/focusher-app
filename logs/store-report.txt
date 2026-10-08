@@ -1,5 +1,9 @@
 App: FocusHer 6819870035 Primärsprache: de-DE Inhaltsrechte: DOES_NOT_USE_THIRD_PARTY_CONTENT
 App-Info: 420405c6-03e5-4cd2-8bc9-c9f83ade483a REJECTED
 Version: 1.0.0 REJECTED 5821f437-6385-4150-87f1-f006696a591b
-OK Prüfer-Kontakt und Hinweise
-Run 7 Thu Oct  8 06:34:08 UTC 2026
+Build: 7 VALID 
+Build: 6 VALID 
+Build: 5 VALID 
+Build: 4 VALID 
+OK Build 7 ausgewählt
+Run 8 Thu Oct  8 08:31:24 UTC 2026
