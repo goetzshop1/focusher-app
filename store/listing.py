@@ -83,16 +83,21 @@ Datenschutz: https://vellunaprints.de/focusher/datenschutz/
 
 FocusHer ist ein Werkzeug zur Alltagsorganisation und kein Medizinprodukt. Es ersetzt keine Diagnose und keine Behandlung."""
 
-REVIEW_NOTES = """No login or account is needed. All user data is stored locally on the device.
+REVIEW_NOTES = """1. Screen recording: attached in our reply in App Store Connect (recorded on iPhone, iOS latest, starting with app launch).
 
-How to test:
-- Tab "Heute": add a task (optionally with a deadline and reminders), tap the circle to complete it; a spark flies into the jar in tab "Journal".
-- Tab "Zerlegen": enter a task and tap "Zerlegen" - our backend asks an AI model for small steps (only the task text is sent).
-- Reminders are local notifications only.
+2. Purpose and audience: FocusHer is a calm, low-stimulus daily planner for adults with ADHD (and anyone who struggles with executive function). It solves task paralysis and missed deadlines: tasks are filtered by the user's current energy level, big tasks are broken into tiny steps, deadlines are highlighted with gentle reminders, and completed tasks become "sparks" in a jar instead of punishing streaks. The app is German only.
 
-Subscription: "FocusHer Vollversion" (product ID focusher_jahr), auto-renewable, 1 year, 29.99 EUR. Purchase in tab "Mehr" -> "Vollversion holen"; "Käufe wiederherstellen" restores it. During the first 7 days after installation all features are free (local trial, no payment). After that the free version keeps tasks, deadlines and reminders and limits the AI decomposer to once per day and the journal to the last 7 days.
+3. Instructions: No login, no account, no sample files needed. Open the app -> tab "Heute": move the energy slider, add a task (optionally with deadline and reminders), tap the circle to complete it. Tab "Zerlegen": enter a task and tap "Zerlegen" to get small steps. Tab "Journal": see completed sparks in the jar. Tab "Mehr": subscription, restore purchases, feedback, notification settings, delete data.
 
-The app is German only. Contact: goetzshop1@gmail.com"""
+4. External services: (a) Base44 (base44.com) hosts our small backend that forwards only the text of one task to an AI language model to generate steps (no user ID); (b) RevenueCat for subscription status, using Apple In-App Purchase / StoreKit as the payment processor. No analytics, no ads, no tracking, no login provider.
+
+5. Regions: Available in Germany, Austria, Switzerland, Liechtenstein and Luxembourg. The app works identically in all regions.
+
+6. Regulated industry: Not applicable. FocusHer is an organisation tool, not a medical device; it does not diagnose or treat anything and contains no third-party protected material.
+
+7. In-App Purchase: one auto-renewable subscription "FocusHer Vollversion" (focusher_jahr), 1 year, 29.99 EUR. During the first 7 days after installation all features are free (local trial, no payment). After that the free version keeps tasks, deadlines and reminders; the subscription unlocks unlimited AI decomposition and the full journal history. Purchase flow: tab "Mehr" -> "Vollversion holen" (title, length, price, Terms of Use (Apple EULA) and privacy policy links are shown). "Käufe wiederherstellen" restores purchases.
+
+Contact: Walter Götz, goetzshop1@gmail.com, +49 175 2884648"""
 
 SCREENSHOTS = [os.path.join(HERE, "screenshots", f) for f in (
     "FocusHer-Screenshot-1-heute.png", "FocusHer-Screenshot-2-zerlegen.png", "FocusHer-Screenshot-3-deadline.png",
