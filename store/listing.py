@@ -97,7 +97,7 @@ REVIEW_NOTES = """1. Screen recording: attached in our reply in App Store Connec
 
 7. In-App Purchase: one auto-renewable subscription "FocusHer Vollversion" (focusher_jahr), 1 year, 29.99 EUR. During the first 7 days after installation all features are free (local trial, no payment). After that the free version keeps tasks, deadlines and reminders; the subscription unlocks unlimited AI decomposition and the full journal history. Purchase flow: tab "Mehr" -> "Vollversion holen" (title, length, price, Terms of Use (Apple EULA) and privacy policy links are shown). "Käufe wiederherstellen" restores purchases.
 
-Contact: Walter Götz, goetzshop1@gmail.com, +49 175 2884648"""
+Contact: Walter Götz, goetzshop1@gmail.com, +49 175 2884748"""
 
 SCREENSHOTS = [os.path.join(HERE, "screenshots", f) for f in (
     "FocusHer-Screenshot-1-heute.png", "FocusHer-Screenshot-2-zerlegen.png", "FocusHer-Screenshot-3-deadline.png",
@@ -293,7 +293,7 @@ def s_screens():
 
 
 def s_review():
-    attrs = {"contactFirstName": "Walter", "contactLastName": "Götz", "contactPhone": "+49 175 2884648",
+    attrs = {"contactFirstName": "Walter", "contactLastName": "Götz", "contactPhone": "+49 175 2884748",
              "contactEmail": "goetzshop1@gmail.com", "demoAccountRequired": False, "notes": REVIEW_NOTES}
     cur = call("GET", f"/appStoreVersions/{C.version['id']}/appStoreReviewDetail", ok404=True)
     if cur and cur.get("data"):
