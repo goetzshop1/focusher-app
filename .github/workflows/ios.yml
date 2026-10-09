@@ -64,6 +64,11 @@ jobs:
           PB=/usr/libexec/PlistBuddy
           $PB -c "Set :CFBundleDisplayName FocusHer" $P
           $PB -c "Set :CFBundleDevelopmentRegion de" $P
+          # Deutsch + Englisch: sonst meldet die WebView auf iOS immer Deutsch als Gerätesprache
+          $PB -c "Delete :CFBundleLocalizations" $P || true
+          $PB -c "Add :CFBundleLocalizations array" $P
+          $PB -c "Add :CFBundleLocalizations:0 string de" $P
+          $PB -c "Add :CFBundleLocalizations:1 string en" $P
           $PB -c "Add :ITSAppUsesNonExemptEncryption bool false" $P || $PB -c "Set :ITSAppUsesNonExemptEncryption false" $P
           $PB -c "Delete :UISupportedInterfaceOrientations" $P || true
           $PB -c "Add :UISupportedInterfaceOrientations array" $P

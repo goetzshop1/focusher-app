@@ -264,17 +264,17 @@ nav.tabs button[aria-selected="true"] svg{color:var(--lav)}
     <div id="reminders" class="stack" hidden></div>
     <div class="stack" id="dlWrap" hidden>
       <div class="row" style="justify-content:space-between">
-        <h2>Mit Deadline</h2>
+        <h2 data-i18n="h.dl">Mit Deadline</h2>
         <span class="small muted" id="dlCount"></span>
       </div>
       <ul class="tasks dl-list" id="dlList"></ul>
     </div>
     <div class="card energy" aria-labelledby="eHead">
       <div class="row" style="justify-content:space-between">
-        <h2 id="eHead">Wie viel Kapazität hast du gerade?</h2>
+        <h2 id="eHead" data-i18n="e.head">Wie viel Kapazität hast du gerade?</h2>
       </div>
       <div class="battery" id="battery" data-l="1" aria-hidden="true"><span></span><span></span><span></span></div>
-      <input type="range" id="energy" min="0" max="2" step="1" value="1" aria-label="Energielevel" aria-valuetext="Mittel">
+      <input type="range" id="energy" min="0" max="2" step="1" value="1" aria-label="Energielevel" data-i18n-aria="e.aria" aria-valuetext="Mittel">
       <div class="scale"><span id="sc0">Wenig</span><span id="sc1">Mittel</span><span id="sc2">Viel</span></div>
       <div class="energy-hint muted" id="eHint"></div>
     </div>
@@ -283,7 +283,7 @@ nav.tabs button[aria-selected="true"] svg{color:var(--lav)}
 
     <div class="stack">
       <div class="row" style="justify-content:space-between">
-        <h2>Passt gerade</h2>
+        <h2 data-i18n="h.fit">Passt gerade</h2>
         <span class="small muted" id="fitCount"></span>
       </div>
       <ul class="tasks" id="fitList"></ul>
@@ -294,15 +294,15 @@ nav.tabs button[aria-selected="true"] svg{color:var(--lav)}
     </div>
 
     <form class="card stack" id="addForm" autocomplete="off">
-      <h3>Neue Aufgabe</h3>
+      <h3 data-i18n="add.head">Neue Aufgabe</h3>
       <div class="addrow">
-        <input class="field" id="addInput" placeholder="z. B. Paket zur Post bringen" maxlength="140">
-        <button class="btn" type="submit" aria-label="Aufgabe hinzufügen">+</button>
+        <input class="field" id="addInput" placeholder="z. B. Paket zur Post bringen" data-i18n-ph="add.ph" maxlength="140">
+        <button class="btn" type="submit" aria-label="Aufgabe hinzufügen" data-i18n-aria="add.aria">+</button>
       </div>
-      <div class="chips" id="addEnergy" role="group" aria-label="Benötigte Energie">
-        <button type="button" class="chip" data-e="low" aria-pressed="false"><span class="dot low"></span>Wenig</button>
-        <button type="button" class="chip" data-e="mid" aria-pressed="true"><span class="dot mid"></span>Mittel</button>
-        <button type="button" class="chip" data-e="high" aria-pressed="false"><span class="dot high"></span>Viel</button>
+      <div class="chips" id="addEnergy" role="group" aria-label="Benötigte Energie" data-i18n-aria="add.energyAria">
+        <button type="button" class="chip" data-e="low" aria-pressed="false"><span class="dot low"></span><span data-i18n="e.low">Wenig</span></button>
+        <button type="button" class="chip" data-e="mid" aria-pressed="true"><span class="dot mid"></span><span data-i18n="e.mid">Mittel</span></button>
+        <button type="button" class="chip" data-e="high" aria-pressed="false"><span class="dot high"></span><span data-i18n="e.high">Viel</span></button>
       </div>
       <button type="button" class="dl-toggle" id="dlToggle" aria-expanded="false" aria-controls="dlBox">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>
@@ -310,21 +310,21 @@ nav.tabs button[aria-selected="true"] svg{color:var(--lav)}
       </button>
       <div class="dl-box" id="dlBox" hidden>
         <div class="dl-row">
-          <label for="dlDate">Fällig am<input class="field" type="date" id="dlDate"></label>
-          <label for="dlTime">Uhrzeit<input class="field" type="time" id="dlTime" value="18:00"></label>
+          <label for="dlDate"><span data-i18n="dl.date">Fällig am</span><input class="field" type="date" id="dlDate"></label>
+          <label for="dlTime"><span data-i18n="dl.time">Uhrzeit</span><input class="field" type="time" id="dlTime" value="18:00"></label>
         </div>
-        <div class="small muted">Erinnere mich</div>
-        <div class="chips" id="dlRem" role="group" aria-label="Erinnerungen">
-          <button type="button" class="chip" data-m="10080" aria-pressed="false">1 Woche vorher</button>
-          <button type="button" class="chip" data-m="4320" aria-pressed="false">3 Tage vorher</button>
-          <button type="button" class="chip" data-m="1440" aria-pressed="true">1 Tag vorher</button>
-          <button type="button" class="chip" data-m="morning" aria-pressed="false">Am Morgen, 8 Uhr</button>
-          <button type="button" class="chip" data-m="180" aria-pressed="false">3 Std. vorher</button>
-          <button type="button" class="chip" data-m="60" aria-pressed="true">1 Std. vorher</button>
-          <button type="button" class="chip" data-m="15" aria-pressed="false">15 Min. vorher</button>
+        <div class="small muted" data-i18n="dl.remind">Erinnere mich</div>
+        <div class="chips" id="dlRem" role="group" aria-label="Erinnerungen" data-i18n-aria="dl.remAria">
+          <button type="button" class="chip" data-m="10080" aria-pressed="false" data-i18n="dl.r10080">1 Woche vorher</button>
+          <button type="button" class="chip" data-m="4320" aria-pressed="false" data-i18n="dl.r4320">3 Tage vorher</button>
+          <button type="button" class="chip" data-m="1440" aria-pressed="true" data-i18n="dl.r1440">1 Tag vorher</button>
+          <button type="button" class="chip" data-m="morning" aria-pressed="false" data-i18n="dl.rmorning">Am Morgen, 8 Uhr</button>
+          <button type="button" class="chip" data-m="180" aria-pressed="false" data-i18n="dl.r180">3 Std. vorher</button>
+          <button type="button" class="chip" data-m="60" aria-pressed="true" data-i18n="dl.r60">1 Std. vorher</button>
+          <button type="button" class="chip" data-m="15" aria-pressed="false" data-i18n="dl.r15">15 Min. vorher</button>
         </div>
-        <div class="small muted">Bis dahin regelmäßig erinnern an</div>
-        <div class="wk" id="dlDays" role="group" aria-label="Wochentage für Erinnerungen">
+        <div class="small muted" data-i18n="dl.repeat">Bis dahin regelmäßig erinnern an</div>
+        <div class="wk" id="dlDays" role="group" aria-label="Wochentage für Erinnerungen" data-i18n-aria="dl.daysAria">
           <button type="button" class="chip" data-d="1" aria-pressed="false">Mo</button>
           <button type="button" class="chip" data-d="2" aria-pressed="false">Di</button>
           <button type="button" class="chip" data-d="3" aria-pressed="false">Mi</button>
@@ -334,47 +334,47 @@ nav.tabs button[aria-selected="true"] svg{color:var(--lav)}
           <button type="button" class="chip" data-d="0" aria-pressed="false">So</button>
         </div>
         <div class="wk-time">
-          <button type="button" class="chip" id="dlEvery">Jeden Tag</button>
-          <button type="button" class="chip" id="dlWork">Mo bis Fr</button>
-          <label for="dlDayTime" style="display:flex;align-items:center;gap:6px">um <input class="field" type="time" id="dlDayTime" value="09:00"> Uhr</label>
+          <button type="button" class="chip" id="dlEvery" data-i18n="dl.every">Jeden Tag</button>
+          <button type="button" class="chip" id="dlWork" data-i18n="dl.work">Mo bis Fr</button>
+          <label for="dlDayTime" style="display:flex;align-items:center;gap:6px"><span data-i18n="dl.at">um</span> <input class="field" type="time" id="dlDayTime" value="09:00"><span data-i18n="dl.oclock"> Uhr</span></label>
         </div>
-        <p class="dl-hint">Ohne Datum erinnert dich FocusHer an diesen Tagen, bis die Aufgabe erledigt ist.</p>
-        <button type="button" class="btn ghost" id="dlClear" style="min-height:38px;padding:8px 12px">Deadline entfernen</button>
+        <p class="dl-hint" data-i18n="dl.hint">Ohne Datum erinnert dich FocusHer an diesen Tagen, bis die Aufgabe erledigt ist.</p>
+        <button type="button" class="btn ghost" id="dlClear" style="min-height:38px;padding:8px 12px" data-i18n="dl.clear">Deadline entfernen</button>
       </div>
-      <p class="small muted" style="margin:0">Zu groß? Im Tab <b>Zerlegen</b> machst du daraus kleine Schritte.</p>
+      <p class="small muted" style="margin:0" data-i18n-html="add.tooBig">Zu groß? Im Tab <b>Zerlegen</b> machst du daraus kleine Schritte.</p>
     </form>
   </section>
 
   <!-- ZERLEGEN -->
   <section class="screen" id="s-zerlegen" data-screen="zerlegen" hidden>
     <div class="stack">
-      <span class="eyebrow">Aufgaben-Zerleger</span>
-      <h2>Was fühlt sich gerade zu groß an?</h2>
-      <p class="muted" style="margin:0">Schreib die Aufgabe so, wie sie dir im Kopf herumgeht. Daraus werden 3 bis 5 Schritte, und der erste ist immer leicht.</p>
+      <span class="eyebrow" data-i18n="dec.eyebrow">Aufgaben-Zerleger</span>
+      <h2 data-i18n="dec.head">Was fühlt sich gerade zu groß an?</h2>
+      <p class="muted" style="margin:0" data-i18n="dec.intro">Schreib die Aufgabe so, wie sie dir im Kopf herumgeht. Daraus werden 3 bis 5 Schritte, und der erste ist immer leicht.</p>
     </div>
     <form class="card stack" id="decForm" autocomplete="off">
-      <textarea class="field" id="decInput" maxlength="200" placeholder="z. B. Steuererklärung machen"></textarea>
-      <div class="chips" id="decSuggest" aria-label="Beispiele"></div>
+      <textarea class="field" id="decInput" maxlength="200" placeholder="z. B. Steuererklärung machen" data-i18n-ph="dec.ph"></textarea>
+      <div class="chips" id="decSuggest" aria-label="Beispiele" data-i18n-aria="dec.sugAria"></div>
       <div class="row" style="justify-content:space-between">
-        <div class="chips" id="decCount" role="group" aria-label="Anzahl der Schritte">
-          <button type="button" class="chip" data-n="3" aria-pressed="false">3 Schritte</button>
+        <div class="chips" id="decCount" role="group" aria-label="Anzahl der Schritte" data-i18n-aria="dec.countAria">
+          <button type="button" class="chip" data-n="3" aria-pressed="false" data-i18n="dec.n3">3 Schritte</button>
           <button type="button" class="chip" data-n="4" aria-pressed="true">4</button>
           <button type="button" class="chip" data-n="5" aria-pressed="false">5</button>
         </div>
       </div>
-      <button class="btn block" type="submit" id="decBtn">Zerlegen</button>
+      <button class="btn block" type="submit" id="decBtn" data-i18n="dec.btn">Zerlegen</button>
       <div class="ai-note" id="aiNote"><span class="ai-dot" id="aiDot"></span><span id="aiTxt">KI wird verbunden …</span></div>
       <div class="msg" id="decMsg"></div>
     </form>
 
     <div class="stack" id="decResult" hidden>
       <div class="row" style="justify-content:space-between">
-        <h2 id="decTitle">Deine Schritte</h2>
-        <button class="btn soft" type="button" id="decAgain">Andere Variante</button>
+        <h2 id="decTitle" data-i18n="dec.yourSteps">Deine Schritte</h2>
+        <button class="btn soft" type="button" id="decAgain" data-i18n="dec.again">Andere Variante</button>
       </div>
-      <p class="small muted" style="margin:0">Tippe auf einen Text, um ihn zu ändern. Tippe auf das Energie-Etikett, um es zu wechseln.</p>
+      <p class="small muted" style="margin:0" data-i18n="dec.editHint">Tippe auf einen Text, um ihn zu ändern. Tippe auf das Energie-Etikett, um es zu wechseln.</p>
       <ol class="steps" id="decSteps"></ol>
-      <button class="btn block" type="button" id="decAdd">Alle in „Heute“ übernehmen</button>
+      <button class="btn block" type="button" id="decAdd" data-i18n="dec.addAll">Alle in „Heute“ übernehmen</button>
     </div>
     <div id="decLock"></div>
   </section>
@@ -382,39 +382,39 @@ nav.tabs button[aria-selected="true"] svg{color:var(--lav)}
   <!-- JOURNAL -->
   <section class="screen" id="s-journal" data-screen="journal" hidden>
     <div class="stack">
-      <span class="eyebrow">Funken-Journal</span>
-      <h2>Alles, was du geschafft hast, bleibt hier.</h2>
-      <p class="muted" style="margin:0">Hier gibt es keine Serie, die reißen kann. Jeder Funke zählt, auch nach einer Pause.</p>
+      <span class="eyebrow" data-i18n="j.eyebrow">Funken-Journal</span>
+      <h2 data-i18n="j.head">Alles, was du geschafft hast, bleibt hier.</h2>
+      <p class="muted" style="margin:0" data-i18n="j.intro">Hier gibt es keine Serie, die reißen kann. Jeder Funke zählt, auch nach einer Pause.</p>
     </div>
     <div class="stats">
-      <div class="stat"><b id="stTotal">0</b><span>Funken gesamt</span></div>
-      <div class="stat"><b id="stWeek">0</b><span>diese Woche</span></div>
-      <div class="stat"><b id="stDays">0</b><span>Tage mit Funken im Monat</span></div>
+      <div class="stat"><b id="stTotal">0</b><span data-i18n="j.total">Funken gesamt</span></div>
+      <div class="stat"><b id="stWeek">0</b><span data-i18n="j.week">diese Woche</span></div>
+      <div class="stat"><b id="stDays">0</b><span data-i18n="j.days">Tage mit Funken im Monat</span></div>
     </div>
     <div class="jarbox">
-      <svg id="jarSvg" viewBox="0 0 240 290" role="img" aria-label="Funkenglas der letzten 30 Tage"></svg>
-      <button class="linkbtn" type="button" id="replayJar">Letzte Funken nochmal einfüllen</button>
-      <p class="small muted" style="margin:0;text-align:center">Jeder Funke ist etwas, das du geschafft hast. Das Glas zeigt die letzten 30 Tage.<br><span class="dot low"></span>leicht <span class="dot mid"></span>mittel <span class="dot high"></span>groß <span class="dot" style="background:var(--lav)"></span>eigener Erfolg</p>
+      <svg id="jarSvg" viewBox="0 0 240 290" role="img" aria-label="Funkenglas der letzten 30 Tage" data-i18n-aria="j.jarAria"></svg>
+      <button class="linkbtn" type="button" id="replayJar" data-i18n="j.replay">Letzte Funken nochmal einfüllen</button>
+      <p class="small muted" style="margin:0;text-align:center" data-i18n-html="j.legend">Jeder Funke ist etwas, das du geschafft hast. Das Glas zeigt die letzten 30 Tage.<br><span class="dot low"></span>leicht <span class="dot mid"></span>mittel <span class="dot high"></span>groß <span class="dot" style="background:var(--lav)"></span>eigener Erfolg</p>
     </div>
 
     <form class="card stack" id="winForm" autocomplete="off">
-      <h3>Kleiner Erfolg, der auf keiner Liste stand</h3>
-      <input class="field" id="winInput" maxlength="140" placeholder="z. B. Ich habe heute Wasser getrunken">
-      <div class="chips" id="winMood" role="group" aria-label="Wie fühlt es sich an?"></div>
-      <button class="btn" type="submit">Ins Glas legen</button>
+      <h3 data-i18n="j.winHead">Kleiner Erfolg, der auf keiner Liste stand</h3>
+      <input class="field" id="winInput" maxlength="140" placeholder="z. B. Ich habe heute Wasser getrunken" data-i18n-ph="j.winPh">
+      <div class="chips" id="winMood" role="group" aria-label="Wie fühlt es sich an?" data-i18n-aria="j.moodAria"></div>
+      <button class="btn" type="submit" data-i18n="j.winBtn">Ins Glas legen</button>
     </form>
 
     <div class="card stack">
       <div class="row" style="justify-content:space-between">
-        <h3>Dein Monat</h3>
+        <h3 data-i18n="j.month">Dein Monat</h3>
         <span class="small muted" id="calMonth"></span>
       </div>
       <div class="cal" id="cal"></div>
-      <p class="small muted" style="margin:0">Leere Tage sind einfach leer. Sie sind kein Fehler.</p>
+      <p class="small muted" style="margin:0" data-i18n="j.emptyDays">Leere Tage sind einfach leer. Sie sind kein Fehler.</p>
     </div>
 
     <div class="stack">
-      <h2>Verlauf</h2>
+      <h2 data-i18n="j.history">Verlauf</h2>
       <ul class="entries" id="entries"></ul>
       <div id="histLock"></div>
     </div>
@@ -424,39 +424,39 @@ nav.tabs button[aria-selected="true"] svg{color:var(--lav)}
   <section class="screen" id="s-mehr" data-screen="mehr" hidden>
     <div class="card stack" id="unlockCard">
       <div class="row" style="justify-content:space-between">
-        <h2>FocusHer Vollversion</h2>
+        <h2 data-i18n="plan.head">FocusHer Vollversion</h2>
         <span class="status" id="planStatus"></span>
       </div>
       <p class="muted" style="margin:0" id="planText"></p>
       <ul class="plan-list" id="planList">
-        <li>Unbegrenzt Aufgaben zerlegen</li>
-        <li>Dein ganzes Funken-Journal, ohne Zeitgrenze</li>
-        <li>KI-Zerleger und alle neuen Funktionen</li>
+        <li data-i18n="plan.l1">Unbegrenzt Aufgaben zerlegen</li>
+        <li data-i18n="plan.l2">Dein ganzes Funken-Journal, ohne Zeitgrenze</li>
+        <li data-i18n="plan.l3">KI-Zerleger und alle neuen Funktionen</li>
       </ul>
       <div class="stack" id="buyBox" style="gap:10px">
-        <button class="btn block buy" type="button" id="buyBtn">Vollversion holen · <span id="buyPrice">29,99 €</span> pro Jahr</button>
-        <p class="sub-note">Das sind etwa 2,50 € im Monat. Das Abo verlängert sich jedes Jahr automatisch und lässt sich jederzeit in den Einstellungen deines Apple- oder Google-Kontos kündigen, spätestens 24 Stunden vor Ablauf.</p>
+        <button class="btn block buy" type="button" id="buyBtn"><span data-i18n="buy.pre">Vollversion holen · </span><span id="buyPrice">29,99 €</span><span data-i18n="buy.post"> pro Jahr</span></button>
+        <p class="sub-note" data-i18n="buy.note">Das sind etwa 2,50 € im Monat. Das Abo verlängert sich jedes Jahr automatisch und lässt sich jederzeit in den Einstellungen deines Apple- oder Google-Kontos kündigen, spätestens 24 Stunden vor Ablauf.</p>
         <div class="msg" id="buyMsg"></div>
         <div class="row" style="justify-content:center;gap:18px">
-          <button class="linkbtn" type="button" id="restoreBtn">Kauf wiederherstellen</button>
-          <a class="linkbtn" href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/" target="_blank" rel="noopener" id="termsLink">Nutzungsbedingungen</a>
-          <a class="linkbtn" href="https://vellunaprints.de/focusher/datenschutz" target="_blank" rel="noopener" id="privacyLink">Datenschutz</a>
+          <button class="linkbtn" type="button" id="restoreBtn" data-i18n="buy.restore">Kauf wiederherstellen</button>
+          <a class="linkbtn" href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/" target="_blank" rel="noopener" id="termsLink" data-i18n="buy.terms">Nutzungsbedingungen</a>
+          <a class="linkbtn" href="https://vellunaprints.de/focusher/datenschutz" target="_blank" rel="noopener" id="privacyLink" data-i18n="buy.privacy">Datenschutz</a>
         </div>
       </div>
     </div>
 
     <div class="card">
-      <h3 style="margin-bottom:4px">Darstellung</h3>
+      <h3 style="margin-bottom:4px" data-i18n="set.display">Darstellung</h3>
       <div class="setrow">
-        <div class="lbl">Dunkler Modus</div>
-        <button class="toggle" role="switch" id="tgDark" aria-checked="true" aria-label="Dunkler Modus"></button>
+        <div class="lbl" data-i18n="set.dark">Dunkler Modus</div>
+        <button class="toggle" role="switch" id="tgDark" aria-checked="true" aria-label="Dunkler Modus" data-i18n-aria="set.dark"></button>
       </div>
       <div class="setrow">
-        <div class="lbl">Reizarmer Modus<div class="small muted">Keine Animationen, kein Begrüßungstext</div></div>
-        <button class="toggle" role="switch" id="tgCalm" aria-checked="false" aria-label="Reizarmer Modus"></button>
+        <div class="lbl"><span data-i18n="set.calm">Reizarmer Modus</span><div class="small muted" data-i18n="set.calmSub">Keine Animationen, kein Begrüßungstext</div></div>
+        <button class="toggle" role="switch" id="tgCalm" aria-checked="false" aria-label="Reizarmer Modus" data-i18n-aria="set.calm"></button>
       </div>
       <div class="setrow">
-        <div class="lbl">Textgröße</div>
+        <div class="lbl" data-i18n="set.size">Textgröße</div>
         <div class="chips" id="sizeChips">
           <button type="button" class="chip" data-s="m" aria-pressed="true">A</button>
           <button type="button" class="chip" data-s="l" aria-pressed="false" style="font-size:1em">A</button>
@@ -464,57 +464,65 @@ nav.tabs button[aria-selected="true"] svg{color:var(--lav)}
         </div>
       </div>
       <div class="setrow">
-        <div class="lbl">Dein Name<div class="small muted">Für die Begrüßung, freiwillig</div></div>
-        <input class="field" id="nameInput" maxlength="24" style="max-width:150px" placeholder="optional">
+        <div class="lbl"><span data-i18n="set.name">Dein Name</span><div class="small muted" data-i18n="set.nameSub">Für die Begrüßung, freiwillig</div></div>
+        <input class="field" id="nameInput" maxlength="24" style="max-width:150px" placeholder="optional" data-i18n-ph="set.namePh">
+      </div>
+      <div class="setrow" style="flex-wrap:wrap">
+        <div class="lbl"><span data-i18n="set.lang">Sprache / Language</span><div class="small muted" id="langSub"></div></div>
+        <div class="chips" id="langChips" role="group" aria-label="Sprache" data-i18n-aria="set.langAria">
+          <button type="button" class="chip" data-l="auto" aria-pressed="true" data-i18n="set.langAuto">Automatisch</button>
+          <button type="button" class="chip" data-l="de" aria-pressed="false" lang="de">Deutsch</button>
+          <button type="button" class="chip" data-l="en" aria-pressed="false" lang="en">English</button>
+        </div>
       </div>
     </div>
 
     <form class="card stack" id="fbForm" autocomplete="off">
       <div>
-        <h3>Feedback geben</h3>
-        <p class="small muted" style="margin:4px 0 0">Was hilft dir, was fehlt, was nervt? Jede Nachricht wird gelesen und hilft, FocusHer besser zu machen.</p>
+        <h3 data-i18n="fb.head">Feedback geben</h3>
+        <p class="small muted" style="margin:4px 0 0" data-i18n="fb.intro">Was hilft dir, was fehlt, was nervt? Jede Nachricht wird gelesen und hilft, FocusHer besser zu machen.</p>
       </div>
-      <div class="chips" id="fbType" role="group" aria-label="Art des Feedbacks">
-        <button type="button" class="chip" data-t="idee" aria-pressed="true">Idee</button>
-        <button type="button" class="chip" data-t="fehler" aria-pressed="false">Etwas klappt nicht</button>
-        <button type="button" class="chip" data-t="lob" aria-pressed="false">Lob</button>
+      <div class="chips" id="fbType" role="group" aria-label="Art des Feedbacks" data-i18n-aria="fb.typeAria">
+        <button type="button" class="chip" data-t="idee" aria-pressed="true" data-i18n="fb.idee">Idee</button>
+        <button type="button" class="chip" data-t="fehler" aria-pressed="false" data-i18n="fb.fehler">Etwas klappt nicht</button>
+        <button type="button" class="chip" data-t="lob" aria-pressed="false" data-i18n="fb.lob">Lob</button>
       </div>
-      <textarea class="field" id="fbText" maxlength="1500" placeholder="Schreib einfach los, ein Satz reicht."></textarea>
-      <button class="btn" type="submit" id="fbBtn">Feedback senden</button>
+      <textarea class="field" id="fbText" maxlength="1500" placeholder="Schreib einfach los, ein Satz reicht." data-i18n-ph="fb.ph"></textarea>
+      <button class="btn" type="submit" id="fbBtn" data-i18n="fb.btn">Feedback senden</button>
       <div class="msg" id="fbMsg"></div>
     </form>
 
     <div class="card">
-      <h3 style="margin-bottom:4px">Erinnerungen</h3>
+      <h3 style="margin-bottom:4px" data-i18n="set.rem">Erinnerungen</h3>
       <div class="setrow">
-        <div class="lbl">Mitteilungen auf diesem Gerät<div class="small muted" id="notifNote">Erinnert dich auch, wenn FocusHer im Hintergrund offen ist</div></div>
-        <button class="toggle" role="switch" id="tgNotif" aria-checked="false" aria-label="Mitteilungen"></button>
+        <div class="lbl"><span data-i18n="set.notif">Mitteilungen auf diesem Gerät</span><div class="small muted" id="notifNote" data-i18n="set.notifSub">Erinnert dich auch, wenn FocusHer im Hintergrund offen ist</div></div>
+        <button class="toggle" role="switch" id="tgNotif" aria-checked="false" aria-label="Mitteilungen" data-i18n-aria="set.notifAria"></button>
       </div>
-      <p class="small muted" style="margin:10px 0 0">Damit eine Erinnerung sicher ankommt, auch wenn die App geschlossen ist, trag die Aufgabe zusätzlich in deinen Kalender ein. Tippe dafür in der Liste auf das Datum der Aufgabe.</p>
+      <p class="small muted" style="margin:10px 0 0" data-i18n="set.remNote">Damit eine Erinnerung sicher ankommt, auch wenn die App geschlossen ist, trag die Aufgabe zusätzlich in deinen Kalender ein. Tippe dafür in der Liste auf das Datum der Aufgabe.</p>
     </div>
 
     <div class="stack" style="align-items:center;gap:8px">
-      <p class="small muted" style="text-align:center;margin:0">Alles bleibt auf diesem Gerät. Kein Konto, keine Töne.<br>FocusHer ersetzt keine ärztliche oder therapeutische Begleitung.<br>Ein Projekt von VellunaPrintsDesign</p>
+      <p class="small muted" style="text-align:center;margin:0" data-i18n-html="footer">Alles bleibt auf diesem Gerät. Kein Konto, keine Töne.<br>FocusHer ersetzt keine ärztliche oder therapeutische Begleitung.<br>Ein Projekt von VellunaPrintsDesign</p>
       <div class="confirm" id="resetWrap" style="justify-content:center"></div>
       <div class="msg" id="dataMsg"></div>
     </div>
   </section>
 </div>
 
-<nav class="tabs" aria-label="Bereiche">
+<nav class="tabs" aria-label="Bereiche" data-i18n-aria="nav.aria">
   <div class="in" role="tablist">
     <button role="tab" data-go="heute" aria-selected="true">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6l1.4 1.4M17 17l1.4 1.4M5.6 18.4 7 17M17 7l1.4-1.4"/></svg>Heute</button>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6l1.4 1.4M17 17l1.4 1.4M5.6 18.4 7 17M17 7l1.4-1.4"/></svg><span data-i18n="nav.heute">Heute</span></button>
     <button role="tab" data-go="zerlegen" aria-selected="false">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="4" width="18" height="5" rx="2"/><path d="M6 13h12M8 17h8M10 21h4"/></svg>Zerlegen</button>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="4" width="18" height="5" rx="2"/><path d="M6 13h12M8 17h8M10 21h4"/></svg><span data-i18n="nav.zerlegen">Zerlegen</span></button>
     <button role="tab" data-go="journal" aria-selected="false">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M8 3h8M9 3v3c-2.5 1-4 3.2-4 6v6a3 3 0 0 0 3 3h8a3 3 0 0 0 3-3v-6c0-2.8-1.5-5-4-6V3"/><circle cx="10" cy="15" r="1.2" fill="currentColor"/><circle cx="14" cy="13" r="1.2" fill="currentColor"/><circle cx="13" cy="17" r="1.2" fill="currentColor"/></svg>Journal</button>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M8 3h8M9 3v3c-2.5 1-4 3.2-4 6v6a3 3 0 0 0 3 3h8a3 3 0 0 0 3-3v-6c0-2.8-1.5-5-4-6V3"/><circle cx="10" cy="15" r="1.2" fill="currentColor"/><circle cx="14" cy="13" r="1.2" fill="currentColor"/><circle cx="13" cy="17" r="1.2" fill="currentColor"/></svg><span data-i18n="nav.journal">Journal</span></button>
     <button role="tab" data-go="mehr" aria-selected="false">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="5" cy="12" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="19" cy="12" r="1.5"/></svg>Mehr</button>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="5" cy="12" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="19" cy="12" r="1.5"/></svg><span data-i18n="nav.mehr">Mehr</span></button>
   </div>
 </nav>
 
-<div class="toast" id="toast" hidden role="status"><span id="toastTxt"></span><button type="button" id="toastUndo">Rückgängig</button></div>
+<div class="toast" id="toast" hidden role="status"><span id="toastTxt"></span><button type="button" id="toastUndo" data-i18n="toast.undo">Rückgängig</button></div>
 
 <script>
 (function(){
@@ -532,19 +540,250 @@ const FREE_DECOMPOSE_PER_DAY = 1;
 const FREE_HISTORY_DAYS = 7;
 const $ = s => document.querySelector(s);
 const $$ = s => Array.from(document.querySelectorAll(s));
+/* ---------- Sprache (Deutsch/Englisch) ----------
+   Alle sichtbaren Texte laufen über t(key, vars). Werte können Text, Liste oder {one, other} (Mehrzahl über vars.n) sein.
+   Auswahl: S.settings.lang = "auto" | "de" | "en"; "auto" folgt der Gerätesprache (alles mit "de" → Deutsch, sonst Englisch). */
+const I18N = {
+de: {
+  "greet.night":"Gute Nacht", "greet.morning":"Guten Morgen", "greet.hello":"Hallo", "greet.evening":"Guten Abend", "greet.name":"{g}, {name}",
+  "h.dl":"Mit Deadline", "e.head":"Wie viel Kapazität hast du gerade?", "e.aria":"Energielevel",
+  "e.low":"Wenig", "e.mid":"Mittel", "e.high":"Viel",
+  "es.low":"leicht", "es.mid":"mittel", "es.high":"groß",
+  "hint.0":"Wenig Energie ist ein echter Zustand und kein Versagen. Hier stehen nur Dinge, die kaum Kraft kosten.",
+  "hint.1":"Ein mittlerer Tag. Leichte und mittlere Aufgaben stehen oben, große warten unten.",
+  "hint.2":"Gute Kapazität. Die großen Brocken stehen jetzt vorne, solange es sich gut anfühlt.",
+  "h.fit":"Passt gerade", "later.sum":"Später, mit mehr Energie ({n})",
+  "add.head":"Neue Aufgabe", "add.ph":"z. B. Paket zur Post bringen", "add.aria":"Aufgabe hinzufügen", "add.energyAria":"Benötigte Energie",
+  "dl.toggle":"Deadline und Erinnerung hinzufügen", "dl.toggleOpen":"Deadline und Erinnerung",
+  "dl.date":"Fällig am", "dl.time":"Uhrzeit", "dl.remind":"Erinnere mich", "dl.remAria":"Erinnerungen",
+  "dl.r10080":"1 Woche vorher", "dl.r4320":"3 Tage vorher", "dl.r1440":"1 Tag vorher", "dl.rmorning":"Am Morgen, 8 Uhr", "dl.r180":"3 Std. vorher", "dl.r60":"1 Std. vorher", "dl.r15":"15 Min. vorher",
+  "dl.repeat":"Bis dahin regelmäßig erinnern an", "dl.daysAria":"Wochentage für Erinnerungen",
+  "dl.every":"Jeden Tag", "dl.work":"Mo bis Fr", "dl.at":"um", "dl.oclock":" Uhr",
+  "dl.hint":"Ohne Datum erinnert dich FocusHer an diesen Tagen, bis die Aufgabe erledigt ist.", "dl.clear":"Deadline entfernen",
+  "add.tooBig":"Zu groß? Im Tab <b>Zerlegen</b> machst du daraus kleine Schritte.",
+  "wd":["So","Mo","Di","Mi","Do","Fr","Sa"], "weekly.daily":"täglich", "weekly.work":"Mo–Fr",
+  "task.reopen":"Wieder öffnen: {t}", "task.done":"Erledigt: {t}", "task.delete":"Löschen: {t}", "task.partOf":"Teil von: {p}", "task.example":"Beispiel",
+  "badge.due":"Fällig {d}", "badge.weekly":"erinnert {w}", "badge.rem":"{n}× Erinnerung", "badge.aria":"{p}. In den Kalender eintragen",
+  "count.tasks":{one:"1 Aufgabe", other:"{n} Aufgaben"},
+  "focus.eyebrow":"Nur diese eine Sache", "focus.rest":"Der Rest kann warten.",
+  "note.nofit":"Gerade passt nichts zu deiner Energie. Das ist in Ordnung. Ruh dich aus oder lege unten eine sehr kleine Aufgabe an.",
+  "note.empty":"Deine Liste ist leer. Wenn dir etwas einfällt, trag es unten ein. Sonst darfst du einfach sein.",
+  "fit.doneToday":"{n} heute erledigt",
+  "toast.spark":"Funke gesammelt", "toast.deleted":"Aufgabe gelöscht", "toast.undo":"Rückgängig",
+  "rem.10080":"in einer Woche", "rem.4320":"in 3 Tagen", "rem.1440":"morgen", "rem.morning":"heute", "rem.180":"in 3 Stunden", "rem.60":"in einer Stunde", "rem.15":"in 15 Minuten", "rem.due":"jetzt",
+  "due.past":"Frist war {x}", "due.today":"heute {time}", "due.tomorrow":"morgen {time}",
+  "cal.details":"Aus FocusHer. Erster kleiner Schritt reicht.", "cal.detailsWeekly":"Aus FocusHer. Ein kleiner Schritt zählt schon.", "cal.remTitle":"Erinnerung: {t}",
+  "cal.google":"Deadline in Google Kalender", "cal.googleWeekly":"Wiederholung in Google Kalender", "cal.apple":"In Apple Kalender (iPhone)",
+  "remind.eyebrow":"Erinnerung", "remind.due":"Die Frist ist jetzt erreicht ({d}). Ein kleiner Schritt reicht, oder plane sie neu.",
+  "remind.weekly":"Deine Erinnerung für heute.", "remind.weeklyDue":" Fällig {d}.", "remind.weeklySmall":" Ein kleiner Schritt zählt schon.",
+  "remind.before":"Fällig {when}: {d}.", "remind.done":"Erledigt", "remind.snooze":"In 30 Min. nochmal", "remind.ok":"Okay",
+  "notif.due":"Die Frist ist jetzt erreicht.", "notif.before":"Fällig {when}.",
+  "dec.eyebrow":"Aufgaben-Zerleger", "dec.head":"Was fühlt sich gerade zu groß an?",
+  "dec.intro":"Schreib die Aufgabe so, wie sie dir im Kopf herumgeht. Daraus werden 3 bis 5 Schritte, und der erste ist immer leicht.",
+  "dec.ph":"z. B. Steuererklärung machen", "dec.sugAria":"Beispiele", "dec.countAria":"Anzahl der Schritte", "dec.n3":"3 Schritte",
+  "dec.btn":"Zerlegen", "dec.yourSteps":"Deine Schritte", "dec.again":"Andere Variante",
+  "dec.editHint":"Tippe auf einen Text, um ihn zu ändern. Tippe auf das Energie-Etikett, um es zu wechseln.",
+  "dec.addAll":"Alle in „Heute“ übernehmen", "dec.title":"„{x}“", "dec.thinking":"Ich überlege mir passende Schritte …",
+  "dec.rate":"Die KI braucht gerade eine kurze Pause. Hier sind Schritte aus den Vorlagen.",
+  "dec.offline":"Die KI war gerade nicht erreichbar. Hier sind Schritte aus den Vorlagen.",
+  "dec.empty":"Schreib zuerst die Aufgabe ins Feld.", "dec.added":"{n} Schritte stehen jetzt unter „Heute“.",
+  "dec.suggest":["Steuererklärung machen","Küche aufräumen","Arzttermin vereinbaren","Präsentation vorbereiten","Kleiderschrank ausmisten"],
+  "ai.on":"KI-Zerleger aktiv. Die Schritte passen genau zu deiner Aufgabe.", "ai.wait":"KI wird verbunden …", "ai.off":"Offline-Zerleger aktiv. Die Schritte kommen aus festen Vorlagen.",
+  "step.aria":"Schritt {n}", "step.energyAria":"Energie für Schritt {n}: {e}. Tippen zum Wechseln", "step.remove":"Schritt entfernen",
+  "lock.eyebrow":"Kostenlose Version", "lock.see":"Vollversion ansehen",
+  "lock.blocked":"Für heute ist dein kostenloser Zerleger aufgebraucht. Morgen geht es wieder, oder du schaltest die Vollversion frei.",
+  "lock.info":"Kostenlos kannst du eine Aufgabe pro Tag zerlegen (heute: {used} von {max}).",
+  "j.eyebrow":"Funken-Journal", "j.head":"Alles, was du geschafft hast, bleibt hier.",
+  "j.intro":"Hier gibt es keine Serie, die reißen kann. Jeder Funke zählt, auch nach einer Pause.",
+  "j.total":"Funken gesamt", "j.week":"diese Woche", "j.days":"Tage mit Funken im Monat",
+  "j.jarAria":"Funkenglas der letzten 30 Tage", "j.replay":"Letzte Funken nochmal einfüllen",
+  "j.legend":'Jeder Funke ist etwas, das du geschafft hast. Das Glas zeigt die letzten 30 Tage.<br><span class="dot low"></span>leicht <span class="dot mid"></span>mittel <span class="dot high"></span>groß <span class="dot" style="background:var(--lav)"></span>eigener Erfolg',
+  "j.winHead":"Kleiner Erfolg, der auf keiner Liste stand", "j.winPh":"z. B. Ich habe heute Wasser getrunken", "j.moodAria":"Wie fühlt es sich an?", "j.winBtn":"Ins Glas legen",
+  "j.month":"Dein Monat", "j.emptyDays":"Leere Tage sind einfach leer. Sie sind kein Fehler.", "j.history":"Verlauf",
+  "j.moods":["ruhig","stolz","erleichtert","müde, aber da"],
+  "cal.dayAria":"{d}. {c}", "cal.sparks":"{n} Funken", "cal.none":"keine Einträge",
+  "hist.empty":"Noch keine Einträge. Erledigte Aufgaben erscheinen hier automatisch.", "hist.today":"Heute", "hist.yesterday":"Gestern",
+  "hist.locked":"{n} ältere Funken sind sicher gespeichert. Mit der Vollversion siehst du deinen ganzen Verlauf.",
+  "jar.empty1":"Noch leer.", "jar.empty2":"Dein erster Funke kommt hierher.", "jar.aria":"Funkenglas: {n} Funken in den letzten 30 Tagen",
+  "plan.head":"FocusHer Vollversion", "plan.l1":"Unbegrenzt Aufgaben zerlegen", "plan.l2":"Dein ganzes Funken-Journal, ohne Zeitgrenze", "plan.l3":"KI-Zerleger und alle neuen Funktionen",
+  "buy.pre":"Vollversion holen · ", "buy.post":" pro Jahr",
+  "buy.note":"Das sind etwa 2,50 € im Monat. Das Abo verlängert sich jedes Jahr automatisch und lässt sich jederzeit in den Einstellungen deines Apple- oder Google-Kontos kündigen, spätestens 24 Stunden vor Ablauf.",
+  "buy.restore":"Kauf wiederherstellen", "buy.terms":"Nutzungsbedingungen", "buy.privacy":"Datenschutz",
+  "plan.unlocked":"Freigeschaltet", "plan.thanks":"Danke! Dein Jahresabo ist aktiv, alle Funktionen sind freigeschaltet.",
+  "plan.trial":{one:"Test: noch {n} Tag", other:"Test: noch {n} Tage"},
+  "plan.trialText":"Du testest gerade alles 7 Tage kostenlos. Danach bleiben Aufgaben, Deadlines, Erinnerungen und die letzten 7 Tage im Journal kostenlos.",
+  "plan.free":"Kostenlose Version",
+  "plan.freeText":"Deine 7 Testtage sind vorbei, alle deine Daten sind noch da. Mit dem Jahresabo bekommst du unbegrenztes Zerlegen und deinen ganzen Verlauf zurück.",
+  "buy.opening":"Kauf wird geöffnet …", "buy.ok":"Freigeschaltet. Viel Freude mit FocusHer!",
+  "buy.err":"Der Kauf hat nicht geklappt. Es wurde nichts abgebucht. Versuch es bitte später noch einmal.",
+  "buy.web":"In der App aus dem App Store oder Google Play kaufst du hier direkt über Apple oder Google. In dieser Browser-Vorschau gibt es noch keinen Kauf.",
+  "restore.checking":"Käufe werden geprüft …", "restore.ok":"Dein Kauf ist wiederhergestellt.", "restore.none":"Mit diesem Apple- oder Google-Konto wurde noch kein Kauf gefunden.",
+  "restore.err":"Das Wiederherstellen hat nicht geklappt. Prüfe deine Internetverbindung.", "restore.web":"Wiederherstellen funktioniert in der App aus dem App Store oder Google Play.",
+  "set.display":"Darstellung", "set.dark":"Dunkler Modus", "set.calm":"Reizarmer Modus", "set.calmSub":"Keine Animationen, kein Begrüßungstext",
+  "set.size":"Textgröße", "set.name":"Dein Name", "set.nameSub":"Für die Begrüßung, freiwillig", "set.namePh":"optional",
+  "set.lang":"Sprache / Language", "set.langAuto":"Automatisch", "set.langSub":"Automatisch folgt deinem Gerät ({l})", "set.langAria":"Sprache",
+  "fb.head":"Feedback geben", "fb.intro":"Was hilft dir, was fehlt, was nervt? Jede Nachricht wird gelesen und hilft, FocusHer besser zu machen.",
+  "fb.typeAria":"Art des Feedbacks", "fb.idee":"Idee", "fb.fehler":"Etwas klappt nicht", "fb.lob":"Lob", "fb.ph":"Schreib einfach los, ein Satz reicht.", "fb.btn":"Feedback senden",
+  "fb.empty":"Schreib bitte kurz, worum es geht.", "fb.sending":"Wird gesendet …", "fb.sent":"Danke dir! Dein Feedback ist angekommen.",
+  "fb.queued":"Gerade keine Verbindung. Dein Feedback ist gespeichert und wird beim nächsten Mal gesendet.",
+  "set.rem":"Erinnerungen", "set.notif":"Mitteilungen auf diesem Gerät", "set.notifSub":"Erinnert dich auch, wenn FocusHer im Hintergrund offen ist", "set.notifAria":"Mitteilungen",
+  "set.remNote":"Damit eine Erinnerung sicher ankommt, auch wenn die App geschlossen ist, trag die Aufgabe zusätzlich in deinen Kalender ein. Tippe dafür in der Liste auf das Datum der Aufgabe.",
+  "notif.on":"An: Erinnerungen kommen auch, wenn FocusHer geschlossen ist.",
+  "notif.denied":"Mitteilungen sind aus. Du kannst sie in den iPhone-Einstellungen unter Mitteilungen > FocusHer erlauben.",
+  "notif.prompt":"Erlaube Mitteilungen, damit Erinnerungen auch bei geschlossener App ankommen.",
+  "notif.unavail":"Auf diesem Gerät nicht verfügbar. Auf dem iPhone geht es, wenn FocusHer zum Home-Bildschirm hinzugefügt wurde.",
+  "notif.blocked":"Mitteilungen sind für FocusHer blockiert. Du kannst sie in den Einstellungen des Browsers erlauben.",
+  "notif.failed":"Hier konnten keine Mitteilungen erlaubt werden. Die Erinnerungen erscheinen dann oben in der App und in deinem Kalender.",
+  "footer":"Alles bleibt auf diesem Gerät. Kein Konto, keine Töne.<br>FocusHer ersetzt keine ärztliche oder therapeutische Begleitung.<br>Ein Projekt von VellunaPrintsDesign",
+  "reset.btn":"Alle Daten löschen", "reset.ask":"Wirklich alle Aufgaben und Funken löschen?", "reset.yes":"Ja, löschen", "reset.no":"Abbrechen",
+  "reset.done":"Alles gelöscht. Du startest mit einer leeren Liste.",
+  "welcome":"Schön, dass du wieder da bist. Hier ist nichts verloren gegangen: deine {n} Funken sind alle noch im Glas.",
+  "nav.aria":"Bereiche", "nav.heute":"Heute", "nav.zerlegen":"Zerlegen", "nav.journal":"Journal", "nav.mehr":"Mehr",
+  "seed":["Ein Glas Wasser trinken","Drei Mails nur lesen, nicht beantworten","Wäsche in die Maschine","Termin beim Zahnarzt vereinbaren","Schreibtisch komplett aufräumen"]
+},
+en: {
+  "greet.night":"Hello", "greet.morning":"Good morning", "greet.hello":"Hello", "greet.evening":"Good evening", "greet.name":"{g}, {name}",
+  "h.dl":"With a deadline", "e.head":"How much capacity do you have right now?", "e.aria":"Energy level",
+  "e.low":"Low", "e.mid":"Medium", "e.high":"High",
+  "es.low":"easy", "es.mid":"medium", "es.high":"big",
+  "hint.0":"Low energy is a real state, not a failure. You'll only see things here that take hardly any effort.",
+  "hint.1":"A medium day. Easy and medium tasks are at the top, big ones wait further down.",
+  "hint.2":"Good capacity. The big chunks are up front now, for as long as it feels good.",
+  "h.fit":"Fits right now", "later.sum":"Later, with more energy ({n})",
+  "add.head":"New task", "add.ph":"e.g. Take the parcel to the post office", "add.aria":"Add task", "add.energyAria":"Energy needed",
+  "dl.toggle":"Add a deadline and reminder", "dl.toggleOpen":"Deadline and reminder",
+  "dl.date":"Due on", "dl.time":"Time", "dl.remind":"Remind me", "dl.remAria":"Reminders",
+  "dl.r10080":"1 week before", "dl.r4320":"3 days before", "dl.r1440":"1 day before", "dl.rmorning":"That morning, 8 am", "dl.r180":"3 hrs before", "dl.r60":"1 hr before", "dl.r15":"15 min before",
+  "dl.repeat":"Until then, remind me regularly on", "dl.daysAria":"Weekdays for reminders",
+  "dl.every":"Every day", "dl.work":"Mon to Fri", "dl.at":"at", "dl.oclock":"",
+  "dl.hint":"Without a date, FocusHer reminds you on these days until the task is done.", "dl.clear":"Remove deadline",
+  "add.tooBig":"Too big? In the <b>Break it down</b> tab you can turn it into small steps.",
+  "wd":["Sun","Mon","Tue","Wed","Thu","Fri","Sat"], "weekly.daily":"daily", "weekly.work":"Mon–Fri",
+  "task.reopen":"Reopen: {t}", "task.done":"Done: {t}", "task.delete":"Delete: {t}", "task.partOf":"Part of: {p}", "task.example":"Example",
+  "badge.due":"Due {d}", "badge.weekly":"reminder {w}", "badge.rem":{one:"1 reminder", other:"{n} reminders"}, "badge.aria":"{p}. Add to calendar",
+  "count.tasks":{one:"1 task", other:"{n} tasks"},
+  "focus.eyebrow":"Just this one thing", "focus.rest":"The rest can wait.",
+  "note.nofit":"Nothing fits your energy right now. That's okay. Rest, or add a very small task below.",
+  "note.empty":"Your list is empty. If something comes to mind, add it below. Otherwise, you're allowed to just be.",
+  "fit.doneToday":"{n} done today",
+  "toast.spark":"Spark collected", "toast.deleted":"Task deleted", "toast.undo":"Undo",
+  "rem.10080":"in a week", "rem.4320":"in 3 days", "rem.1440":"tomorrow", "rem.morning":"today", "rem.180":"in 3 hours", "rem.60":"in an hour", "rem.15":"in 15 minutes", "rem.due":"now",
+  "due.past":"Deadline was {x}", "due.today":"today {time}", "due.tomorrow":"tomorrow {time}",
+  "cal.details":"From FocusHer. A small first step is enough.", "cal.detailsWeekly":"From FocusHer. Even a small step counts.", "cal.remTitle":"Reminder: {t}",
+  "cal.google":"Deadline in Google Calendar", "cal.googleWeekly":"Repeat in Google Calendar", "cal.apple":"In Apple Calendar (iPhone)",
+  "remind.eyebrow":"Reminder", "remind.due":"The deadline is here ({d}). A small step is enough, or reschedule it.",
+  "remind.weekly":"Your reminder for today.", "remind.weeklyDue":" Due {d}.", "remind.weeklySmall":" Even a small step counts.",
+  "remind.before":"Due {when}: {d}.", "remind.done":"Done", "remind.snooze":"Again in 30 min", "remind.ok":"Okay",
+  "notif.due":"The deadline is here.", "notif.before":"Due {when}.",
+  "dec.eyebrow":"Task breakdown", "dec.head":"What feels too big right now?",
+  "dec.intro":"Write the task the way it's going round in your head. It becomes 3 to 5 steps, and the first one is always easy.",
+  "dec.ph":"e.g. Do my tax return", "dec.sugAria":"Examples", "dec.countAria":"Number of steps", "dec.n3":"3 steps",
+  "dec.btn":"Break it down", "dec.yourSteps":"Your steps", "dec.again":"Try another way",
+  "dec.editHint":"Tap a step to change it. Tap the energy label to switch it.",
+  "dec.addAll":"Add all to “Today”", "dec.title":"“{x}”", "dec.thinking":"Working out steps that fit …",
+  "dec.rate":"The AI needs a short break right now. Here are steps from the templates.",
+  "dec.offline":"The AI couldn't be reached just now. Here are steps from the templates.",
+  "dec.empty":"Write the task in the field first.", "dec.added":{one:"1 step is now under “Today”.", other:"{n} steps are now under “Today”."},
+  "dec.suggest":["Do my tax return","Tidy the kitchen","Book a doctor's appointment","Prepare a presentation","Declutter my wardrobe"],
+  "ai.on":"AI breakdown on. The steps fit your exact task.", "ai.wait":"Connecting to AI …", "ai.off":"Offline breakdown on. The steps come from fixed templates.",
+  "step.aria":"Step {n}", "step.energyAria":"Energy for step {n}: {e}. Tap to change", "step.remove":"Remove step",
+  "lock.eyebrow":"Free version", "lock.see":"See the full version",
+  "lock.blocked":"You've used today's free breakdown. It's back tomorrow, or you can unlock the full version.",
+  "lock.info":"In the free version you can break down one task a day (today: {used} of {max}).",
+  "j.eyebrow":"Spark journal", "j.head":"Everything you've done stays here.",
+  "j.intro":"There's no streak here that can break. Every spark counts, even after a pause.",
+  "j.total":"sparks in total", "j.week":"this week", "j.days":"days with sparks this month",
+  "j.jarAria":"Spark jar for the last 30 days", "j.replay":"Drop in the latest sparks again",
+  "j.legend":'Each spark is something you got done. The jar shows the last 30 days.<br><span class="dot low"></span>easy <span class="dot mid"></span>medium <span class="dot high"></span>big <span class="dot" style="background:var(--lav)"></span>your own win',
+  "j.winHead":"A small win that wasn't on any list", "j.winPh":"e.g. I drank some water today", "j.moodAria":"How does it feel?", "j.winBtn":"Put it in the jar",
+  "j.month":"Your month", "j.emptyDays":"Empty days are just empty. They're not a failure.", "j.history":"History",
+  "j.moods":["calm","proud","relieved","tired, but here"],
+  "cal.dayAria":"Day {d}: {c}", "cal.sparks":{one:"1 spark", other:"{n} sparks"}, "cal.none":"no entries",
+  "hist.empty":"No entries yet. Finished tasks show up here automatically.", "hist.today":"Today", "hist.yesterday":"Yesterday",
+  "hist.locked":{one:"1 older spark is safely saved. With the full version you can see your whole history.", other:"{n} older sparks are safely saved. With the full version you can see your whole history."},
+  "jar.empty1":"Still empty.", "jar.empty2":"Your first spark goes here.", "jar.aria":{one:"Spark jar: 1 spark in the last 30 days", other:"Spark jar: {n} sparks in the last 30 days"},
+  "plan.head":"FocusHer full version", "plan.l1":"Break down as many tasks as you like", "plan.l2":"Your whole spark journal, with no time limit", "plan.l3":"AI breakdown and all new features",
+  "buy.pre":"Get full version · ", "buy.post":" / year",
+  "buy.note":"That's about €2.50 a month. The subscription renews automatically every year and you can cancel it at any time in your Apple or Google account settings, at least 24 hours before it ends.",
+  "buy.restore":"Restore purchase", "buy.terms":"Terms of Use", "buy.privacy":"Privacy",
+  "plan.unlocked":"Unlocked", "plan.thanks":"Thank you. Your yearly subscription is active and all features are unlocked.",
+  "plan.trial":{one:"Trial: {n} day left", other:"Trial: {n} days left"},
+  "plan.trialText":"You're trying everything free for 7 days. After that, tasks, deadlines, reminders and the last 7 days of your journal stay free.",
+  "plan.free":"Free version",
+  "plan.freeText":"Your 7 trial days are over, and all your data is still here. With the yearly subscription you get unlimited breakdowns and your whole history back.",
+  "buy.opening":"Opening purchase …", "buy.ok":"Unlocked. Enjoy FocusHer.",
+  "buy.err":"The purchase didn't go through. You haven't been charged. Please try again later.",
+  "buy.web":"In the app from the App Store or Google Play, you buy directly through Apple or Google here. There's no purchase in this browser preview yet.",
+  "restore.checking":"Checking purchases …", "restore.ok":"Your purchase has been restored.", "restore.none":"No purchase was found for this Apple or Google account.",
+  "restore.err":"Restoring didn't work. Please check your internet connection.", "restore.web":"Restoring works in the app from the App Store or Google Play.",
+  "set.display":"Display", "set.dark":"Dark mode", "set.calm":"Calm mode", "set.calmSub":"No animations, no welcome message",
+  "set.size":"Text size", "set.name":"Your name", "set.nameSub":"For the greeting, if you like", "set.namePh":"optional",
+  "set.lang":"Sprache / Language", "set.langAuto":"Automatic", "set.langSub":"Automatic follows your device ({l})", "set.langAria":"Language",
+  "fb.head":"Send feedback", "fb.intro":"What helps, what's missing, what gets on your nerves? Every message is read and helps make FocusHer better.",
+  "fb.typeAria":"Type of feedback", "fb.idee":"Idea", "fb.fehler":"Something isn't working", "fb.lob":"Praise", "fb.ph":"Just start writing, one sentence is enough.", "fb.btn":"Send feedback",
+  "fb.empty":"Please write briefly what it's about.", "fb.sending":"Sending …", "fb.sent":"Thank you. Your feedback has arrived.",
+  "fb.queued":"No connection right now. Your feedback is saved and will be sent next time.",
+  "set.rem":"Reminders", "set.notif":"Notifications on this device", "set.notifSub":"Reminds you even when FocusHer is open in the background", "set.notifAria":"Notifications",
+  "set.remNote":"To make sure a reminder reaches you even when the app is closed, also add the task to your calendar. To do that, tap the task's date in the list.",
+  "notif.on":"On: reminders arrive even when FocusHer is closed.",
+  "notif.denied":"Notifications are off. You can allow them in your iPhone Settings under Notifications > FocusHer.",
+  "notif.prompt":"Allow notifications so reminders arrive even when the app is closed.",
+  "notif.unavail":"Not available on this device. On iPhone it works once FocusHer has been added to the Home Screen.",
+  "notif.blocked":"Notifications are blocked for FocusHer. You can allow them in your browser settings.",
+  "notif.failed":"Notifications couldn't be allowed here. Reminders will then appear at the top of the app and in your calendar.",
+  "footer":"Everything stays on this device. No account, no sounds.<br>FocusHer is not a substitute for medical or therapeutic care.<br>A project by VellunaPrintsDesign",
+  "reset.btn":"Delete all data", "reset.ask":"Really delete all tasks and sparks?", "reset.yes":"Yes, delete", "reset.no":"Cancel",
+  "reset.done":"Everything is deleted. You're starting with an empty list.",
+  "welcome":{one:"Good to have you back. Nothing got lost: your 1 spark is still in the jar.", other:"Good to have you back. Nothing got lost: your {n} sparks are all still in the jar."},
+  "nav.aria":"Sections", "nav.heute":"Today", "nav.zerlegen":"Break it down", "nav.journal":"Journal", "nav.mehr":"More",
+  "seed":["Drink a glass of water","Read three emails, don't answer them yet","Put a load of laundry in","Book a dentist appointment","Clear the whole desk"]
+}
+};
+let LANG = "de";
+const I18N_T = (k, v) => t(k, v);
+function deviceLang(){
+  let l = "";
+  try{ l = (navigator.languages && navigator.languages[0]) || navigator.language || ""; }catch(e){}
+  return !l || /^de\b/i.test(l) ? "de" : "en";
+}
+function resolveLang(pref){ return pref === "de" || pref === "en" ? pref : deviceLang(); }
+function dateLocale(){
+  if(LANG === "de") return "de-DE";
+  let l = ""; try{ l = (navigator.languages && navigator.languages[0]) || navigator.language || ""; }catch(e){}
+  return /^en-/i.test(l) ? l : "en-GB";
+}
+// Uhrzeit: Deutsch wie bisher zweistellig (09:00), Englisch ohne führende Null (9:00 AM)
+function timeOpts(){ return LANG === "de" ? {hour:"2-digit", minute:"2-digit"} : {hour:"numeric", minute:"2-digit"}; }
+function t(key, vars){
+  let v = I18N[LANG][key];
+  if(v === undefined) v = I18N.de[key];
+  if(v === undefined) return key;
+  if(v && typeof v === "object" && !Array.isArray(v)) v = (vars && +vars.n === 1) ? v.one : v.other;
+  if(typeof v !== "string" || !vars) return v;
+  return v.replace(/\{(\w+)\}/g, (m, k) => k in vars ? String(vars[k]) : m);
+}
+function applyStatic(){
+  document.documentElement.lang = LANG;
+  $$("[data-i18n]").forEach(el => { el.textContent = t(el.dataset.i18n); });
+  $$("[data-i18n-html]").forEach(el => { el.innerHTML = t(el.dataset.i18nHtml); });
+  $$("[data-i18n-ph]").forEach(el => { el.placeholder = t(el.dataset.i18nPh); });
+  $$("[data-i18n-aria]").forEach(el => { el.setAttribute("aria-label", t(el.dataset.i18nAria)); });
+  $$("#dlDays .chip").forEach(c => { c.textContent = t("wd")[+c.dataset.d]; });
+}
 const uid = () => Math.random().toString(36).slice(2,10) + Date.now().toString(36).slice(-4);
 const dayKey = (d=new Date()) => { const x=new Date(d); return x.getFullYear()+"-"+String(x.getMonth()+1).padStart(2,"0")+"-"+String(x.getDate()).padStart(2,"0"); };
 const DAY = 86400000;
 const E = ["low","mid","high"];
-const ELABEL = {low:"Wenig", mid:"Mittel", high:"Viel"};
-const ESHORT = {low:"leicht", mid:"mittel", high:"groß"};
+const ELABEL = new Proxy({}, {get: (o, k) => t("e." + String(k))});
+const ESHORT = new Proxy({}, {get: (o, k) => t("es." + String(k))});
 
 let S = {};
 function load(){
   S.tasks = store.get("tasks", null);
   S.journal = store.get("journal", []);
   S.energy = store.get("energy", 1);
-  S.settings = Object.assign({theme:"dark", calm:false, size:"m", name:"", notif:false}, store.get("settings", {}));
+  S.settings = Object.assign({theme:"dark", calm:false, size:"m", name:"", notif:false, lang:"auto"}, store.get("settings", {}));
+  LANG = resolveLang(S.settings.lang);
   S.trialStart = store.get("trialStart", null);
   S.unlocked = store.get("unlocked", false);
   S.decUse = store.get("decUse", {day:"", n:0});
@@ -558,17 +797,19 @@ function save(){
   store.set("tasks",S.tasks); store.set("journal",S.journal); store.set("energy",S.energy); store.set("settings",S.settings); store.set("decUse",S.decUse);
   // In der App: Erinnerungen als echte Mitteilungen auf dem Gerät planen
   const NS_ = window.FocusHerStore;
-  if(NS_ && NS_.syncReminders){ clearTimeout(syncTimer); syncTimer = setTimeout(() => { try{ NS_.syncReminders(S.tasks); }catch(e){} }, 400); }
+  if(NS_ && NS_.syncReminders){ clearTimeout(syncTimer); syncTimer = setTimeout(() => { try{ NS_.syncReminders(S.tasks, {lang: LANG, locale: dateLocale()}); }catch(e){} }, 400); }
 }
 function seedTasks(){
-  const now = Date.now();
-  return [
-    {id:uid(), title:"Ein Glas Wasser trinken", energy:"low", done:false, created:now, example:true},
-    {id:uid(), title:"Drei Mails nur lesen, nicht beantworten", energy:"low", done:false, created:now, example:true},
-    {id:uid(), title:"Wäsche in die Maschine", energy:"mid", done:false, created:now, example:true},
-    {id:uid(), title:"Termin beim Zahnarzt vereinbaren", energy:"mid", done:false, created:now, example:true},
-    {id:uid(), title:"Schreibtisch komplett aufräumen", energy:"high", done:false, created:now, example:true}
-  ];
+  const now = Date.now(), seed = t("seed");
+  return ["low","low","mid","mid","high"].map((energy, i) => ({id:uid(), title:seed[i], energy, done:false, created:now, example:true}));
+}
+/* Beispiel-Aufgaben folgen der Sprache, solange sie unverändert sind */
+function retitleExamples(){
+  S.tasks.forEach(x => {
+    if(!x.example) return;
+    const i = Math.max(I18N.de.seed.indexOf(x.title), I18N.en.seed.indexOf(x.title));
+    if(i >= 0) x.title = t("seed")[i];
+  });
 }
 
 /* ---------- Testphase und Freischaltung ---------- */
@@ -629,11 +870,57 @@ const GENERIC = {
   a:[["In einem Satz notieren, wann „{T}“ fertig ist","low"],["Alles hinlegen, was du dafür brauchst","low"],["Den kleinsten Teil 5 Minuten lang machen","mid"],["Den größten Teil am Stück erledigen","high"],["Ergebnis kurz prüfen und abhaken","low"]],
   b:[["Notieren, was dich bei „{T}“ gerade bremst","low"],["Den allerersten Handgriff aufschreiben","low"],["Genau diesen Handgriff jetzt machen","mid"],["Den nächsten Teil mit Timer erledigen","high"],["Notieren, wo du stehst und was als Nächstes kommt","low"]]
 };
+/* Englische Bausteine für den Offline-Zerleger (gleiche Reihenfolge und Logik wie LIB) */
+const LIB_EN = [
+  {k:["clean","tidy","kitchen","bathroom","bath ","apartment","flat ","bedroom","living room","desk","dust","vacuum","hoover","mess"],
+   a:[["Set a timer for 10 minutes, put some music on","low"],["Clear just one surface, everything into a basket","mid"],["Take out trash and dishes first","low"],["Put things from the basket back in their place","mid"],["Wipe or vacuum the surface","mid"],["Take a quick look at what's clear now","low"]],
+   b:[["Grab a bin bag and throw away 5 things","low"],["Carry all the dishes to the kitchen","low"],["Gather clothes into one pile","mid"],["Finish one corner completely","high"],["Take a photo of the result","low"],["Take a break before the next corner","low"]]},
+  {k:["laundry","washing","wash ","ironing","iron ","fold"],
+   a:[["Carry the laundry basket to the machine","low"],["Sort one load, just lights or just darks","low"],["Add detergent, start the machine","low"],["Set an alarm for hanging it up","low"],["Hang it up, folding can wait","mid"],["Put dry laundry in a basket, no need to fold yet","low"]],
+   b:[["Gather just socks and underwear","low"],["Start the machine","low"],["Set an alarm on your phone","low"],["Hang it up while a podcast plays","mid"],["Fold five things, then you're allowed to stop","mid"]]},
+  {k:["tax","finance","bill","invoice","form","application","paperwork","admin","insurance","bank","cancel","contract","documents","receipt","pension","benefit"],
+   a:[["Open the file or folder, just open it","low"],["Put all the paperwork you need in one pile","mid"],["Check what exactly is missing and note it down","mid"],["Fill in the first field or the first item","mid"],["Keep going for 25 minutes, then take a break","high"],["Note where you stopped","low"]],
+   b:[["Look up the deadline and put it in your calendar","low"],["Label an empty envelope or folder","low"],["Put the receipts in one after another","mid"],["Do the hardest part in one block","high"],["Send or save it and tick it off","mid"]]},
+  {k:["mail","email","e-mail","message","call","phone","appointment","doctor","dentist","get in touch","reply","respond","write to","text "],
+   a:[["Look up the contact or number","low"],["Jot down three points you want to say","low"],["Write a draft, it's allowed to be clumsy","mid"],["Send it or make the call","high"],["Put the appointment in your calendar right away","low"]],
+   b:[["Check if you can book online or email instead of calling","low"],["Open your calendar and note two free slots","low"],["Get the first sentence down","mid"],["Get in touch","high"],["Take a breath and tick it off","low"]]},
+  {k:["shopping","groceries","grocery","supermarket","buy ","errand","drugstore","pharmacy","chemist","post office","parcel","package"],
+   a:[["Quickly check the fridge and cupboards","low"],["Write a list of 10 things at most","low"],["Put bag, keys and list by the door","low"],["Head out, only the list counts","high"],["Put the shopping away right away","mid"]],
+   b:[["Check if delivery or pickup is possible","low"],["Type everything into a shopping app","low"],["Put your shoes on","low"],["Do the shopping","high"],["Put cold things away first","mid"]]},
+  {k:["cook","meal","food","dinner","lunch","breakfast","bake","baking","meal prep"],
+   a:[["Pick one simple dish","low"],["Put the ingredients on the counter","low"],["Chop and prepare","mid"],["Cook","mid"],["Put the pot in to soak right away","low"]],
+   b:[["Choose something with 5 ingredients at most","low"],["Put the water on","low"],["Chop vegetables with music on","mid"],["Cook a double batch for tomorrow","high"],["Put leftovers in a container","low"]]},
+  {k:["presentation","report","project","essay","assignment","cover letter","job application","article","thesis","concept","proposal","slides","write","writing"],
+   a:[["Create an empty document with a title","low"],["Note five bullet points as an outline","mid"],["Write the easiest section first","mid"],["Roughly fill in the rest, polishing comes later","high"],["Read it through once and save","mid"]],
+   b:[["Gather old notes or templates","low"],["Voice memo: talk for 2 minutes about what it's about","low"],["Turn the voice memo into bullet points","mid"],["Write one section completely","high"],["Show it to someone or set a time for feedback","mid"]]},
+  {k:["sport","exercise","workout","training","walk","run ","running","jog","yoga","fitness","gym","swim"],
+   a:[["Lay out your workout clothes","low"],["Get changed, that already counts","low"],["Start with 5 minutes","mid"],["Keep going as long as it feels good","high"],["Drink some water and tick it off","low"]],
+   b:[["Pick a playlist or a video","low"],["Put your shoes on and step outside","mid"],["Walk once around the block","mid"],["If it feels right: one more round","high"],["Stretch for a moment","low"]]},
+  {k:["declutter","basement","cellar","wardrobe","closet","cupboard","clothes","attic","loft","garage","sort out","clear out"],
+   a:[["Label three boxes: Keep, Go, Not sure","low"],["Empty just one shelf or one drawer","mid"],["Put each item in a box without overthinking","high"],["Take the Go box to the car or outside right away","mid"],["Wipe the shelf and put things back neatly","mid"]],
+   b:[["Set a timer for 15 minutes","low"],["Find five things that can definitely go","low"],["Clear one shelf completely","mid"],["Tie up the donation bag","low"],["Put the next round in your calendar","low"]]},
+  {k:["party","birthday","wedding","celebrat","invitation","invite","guests"],
+   a:[["Set the date and time","low"],["Write down the guest list","low"],["Send the invitations","mid"],["List food, drinks and decorations","mid"],["Do the shopping and get the room ready","high"],["Set everything out the day before","mid"]],
+   b:[["Note three ideas for a theme","low"],["Set a rough budget","low"],["Book a venue or sort out space at home","mid"],["Write the invitation as a message and send it","mid"],["Spread the errands over two days","high"]]},
+  {k:["holiday","vacation","trip","travel","suitcase","pack ","packing","flight","journey","day out"],
+   a:[["Get out the suitcase or bag","low"],["Write a packing list with categories","low"],["Lay out clothes for every day on the bed","mid"],["Pack everything, ID and chargers first","high"],["Put tickets and documents within easy reach","low"]],
+   b:[["Check travel dates and accommodation","low"],["Note what needs doing before you leave","low"],["Sort out plants, post and pets","mid"],["Pack from the list","high"],["Quick check around the home and lock up","low"]]},
+  {k:["move house","moving","removal","boxes","new flat","new apartment","new home"],
+   a:[["Set up five moving boxes","low"],["Pick one room to start with","low"],["Fill one box and label it","mid"],["Finish packing that room","high"],["Stack the boxes against one wall","mid"]],
+   b:[["Set the moving date and find helpers","low"],["List everywhere your address needs changing","low"],["Change the first three addresses online","mid"],["Empty cupboards one shelf at a time","high"],["Pack a box with things for the first day","mid"]]},
+  {k:["learn","study","exam","test","course","revise","revision","vocab","reading","homework"],
+   a:[["Gather your material in one place","low"],["Pick one specific chapter or topic","low"],["Study for 20 minutes with a timer","high"],["Write down three things that stuck","mid"],["Note the next topic","low"]],
+   b:[["Put your phone in another room","low"],["Skim the table of contents","low"],["Write flashcards for one topic","mid"],["Go through the cards once","mid"],["Plan a reward","low"]]}
+];
+const GENERIC_EN = {
+  a:[["Write one sentence on when “{T}” counts as done","low"],["Lay out everything you need for it","low"],["Do the smallest part for 5 minutes","mid"],["Do the biggest part in one go","high"],["Quickly check the result and tick it off","low"]],
+  b:[["Note what's holding you back on “{T}” right now","low"],["Write down the very first move","low"],["Do exactly that move now","mid"],["Do the next part with a timer","high"],["Note where you are and what comes next","low"]]
+};
 function pickTemplate(text){
   const t = " " + text.toLowerCase() + " ";
   let best = null, score = 0;
-  for(const tpl of LIB){ const s = tpl.k.reduce((n,k)=>n + (t.includes(k)?1:0), 0); if(s>score){ score=s; best=tpl; } }
-  return best || GENERIC;
+  for(const tpl of (LANG === "en" ? LIB_EN : LIB)){ const s = tpl.k.reduce((n,k)=>n + (t.includes(k)?1:0), 0); if(s>score){ score=s; best=tpl; } }
+  return best || (LANG === "en" ? GENERIC_EN : GENERIC);
 }
 function decompose(text, n, variant){
   const tpl = pickTemplate(text);
@@ -656,26 +943,40 @@ function getSample(){
   }
   return samplePromise;
 }
-let aiOff = false;
+let aiOff = false, aiState = "wait";
 function setAiNote(state){
-  const dot = $("#aiDot"), t = $("#aiTxt");
+  aiState = state;
+  const dot = $("#aiDot"), el = $("#aiTxt");
   dot.className = "ai-dot" + (state === "on" ? " on" : "");
-  t.textContent = state === "on" ? "KI-Zerleger aktiv. Die Schritte passen genau zu deiner Aufgabe."
-    : state === "wait" ? "KI wird verbunden …"
-    : "Offline-Zerleger aktiv. Die Schritte kommen aus festen Vorlagen.";
+  el.textContent = state === "on" ? t("ai.on") : state === "wait" ? t("ai.wait") : t("ai.off");
 }
 async function aiDecompose(text, n, variant, energy, signal){
   const NS_ = window.FocusHerStore;
   if(NS_ && NS_.decompose){
-    const out = await NS_.decompose({task: text, n, energy, variant: !!variant});
-    const steps = (out || []).map(x => ({t: String(x.schritt || "").trim(), e: E.includes(x.energie) ? x.energie : "mid"})).filter(s => s.t).slice(0, 6);
+    const out = await NS_.decompose({task: text, n, energy, variant: !!variant, lang: LANG});
+    const steps = (out || []).map(x => ({t: String(x.schritt || x.step || "").trim(), e: E.includes(x.energie) ? x.energie : E.includes(x.energy) ? x.energy : "mid"})).filter(s => s.t).slice(0, 6);
     if(steps.length < 2) throw {code:"invalid_json"};
     steps[0].e = "low"; return steps;
   }
   const sample = await getSample();
   if(!sample || aiOff) return null;
-  const elabel = ["wenig","mittel","viel"][energy];
-  const prompt =
+  const elabel = (LANG === "en" ? ["low","medium","high"] : ["wenig","mittel","viel"])[energy];
+  const prompt = LANG === "en" ?
+`You are helping an adult with ADHD get started on a task that feels too big.
+Task: "${text.replace(/"/g,"'")}"
+Energy right now: ${elabel}.
+
+Break exactly this task into exactly ${n} steps in the right order.
+Rules:
+- Each step is a concrete, visible action that relates directly to this task. No general productivity tips.
+- Step 1 takes 2 minutes at most and needs hardly any effort.
+- At most 12 words per step. English, second person, friendly, no numbering.
+- Together the steps really get the task done.
+- If the task is unclear, choose the most likely everyday meaning.
+- "energie" is "low" (under 5 minutes, easy), "mid" or "high" (long or demanding).${variant ? "\n- This time choose a different approach than the most obvious one." : ""}
+
+Reply only with a JSON array, for example:
+[{"schritt":"Take the tax folder off the shelf","energie":"low"}]` :
 `Du hilfst einem erwachsenen Menschen mit ADHS, eine Aufgabe anzufangen, die sich zu groß anfühlt.
 Aufgabe: "${text.replace(/"/g,"'")}"
 Energie gerade: ${elabel}.
@@ -710,36 +1011,35 @@ function applySettings(){
   $("#tgCalm").setAttribute("aria-checked", !!S.settings.calm);
   $$("#sizeChips .chip").forEach(c => c.setAttribute("aria-pressed", c.dataset.s===S.settings.size));
   $("#nameInput").value = S.settings.name || "";
+  $$("#langChips .chip").forEach(c => c.setAttribute("aria-pressed", c.dataset.l === (S.settings.lang || "auto")));
+  $("#langSub").textContent = t("set.langSub", {l: deviceLang() === "de" ? "Deutsch" : "English"});
   const meta = document.querySelector('meta[name="theme-color"]');
   if(meta) meta.setAttribute("content", S.settings.theme==="dark" ? "#16141b" : "#f5f2f7");
 }
 function greeting(){
   const h = new Date().getHours();
-  const base = h<5 ? "Gute Nacht" : h<11 ? "Guten Morgen" : h<17 ? "Hallo" : h<22 ? "Guten Abend" : "Gute Nacht";
-  $("#hello").textContent = S.settings.name ? base + ", " + S.settings.name : base;
-  $("#today").textContent = new Date().toLocaleDateString("de-DE", {weekday:"long", day:"numeric", month:"long"});
+  const base = t(h<5 ? "greet.night" : h<11 ? "greet.morning" : h<17 ? "greet.hello" : h<22 ? "greet.evening" : "greet.night");
+  $("#hello").textContent = S.settings.name ? t("greet.name", {g: base, name: S.settings.name}) : base;
+  $("#today").textContent = new Date().toLocaleDateString(dateLocale(), {weekday:"long", day:"numeric", month:"long"});
 }
 
 /* ---------- Heute ---------- */
-const HINTS = [
-  "Wenig Energie ist ein echter Zustand und kein Versagen. Hier stehen nur Dinge, die kaum Kraft kosten.",
-  "Ein mittlerer Tag. Leichte und mittlere Aufgaben stehen oben, große warten unten.",
-  "Gute Kapazität. Die großen Brocken stehen jetzt vorne, solange es sich gut anfühlt."
-];
+const HINTS = new Proxy([], {get: (o, k) => /^\d+$/.test(String(k)) ? t("hint." + String(k)) : o[k]});
 function renderEnergy(){
   const l = S.energy;
   $("#energy").value = l;
   $("#energy").setAttribute("aria-valuetext", ELABEL[E[l]]);
   $("#battery").dataset.l = l;
-  [0,1,2].forEach(i => { const el = $("#sc"+i); el.innerHTML = ""; const txt = ["Wenig","Mittel","Viel"][i]; if(i===l){ const b=document.createElement("b"); b.textContent=txt; el.appendChild(b);} else el.textContent = txt; });
+  [0,1,2].forEach(i => { const el = $("#sc"+i); el.innerHTML = ""; const txt = ELABEL[E[i]]; if(i===l){ const b=document.createElement("b"); b.textContent=txt; el.appendChild(b);} else el.textContent = txt; });
   $("#eHint").textContent = HINTS[l];
 }
 function taskLi(t, dl){
+  const tr = I18N_T;
   const li = document.createElement("li");
   li.className = "task" + (t.done ? " done" : "");
   const btn = document.createElement("button");
   btn.className = "check"; btn.type="button";
-  btn.setAttribute("aria-label", (t.done ? "Wieder öffnen: " : "Erledigt: ") + t.title);
+  btn.setAttribute("aria-label", tr(t.done ? "task.reopen" : "task.done", {t: t.title}));
   btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
   btn.addEventListener("click", e => toggleTask(t.id, e.currentTarget));
   const txt = document.createElement("div"); txt.className="txt";
@@ -757,11 +1057,11 @@ function taskLi(t, dl){
     const bd = document.createElement("button"); bd.type = "button";
     bd.className = "badge" + (left < 0 ? " over" : left < DAY ? " soon" : "");
     const parts = [];
-    if(t.deadline) parts.push(left < 0 ? fmtDue(t.deadline) : "Fällig " + fmtDue(t.deadline));
-    if(hasWeekly) parts.push("erinnert " + weeklyText(t.weekly));
-    else if((t.rem||[]).length) parts.push(t.rem.length + "× Erinnerung");
+    if(t.deadline) parts.push(left < 0 ? fmtDue(t.deadline) : tr("badge.due", {d: fmtDue(t.deadline)}));
+    if(hasWeekly) parts.push(tr("badge.weekly", {w: weeklyText(t.weekly)}));
+    else if((t.rem||[]).length) parts.push(tr("badge.rem", {n: t.rem.length}));
     bd.textContent = parts.join(" · ");
-    bd.setAttribute("aria-expanded","false"); bd.setAttribute("aria-label", parts.join(", ") + ". In den Kalender eintragen");
+    bd.setAttribute("aria-expanded","false"); bd.setAttribute("aria-label", tr("badge.aria", {p: parts.join(", ")}));
     bd.addEventListener("click", () => {
       const open = bd.getAttribute("aria-expanded") === "true";
       bd.setAttribute("aria-expanded", !open);
@@ -769,10 +1069,10 @@ function taskLi(t, dl){
     });
     meta.appendChild(bd);
   }
-  if(t.parent){ const p=document.createElement("span"); p.textContent = "Teil von: " + t.parent; meta.appendChild(p); }
-  if(t.example){ const x=document.createElement("span"); x.className="tag"; x.textContent="Beispiel"; meta.appendChild(x); }
+  if(t.parent){ const p=document.createElement("span"); p.textContent = tr("task.partOf", {p: t.parent}); meta.appendChild(p); }
+  if(t.example){ const x=document.createElement("span"); x.className="tag"; x.textContent=tr("task.example"); meta.appendChild(x); }
   txt.appendChild(meta);
-  const del = document.createElement("button"); del.className="del"; del.type="button"; del.setAttribute("aria-label","Löschen: "+t.title); del.textContent="×";
+  const del = document.createElement("button"); del.className="del"; del.type="button"; del.setAttribute("aria-label",tr("task.delete", {t: t.title})); del.textContent="×";
   del.addEventListener("click", () => removeTask(t.id));
   li.append(btn, txt, del);
   return li;
@@ -786,7 +1086,7 @@ function renderToday(){
   const dlWrap = $("#dlWrap"), dlList = $("#dlList"); dlList.innerHTML = "";
   dlTasks.forEach(t => dlList.appendChild(taskLi(t, true)));
   dlWrap.hidden = dlTasks.length === 0;
-  $("#dlCount").textContent = dlTasks.length === 1 ? "1 Aufgabe" : dlTasks.length + " Aufgaben";
+  $("#dlCount").textContent = t("count.tasks", {n: dlTasks.length});
   const open = allOpen.filter(t => !dlTasks.includes(t));
   const fits = open.filter(t => E.indexOf(t.energy) <= lvl);
   const later = open.filter(t => !fits.includes(t));
@@ -799,31 +1099,31 @@ function renderToday(){
     const f = fits[0];
     const card = document.createElement("div"); card.className="focus";
     const btn = document.createElement("button"); btn.className="check big"; btn.type="button";
-    btn.setAttribute("aria-label","Erledigt: "+f.title);
+    btn.setAttribute("aria-label",t("task.done", {t: f.title}));
     btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
     btn.addEventListener("click", e => toggleTask(f.id, e.currentTarget));
     const body = document.createElement("div"); body.className="body";
-    body.innerHTML = '<span class="eyebrow">Nur diese eine Sache</span>';
+    body.innerHTML = '<span class="eyebrow"></span>'; body.firstChild.textContent = t("focus.eyebrow");
     const title = document.createElement("div"); title.className="title"; title.textContent = f.title; body.appendChild(title);
     const sub = document.createElement("div"); sub.className="small muted"; sub.style.marginTop="6px";
-    sub.textContent = f.parent ? "Teil von: " + f.parent : "Der Rest kann warten.";
+    sub.textContent = f.parent ? t("task.partOf", {p: f.parent}) : t("focus.rest");
     body.appendChild(sub);
     card.append(btn, body); fw.appendChild(card);
   } else if(open.length || dlTasks.length){
     if(!open.length){ fw.innerHTML = ""; }
-    else fw.innerHTML = '<div class="note">Gerade passt nichts zu deiner Energie. Das ist in Ordnung. Ruh dich aus oder lege unten eine sehr kleine Aufgabe an.</div>';
+    else { fw.innerHTML = '<div class="note"></div>'; fw.firstChild.textContent = t("note.nofit"); }
   } else {
-    fw.innerHTML = '<div class="note">Deine Liste ist leer. Wenn dir etwas einfällt, trag es unten ein. Sonst darfst du einfach sein.</div>';
+    fw.innerHTML = '<div class="note"></div>'; fw.firstChild.textContent = t("note.empty");
   }
 
   const fl = $("#fitList"); fl.innerHTML = "";
   fits.slice(1).forEach(t => fl.appendChild(taskLi(t)));
   doneToday.forEach(t => fl.appendChild(taskLi(t)));
-  $("#fitCount").textContent = doneToday.length ? doneToday.length + " heute erledigt" : "";
+  $("#fitCount").textContent = doneToday.length ? t("fit.doneToday", {n: doneToday.length}) : "";
   const ll = $("#laterList"); ll.innerHTML = "";
   later.forEach(t => ll.appendChild(taskLi(t)));
   $("#laterBox").hidden = later.length === 0;
-  $("#laterSum").textContent = "Später, mit mehr Energie (" + later.length + ")";
+  $("#laterSum").textContent = t("later.sum", {n: later.length});
 }
 function toggleTask(id, srcEl){
   const t = S.tasks.find(x => x.id===id); if(!t) return;
@@ -833,7 +1133,7 @@ function toggleTask(id, srcEl){
     S.journal.unshift(j);
     flySpark(srcEl, t.energy);
     save(); renderAll();
-    showToast("Funke gesammelt", () => { t.done=false; delete t.doneAt; S.journal = S.journal.filter(x => x.id!==j.id); save(); renderAll(); });
+    showToast(I18N_T("toast.spark"), () => { t.done=false; delete t.doneAt; S.journal = S.journal.filter(x => x.id!==j.id); save(); renderAll(); });
   } else {
     t.done = false; delete t.doneAt;
     S.journal = S.journal.filter(x => x.taskId!==t.id || dayKey(x.ts)!==dayKey());
@@ -843,14 +1143,14 @@ function toggleTask(id, srcEl){
 function removeTask(id){
   const idx = S.tasks.findIndex(x => x.id===id); if(idx<0) return;
   const [t] = S.tasks.splice(idx,1); save(); renderAll();
-  showToast("Aufgabe gelöscht", () => { S.tasks.splice(idx,0,t); save(); renderAll(); });
+  showToast(I18N_T("toast.deleted"), () => { S.tasks.splice(idx,0,t); save(); renderAll(); });
 }
 let addE = "mid";
 $("#addEnergy").addEventListener("click", e => { const b = e.target.closest(".chip"); if(!b) return; addE = b.dataset.e; $$("#addEnergy .chip").forEach(c => c.setAttribute("aria-pressed", c===b)); });
 /* Deadline-Eingabe */
 function openDl(open){
   $("#dlBox").hidden = !open; $("#dlToggle").setAttribute("aria-expanded", open);
-  $("#dlToggleTxt").textContent = open ? "Deadline und Erinnerung" : "Deadline und Erinnerung hinzufügen";
+  $("#dlToggleTxt").textContent = open ? t("dl.toggleOpen") : t("dl.toggle");
 }
 $("#dlToggle").addEventListener("click", () => openDl($("#dlBox").hidden));
 $("#dlClear").addEventListener("click", () => { $("#dlDate").value = ""; openDl(false); });
@@ -859,10 +1159,10 @@ $("#dlDays").addEventListener("click", e => { const b=e.target.closest(".chip");
 function setDays(list){ $$("#dlDays .chip").forEach(c => c.setAttribute("aria-pressed", list.includes(+c.dataset.d))); }
 $("#dlEvery").addEventListener("click", () => setDays([0,1,2,3,4,5,6]));
 $("#dlWork").addEventListener("click", () => setDays([1,2,3,4,5]));
-const WD = ["So","Mo","Di","Mi","Do","Fr","Sa"];
+const WD = new Proxy([], {get: (o, k) => /^\d+$/.test(String(k)) ? t("wd")[k] : o[k]});
 function weeklyText(w){
   const d = w.days.slice().sort((a,b) => ((a+6)%7) - ((b+6)%7));
-  const names = d.length === 7 ? "täglich" : d.join() === "1,2,3,4,5" ? "Mo–Fr" : d.map(x => WD[x]).join(", ");
+  const names = d.length === 7 ? t("weekly.daily") : d.join() === "1,2,3,4,5" ? t("weekly.work") : d.map(x => WD[x]).join(", ");
   return names + " " + w.time;
 }
 $("#addForm").addEventListener("submit", e => {
@@ -884,7 +1184,7 @@ $("#addForm").addEventListener("submit", e => {
 });
 
 /* Fristen, Erinnerungen, Kalender */
-const REM_LABEL = {"10080":"in einer Woche","4320":"in 3 Tagen","1440":"morgen","morning":"heute","180":"in 3 Stunden","60":"in einer Stunde","15":"in 15 Minuten","due":"jetzt"};
+const REM_LABEL = new Proxy({}, {get: (o, k) => t("rem." + String(k))});
 function remTime(t, r){
   if(r === "due") return t.deadline;
   if(r === "morning"){ const d = new Date(t.deadline); d.setHours(8,0,0,0); return d.getTime() < t.deadline ? d.getTime() : null; }
@@ -919,19 +1219,20 @@ function activeReminders(){
 }
 function fmtDue(ts){
   const d = new Date(ts), now = new Date();
-  const time = d.toLocaleTimeString("de-DE",{hour:"2-digit",minute:"2-digit"});
+  const loc = dateLocale();
+  const time = d.toLocaleTimeString(loc,timeOpts());
   const k = dayKey(d);
-  if(ts < now.getTime()) return "Frist war " + (k===dayKey(now) ? "heute " + time : d.toLocaleDateString("de-DE",{day:"numeric",month:"numeric"}));
-  if(k === dayKey(now)) return "heute " + time;
-  if(k === dayKey(now.getTime()+DAY)) return "morgen " + time;
-  return d.toLocaleDateString("de-DE",{weekday:"short", day:"numeric", month:"numeric"}) + ", " + time;
+  if(ts < now.getTime()) return t("due.past", {x: k===dayKey(now) ? t("due.today", {time}) : d.toLocaleDateString(loc,{day:"numeric",month:"numeric"})});
+  if(k === dayKey(now)) return t("due.today", {time});
+  if(k === dayKey(now.getTime()+DAY)) return t("due.tomorrow", {time});
+  return d.toLocaleDateString(loc,{weekday:"short", day:"numeric", month:"numeric"}) + ", " + time;
 }
 const pad = n => String(n).padStart(2,"0");
 const icsDate = ts => { const d = new Date(ts); return d.getUTCFullYear()+pad(d.getUTCMonth()+1)+pad(d.getUTCDate())+"T"+pad(d.getUTCHours())+pad(d.getUTCMinutes())+"00Z"; };
 function googleUrl(t){
   return "https://calendar.google.com/calendar/render?action=TEMPLATE&text=" + encodeURIComponent(t.title)
     + "&dates=" + icsDate(t.deadline - 30*60000) + "/" + icsDate(t.deadline)
-    + "&details=" + encodeURIComponent("Aus FocusHer. Erster kleiner Schritt reicht.");
+    + "&details=" + encodeURIComponent(I18N_T("cal.details"));
 }
 const BYDAY = ["SU","MO","TU","WE","TH","FR","SA"];
 function weeklyStart(t){
@@ -943,9 +1244,9 @@ function weeklyStart(t){
 function rrule(t){ return "RRULE:FREQ=WEEKLY;BYDAY=" + t.weekly.days.map(d => BYDAY[d]).join(",") + (t.deadline ? ";UNTIL=" + icsDate(t.deadline) : ""); }
 function googleWeeklyUrl(t){
   const s = weeklyStart(t);
-  return "https://calendar.google.com/calendar/render?action=TEMPLATE&text=" + encodeURIComponent("Erinnerung: " + t.title)
+  return "https://calendar.google.com/calendar/render?action=TEMPLATE&text=" + encodeURIComponent(I18N_T("cal.remTitle", {t: t.title}))
     + "&dates=" + icsDate(s) + "/" + icsDate(s + 15*60000) + "&recur=" + encodeURIComponent(rrule(t))
-    + "&details=" + encodeURIComponent("Aus FocusHer. Ein kleiner Schritt zählt schon.");
+    + "&details=" + encodeURIComponent(I18N_T("cal.detailsWeekly"));
 }
 function icsText(t){
   const esc = s => s.replace(/[\\,;]/g, m => "\\"+m).replace(/\n/g,"\\n");
@@ -959,7 +1260,7 @@ function icsText(t){
   if(t.weekly && t.weekly.days.length){
     const s = weeklyStart(t);
     ev += "BEGIN:VEVENT\r\nUID:" + t.id + "-w@focusher\r\nDTSTAMP:" + icsDate(Date.now())
-      + "\r\nDTSTART:" + icsDate(s) + "\r\nDTEND:" + icsDate(s + 15*60000) + "\r\n" + rrule(t) + "\r\nSUMMARY:" + esc("Erinnerung: " + t.title) + "\r\n" + alarm(0) + "END:VEVENT\r\n";
+      + "\r\nDTSTART:" + icsDate(s) + "\r\nDTEND:" + icsDate(s + 15*60000) + "\r\n" + rrule(t) + "\r\nSUMMARY:" + esc(I18N_T("cal.remTitle", {t: t.title})) + "\r\n" + alarm(0) + "END:VEVENT\r\n";
   }
   return "BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//VellunaPrintsDesign//FocusHer//DE\r\n" + ev + "END:VCALENDAR\r\n";
 }
@@ -967,15 +1268,15 @@ const inViewer = !!window.claude;
 function calRow(t){
   const row = document.createElement("div"); row.className = "calrow";
   if(t.deadline){
-    const g = document.createElement("a"); g.href = googleUrl(t); g.target = "_blank"; g.rel = "noopener"; g.textContent = "Deadline in Google Kalender";
+    const g = document.createElement("a"); g.href = googleUrl(t); g.target = "_blank"; g.rel = "noopener"; g.textContent = I18N_T("cal.google");
     row.appendChild(g);
   }
   if(t.weekly && t.weekly.days.length){
-    const w = document.createElement("a"); w.href = googleWeeklyUrl(t); w.target = "_blank"; w.rel = "noopener"; w.textContent = "Wiederholung in Google Kalender";
+    const w = document.createElement("a"); w.href = googleWeeklyUrl(t); w.target = "_blank"; w.rel = "noopener"; w.textContent = I18N_T("cal.googleWeekly");
     row.appendChild(w);
   }
   if(!inViewer && !window.FocusHerStore){
-    const a = document.createElement("a"); a.textContent = "In Apple Kalender (iPhone)";
+    const a = document.createElement("a"); a.textContent = I18N_T("cal.apple");
     a.href = URL.createObjectURL(new Blob([icsText(t)], {type:"text/calendar"})); a.download = "focusher-" + t.id + ".ics";
     row.appendChild(a);
   }
@@ -988,19 +1289,20 @@ function checkReminders(){
   box.hidden = list.length === 0;
   list.forEach(({t, r}) => {
     const card = document.createElement("div"); card.className = "remind"; card.setAttribute("role","status");
-    const eb = document.createElement("span"); eb.className = "eyebrow"; eb.textContent = "Erinnerung";
+    const eb = document.createElement("span"); eb.className = "eyebrow"; eb.textContent = I18N_T("remind.eyebrow");
     const tt = document.createElement("div"); tt.className = "t"; tt.textContent = t.title;
     const sub = document.createElement("div"); sub.className = "small";
     const weeklyR = r.charAt(0) === "w";
-    sub.textContent = r === "due" ? "Die Frist ist jetzt erreicht (" + fmtDue(t.deadline) + "). Ein kleiner Schritt reicht, oder plane sie neu."
-      : weeklyR ? "Deine Erinnerung für heute." + (t.deadline ? " Fällig " + fmtDue(t.deadline) + "." : " Ein kleiner Schritt zählt schon.")
-      : "Fällig " + REM_LABEL[r] + ": " + fmtDue(t.deadline) + ".";
+    const tr = I18N_T;
+    sub.textContent = r === "due" ? tr("remind.due", {d: fmtDue(t.deadline)})
+      : weeklyR ? tr("remind.weekly") + (t.deadline ? tr("remind.weeklyDue", {d: fmtDue(t.deadline)}) : tr("remind.weeklySmall"))
+      : tr("remind.before", {when: REM_LABEL[r], d: fmtDue(t.deadline)});
     const row = document.createElement("div"); row.className = "row";
-    const b1 = document.createElement("button"); b1.className = "btn"; b1.type="button"; b1.textContent = "Erledigt";
+    const b1 = document.createElement("button"); b1.className = "btn"; b1.type="button"; b1.textContent = tr("remind.done");
     b1.addEventListener("click", e => toggleTask(t.id, e.currentTarget));
-    const b2 = document.createElement("button"); b2.className = "btn soft"; b2.type="button"; b2.textContent = "In 30 Min. nochmal";
+    const b2 = document.createElement("button"); b2.className = "btn soft"; b2.type="button"; b2.textContent = tr("remind.snooze");
     b2.addEventListener("click", () => { t.snooze = t.snooze || {}; t.snooze[r] = Date.now() + 30*60000; save(); checkReminders(); });
-    const b3 = document.createElement("button"); b3.className = "btn ghost"; b3.type="button"; b3.textContent = "Okay";
+    const b3 = document.createElement("button"); b3.className = "btn ghost"; b3.type="button"; b3.textContent = tr("remind.ok");
     b3.addEventListener("click", () => { t.ack = (t.ack||[]).concat(r); save(); checkReminders(); });
     row.append(b1,b2,b3);
     card.append(eb, tt, sub, row); box.appendChild(card);
@@ -1008,7 +1310,7 @@ function checkReminders(){
     if(!notified.has(key)){
       notified.add(key);
       if(S.settings.notif && canNotify() && Notification.permission === "granted"){
-        try{ new Notification("FocusHer: " + t.title, {body: r==="due" ? "Die Frist ist jetzt erreicht." : weeklyR ? "Deine Erinnerung für heute." : "Fällig " + REM_LABEL[r] + ".", tag: key, silent: true}); }catch(e){}
+        try{ new Notification("FocusHer: " + t.title, {body: r==="due" ? tr("notif.due") : weeklyR ? tr("remind.weekly") : tr("notif.before", {when: REM_LABEL[r]}), tag: key, silent: true}); }catch(e){}
       }
     }
   });
@@ -1018,9 +1320,12 @@ document.addEventListener("visibilitychange", () => { if(!document.hidden){ chec
 $("#energy").addEventListener("input", e => { S.energy = +e.target.value; save(); renderEnergy(); renderToday(); });
 
 /* ---------- Zerlegen ---------- */
-const SUGGEST = ["Steuererklärung machen","Küche aufräumen","Arzttermin vereinbaren","Präsentation vorbereiten","Kleiderschrank ausmisten"];
 let decN = 4, decVariant = 0, decSteps = [], decTask = "";
-SUGGEST.forEach(s => { const b=document.createElement("button"); b.type="button"; b.className="chip suggest"; b.textContent=s; b.addEventListener("click",()=>{ $("#decInput").value=s; $("#decInput").focus(); }); $("#decSuggest").appendChild(b); });
+function renderSuggest(){
+  $("#decSuggest").innerHTML = "";
+  t("dec.suggest").forEach(s => { const b=document.createElement("button"); b.type="button"; b.className="chip suggest"; b.textContent=s; b.addEventListener("click",()=>{ $("#decInput").value=s; $("#decInput").focus(); }); $("#decSuggest").appendChild(b); });
+}
+renderSuggest();
 $("#decCount").addEventListener("click", e => { const b=e.target.closest(".chip"); if(!b) return; decN=+b.dataset.n; $$("#decCount .chip").forEach(c=>c.setAttribute("aria-pressed", c===b)); if(decSteps.length && decTask){ runDecompose(); } });
 function canDecompose(){ if(isFull()) return true; return S.decUse.day!==dayKey() || S.decUse.n < FREE_DECOMPOSE_PER_DAY; }
 function countDecompose(){ if(S.decUse.day!==dayKey()) S.decUse={day:dayKey(), n:0}; S.decUse.n++; save(); }
@@ -1029,10 +1334,10 @@ async function runDecompose(){
   if(decCtl) decCtl.abort();
   const ctl = decCtl = new AbortController();
   const msg = $("#decMsg"); msg.className = "msg"; msg.textContent = "";
-  $("#decTitle").textContent = "„" + (decTask.length>40 ? decTask.slice(0,40)+"…" : decTask) + "“";
+  $("#decTitle").textContent = t("dec.title", {x: decTask.length>40 ? decTask.slice(0,40)+"…" : decTask});
   $("#decResult").hidden = false;
   const ol = $("#decSteps");
-  ol.innerHTML = '<li class="ai-note"><span class="thinking"><i></i><i></i><i></i></span>Ich überlege mir passende Schritte …</li>';
+  ol.innerHTML = '<li class="ai-note"><span class="thinking"><i></i><i></i><i></i></span></li>'; ol.firstChild.appendChild(document.createTextNode(t("dec.thinking")));
   $("#decAdd").disabled = true; $("#decAgain").disabled = true; $("#decBtn").disabled = true;
   let steps = null;
   try{
@@ -1041,7 +1346,7 @@ async function runDecompose(){
   }catch(e){
     if(e && e.code === "cancelled") return;
     if(e && ["not_granted","sampling_disabled","not_declared","capability_disabled","capability_removed"].includes(e.code)){ aiOff = true; setAiNote("off"); }
-    msg.textContent = e && e.code === "rate_limited" ? "Die KI braucht gerade eine kurze Pause. Hier sind Schritte aus den Vorlagen." : "Die KI war gerade nicht erreichbar. Hier sind Schritte aus den Vorlagen.";
+    msg.textContent = e && e.code === "rate_limited" ? t("dec.rate") : t("dec.offline");
   }
   if(ctl !== decCtl) return;
   decSteps = steps || decompose(decTask, decN, decVariant);
@@ -1052,14 +1357,14 @@ function renderSteps(){
   const ol = $("#decSteps"); ol.innerHTML = "";
   decSteps.forEach((s,i) => {
     const li = document.createElement("li"); li.className="step";
-    const inp = document.createElement("textarea"); inp.rows = 1; inp.value = s.t; inp.id = "step"+i; inp.setAttribute("aria-label","Schritt "+(i+1));
+    const inp = document.createElement("textarea"); inp.rows = 1; inp.value = s.t; inp.id = "step"+i; inp.setAttribute("aria-label",t("step.aria", {n: i+1}));
     const fit = () => { inp.style.height = "auto"; inp.style.height = inp.scrollHeight + "px"; };
     inp.addEventListener("input", () => { decSteps[i].t = inp.value.replace(/\n/g," "); fit(); });
     requestAnimationFrame(fit);
     const eb = document.createElement("button"); eb.type="button"; eb.className="ebtn "+s.e; eb.textContent = ESHORT[s.e];
-    eb.setAttribute("aria-label","Energie für Schritt "+(i+1)+": "+ESHORT[s.e]+". Tippen zum Wechseln");
+    eb.setAttribute("aria-label",t("step.energyAria", {n: i+1, e: ESHORT[s.e]}));
     eb.addEventListener("click", () => { decSteps[i].e = E[(E.indexOf(s.e)+1)%3]; renderSteps(); });
-    const del = document.createElement("button"); del.type="button"; del.className="del"; del.textContent="×"; del.setAttribute("aria-label","Schritt entfernen");
+    const del = document.createElement("button"); del.type="button"; del.className="del"; del.textContent="×"; del.setAttribute("aria-label",t("step.remove"));
     del.addEventListener("click", () => { if(decSteps.length>1){ decSteps.splice(i,1); renderSteps(); } });
     li.append(inp, eb, del); ol.appendChild(li);
   });
@@ -1068,7 +1373,7 @@ $("#decForm").addEventListener("submit", e => {
   e.preventDefault();
   const v = $("#decInput").value.trim();
   const msg = $("#decMsg"); msg.className="msg"; msg.textContent="";
-  if(!v){ msg.className="msg err"; msg.textContent = "Schreib zuerst die Aufgabe ins Feld."; return; }
+  if(!v){ msg.className="msg err"; msg.textContent = t("dec.empty"); return; }
   if(!canDecompose()){ renderDecLock(true); return; }
   countDecompose(); decTask = v; decVariant = 0; runDecompose(); renderDecLock(false);
 });
@@ -1078,7 +1383,7 @@ $("#decAdd").addEventListener("click", () => {
   const now = Date.now();
   steps.slice().reverse().forEach((s,i) => S.tasks.unshift({id:uid(), title:s.t.trim(), energy:s.e, done:false, created:now+i, parent:decTask}));
   save(); decSteps=[]; $("#decResult").hidden = true; $("#decInput").value="";
-  const m=$("#decMsg"); m.className="msg ok"; m.textContent = steps.length + " Schritte stehen jetzt unter „Heute“.";
+  const m=$("#decMsg"); m.className="msg ok"; m.textContent = t("dec.added", {n: steps.length});
   renderToday();
 });
 function renderDecLock(blocked){
@@ -1086,18 +1391,21 @@ function renderDecLock(blocked){
   if(isFull()) return;
   const used = S.decUse.day===dayKey() ? S.decUse.n : 0;
   const box = document.createElement("div"); box.className = "lock";
-  box.innerHTML = '<span class="eyebrow">Kostenlose Version</span>';
+  box.innerHTML = '<span class="eyebrow"></span>'; box.firstChild.textContent = t("lock.eyebrow");
   const p = document.createElement("p"); p.style.margin="0";
-  p.textContent = blocked ? "Für heute ist dein kostenloser Zerleger aufgebraucht. Morgen geht es wieder, oder du schaltest die Vollversion frei." : "Kostenlos kannst du eine Aufgabe pro Tag zerlegen (heute: "+used+" von "+FREE_DECOMPOSE_PER_DAY+").";
-  const b = document.createElement("button"); b.className="btn soft"; b.type="button"; b.textContent="Vollversion ansehen"; b.addEventListener("click", ()=>go("mehr"));
+  p.textContent = blocked ? t("lock.blocked") : t("lock.info", {used, max: FREE_DECOMPOSE_PER_DAY});
+  const b = document.createElement("button"); b.className="btn soft"; b.type="button"; b.textContent=t("lock.see"); b.addEventListener("click", ()=>go("mehr"));
   box.append(p,b); w.appendChild(box);
 }
 
 /* ---------- Journal ---------- */
-const MOODS = ["ruhig","stolz","erleichtert","müde, aber da"];
 let winMood = "";
-MOODS.forEach(m => { const b=document.createElement("button"); b.type="button"; b.className="chip"; b.textContent=m; b.setAttribute("aria-pressed","false");
-  b.addEventListener("click",()=>{ winMood = winMood===m ? "" : m; $$("#winMood .chip").forEach(c=>c.setAttribute("aria-pressed", c.textContent===winMood)); }); $("#winMood").appendChild(b); });
+function renderMoods(){
+  $("#winMood").innerHTML = ""; winMood = "";
+  t("j.moods").forEach(m => { const b=document.createElement("button"); b.type="button"; b.className="chip"; b.textContent=m; b.setAttribute("aria-pressed","false");
+    b.addEventListener("click",()=>{ winMood = winMood===m ? "" : m; $$("#winMood .chip").forEach(c=>c.setAttribute("aria-pressed", c.textContent===winMood)); }); $("#winMood").appendChild(b); });
+}
+renderMoods();
 $("#winForm").addEventListener("submit", e => {
   e.preventDefault(); const v = $("#winInput").value.trim(); if(!v) return;
   const j = {id:uid(), ts:Date.now(), text:v, kind:"win", mood:winMood};
@@ -1123,7 +1431,7 @@ function renderJournal(animate){
 
   // Kalender
   const cal = $("#cal"); cal.innerHTML = "";
-  ["Mo","Di","Mi","Do","Fr","Sa","So"].forEach(w => { const x=document.createElement("div"); x.className="wd"; x.textContent=w; cal.appendChild(x); });
+  [1,2,3,4,5,6,0].map(i => WD[i]).forEach(w => { const x=document.createElement("div"); x.className="wd"; x.textContent=w; cal.appendChild(x); });
   const counts = {}; S.journal.forEach(j => { const k=dayKey(j.ts); counts[k]=(counts[k]||0)+1; });
   const first = new Date(m0); const offset = (first.getDay()+6)%7;
   const dim = new Date(first.getFullYear(), first.getMonth()+1, 0).getDate();
@@ -1131,9 +1439,9 @@ function renderJournal(animate){
   for(let d=1; d<=dim; d++){
     const dt = new Date(first.getFullYear(), first.getMonth(), d); const k = dayKey(dt); const c = counts[k]||0;
     const x=document.createElement("div"); x.className = "d" + (c>=5?" l3":c>=2?" l2":c>=1?" l1":"") + (k===dayKey()?" today":"");
-    x.textContent = d; x.setAttribute("aria-label", d+". "+(c? c+" Funken":"keine Einträge")); cal.appendChild(x);
+    x.textContent = d; x.setAttribute("aria-label", t("cal.dayAria", {d, c: c ? t("cal.sparks", {n: c}) : t("cal.none")})); cal.appendChild(x);
   }
-  $("#calMonth").textContent = first.toLocaleDateString("de-DE",{month:"long", year:"numeric"});
+  $("#calMonth").textContent = first.toLocaleDateString(dateLocale(),{month:"long", year:"numeric"});
 
   // Verlauf
   const ul = $("#entries"); ul.innerHTML = "";
@@ -1143,26 +1451,26 @@ function renderJournal(animate){
   const byDay = {};
   visible.forEach(j => { (byDay[dayKey(j.ts)] = byDay[dayKey(j.ts)] || []).push(j); });
   const keys = Object.keys(byDay).sort().reverse();
-  if(!keys.length) ul.innerHTML = '<li class="muted small">Noch keine Einträge. Erledigte Aufgaben erscheinen hier automatisch.</li>';
+  if(!keys.length){ ul.innerHTML = '<li class="muted small"></li>'; ul.firstChild.textContent = t("hist.empty"); }
   keys.slice(0,30).forEach(k => {
     const li = document.createElement("li"); li.className="day";
     const h = document.createElement("h3"); const d = new Date(k+"T12:00:00");
-    h.textContent = k===dayKey() ? "Heute" : k===dayKey(now-DAY) ? "Gestern" : d.toLocaleDateString("de-DE",{weekday:"long", day:"numeric", month:"long"});
+    h.textContent = k===dayKey() ? t("hist.today") : k===dayKey(now-DAY) ? t("hist.yesterday") : d.toLocaleDateString(dateLocale(),{weekday:"long", day:"numeric", month:"long"});
     li.appendChild(h);
     byDay[k].forEach(j => {
       const r = document.createElement("div"); r.className="entry";
       const dot = document.createElement("span"); dot.className="dot " + (j.kind==="win"?"":(j.energy||"low")); if(j.kind==="win") dot.style.background="var(--lav)";
-      const t = document.createElement("span"); t.className="txt"; t.textContent = j.text + (j.mood ? " · " + j.mood : "");
-      const w = document.createElement("span"); w.className="when"; w.textContent = new Date(j.ts).toLocaleTimeString("de-DE",{hour:"2-digit",minute:"2-digit"});
-      r.append(dot,t,w); li.appendChild(r);
+      const tx = document.createElement("span"); tx.className="txt"; tx.textContent = j.text + (j.mood ? " · " + j.mood : "");
+      const w = document.createElement("span"); w.className="when"; w.textContent = new Date(j.ts).toLocaleTimeString(dateLocale(),timeOpts());
+      r.append(dot,tx,w); li.appendChild(r);
     });
     ul.appendChild(li);
   });
   const hl = $("#histLock"); hl.innerHTML = "";
   if(hidden>0){
     const box=document.createElement("div"); box.className="lock";
-    const p=document.createElement("p"); p.style.margin="0"; p.textContent = hidden + " ältere Funken sind sicher gespeichert. Mit der Vollversion siehst du deinen ganzen Verlauf.";
-    const b=document.createElement("button"); b.className="btn soft"; b.type="button"; b.textContent="Vollversion ansehen"; b.addEventListener("click",()=>go("mehr"));
+    const p=document.createElement("p"); p.style.margin="0"; p.textContent = t("hist.locked", {n: hidden});
+    const b=document.createElement("button"); b.className="btn soft"; b.type="button"; b.textContent=t("lock.see"); b.addEventListener("click",()=>go("mehr"));
     box.append(p,b); hl.appendChild(box);
   }
 }
@@ -1250,8 +1558,8 @@ function renderJar(items, animateSince){
     g.appendChild(grp);
   });
   if(!list.length){
-    const t1 = svgEl("text", {x:120, y:186, "text-anchor":"middle", class:"jar-empty"}); t1.textContent = "Noch leer.";
-    const t2 = svgEl("text", {x:120, y:204, "text-anchor":"middle", class:"jar-empty"}); t2.textContent = "Dein erster Funke kommt hierher.";
+    const t1 = svgEl("text", {x:120, y:186, "text-anchor":"middle", class:"jar-empty"}); t1.textContent = t("jar.empty1");
+    const t2 = svgEl("text", {x:120, y:204, "text-anchor":"middle", class:"jar-empty"}); t2.textContent = t("jar.empty2");
     svg.append(t1, t2);
   }
   svg.appendChild(svgEl("path", {d:"M50,124 L50,236", class:"jar-shine"}));
@@ -1287,7 +1595,7 @@ function renderJar(items, animateSince){
       f.grp.style.transformBox = "fill-box"; f.grp.style.transformOrigin = "center";
     });
   }
-  svg.setAttribute("aria-label", "Funkenglas: " + items.length + " Funken in den letzten 30 Tagen");
+  svg.setAttribute("aria-label", t("jar.aria", {n: items.length}));
 }
 
 /* ---------- Mehr ---------- */
@@ -1301,16 +1609,16 @@ function renderPlan(){
   const st = $("#planStatus"), tx = $("#planText");
   if(STORE && STORE.price) $("#buyPrice").textContent = STORE.price;
   if(S.unlocked){
-    st.className="status ok"; st.textContent="Freigeschaltet";
-    tx.textContent="Danke! Dein Jahresabo ist aktiv, alle Funktionen sind freigeschaltet.";
+    st.className="status ok"; st.textContent=t("plan.unlocked");
+    tx.textContent=t("plan.thanks");
     $("#buyBox").hidden = true; $("#planList").hidden = true; return;
   }
   $("#buyBox").hidden = false; $("#planList").hidden = false;
   const left = trialLeft();
-  if(left>0){ st.className="status trial"; st.textContent = "Test: noch " + left + (left===1?" Tag":" Tage");
-    tx.textContent = "Du testest gerade alles 7 Tage kostenlos. Danach bleiben Aufgaben, Deadlines, Erinnerungen und die letzten 7 Tage im Journal kostenlos."; }
-  else { st.className="status"; st.textContent="Kostenlose Version";
-    tx.textContent = "Deine 7 Testtage sind vorbei, alle deine Daten sind noch da. Mit dem Jahresabo bekommst du unbegrenztes Zerlegen und deinen ganzen Verlauf zurück."; }
+  if(left>0){ st.className="status trial"; st.textContent = t("plan.trial", {n: left});
+    tx.textContent = t("plan.trialText"); }
+  else { st.className="status"; st.textContent=t("plan.free");
+    tx.textContent = t("plan.freeText"); }
 }
 /* Feedback: in der Store-App über window.FocusHerStore.sendFeedback (z. B. Base44-Datenbank),
    in dieser Vorschau in die Datenbank des Artefakts. */
@@ -1321,10 +1629,10 @@ function getDb(){ if(!dbPromise) dbPromise = (window.claude && window.claude.use
 $("#fbForm").addEventListener("submit", async e => {
   e.preventDefault();
   const text = $("#fbText").value.trim(), m = $("#fbMsg");
-  if(!text){ m.className = "msg err"; m.textContent = "Schreib bitte kurz, worum es geht."; return; }
+  if(!text){ m.className = "msg err"; m.textContent = t("fb.empty"); return; }
   const entry = {typ: fbType, text, zeit: new Date().toISOString(), version: APP_VERSION, plattform: (STORE && STORE.platform) || "web",
     status: S.unlocked ? "abo" : (trialLeft() > 0 ? "test" : "kostenlos"), aufgaben: S.tasks.length, funken: S.journal.length};
-  $("#fbBtn").disabled = true; m.className = "msg"; m.textContent = "Wird gesendet …";
+  $("#fbBtn").disabled = true; m.className = "msg"; m.textContent = t("fb.sending");
   let sent = false;
   try{
     if(STORE && STORE.sendFeedback){ await STORE.sendFeedback(entry); sent = true; }
@@ -1333,10 +1641,10 @@ $("#fbForm").addEventListener("submit", async e => {
   $("#fbBtn").disabled = false;
   if(sent){
     $("#fbText").value = "";
-    m.className = "msg ok"; m.textContent = "Danke dir! Dein Feedback ist angekommen.";
+    m.className = "msg ok"; m.textContent = t("fb.sent");
   } else {
     const q = store.get("fbQueue", []); q.push(entry); store.set("fbQueue", q);
-    m.className = "msg"; m.textContent = "Gerade keine Verbindung. Dein Feedback ist gespeichert und wird beim nächsten Mal gesendet.";
+    m.className = "msg"; m.textContent = t("fb.queued");
     $("#fbText").value = "";
   }
 });
@@ -1356,22 +1664,22 @@ async function flushFeedback(){
 $("#buyBtn").addEventListener("click", async () => {
   const m = $("#buyMsg"); m.className = "msg"; m.textContent = "";
   if(STORE && STORE.purchase){
-    $("#buyBtn").disabled = true; m.textContent = "Kauf wird geöffnet …";
-    try{ const ok = await STORE.purchase(); if(ok) unlockNow(m, "Freigeschaltet. Viel Freude mit FocusHer!"); else m.textContent = ""; }
-    catch(e){ m.className = "msg err"; m.textContent = "Der Kauf hat nicht geklappt. Es wurde nichts abgebucht. Versuch es bitte später noch einmal."; }
+    $("#buyBtn").disabled = true; m.textContent = t("buy.opening");
+    try{ const ok = await STORE.purchase(); if(ok) unlockNow(m, t("buy.ok")); else m.textContent = ""; }
+    catch(e){ m.className = "msg err"; m.textContent = t("buy.err"); }
     $("#buyBtn").disabled = false;
   } else {
-    m.textContent = "In der App aus dem App Store oder Google Play kaufst du hier direkt über Apple oder Google. In dieser Browser-Vorschau gibt es noch keinen Kauf.";
+    m.textContent = t("buy.web");
   }
 });
 $("#restoreBtn").addEventListener("click", async () => {
   const m = $("#buyMsg"); m.className = "msg";
   if(STORE && STORE.restore){
-    m.textContent = "Käufe werden geprüft …";
-    try{ const ok = await STORE.restore(); if(ok) unlockNow(m, "Dein Kauf ist wiederhergestellt."); else m.textContent = "Mit diesem Apple- oder Google-Konto wurde noch kein Kauf gefunden."; }
-    catch(e){ m.className = "msg err"; m.textContent = "Das Wiederherstellen hat nicht geklappt. Prüfe deine Internetverbindung."; }
+    m.textContent = t("restore.checking");
+    try{ const ok = await STORE.restore(); if(ok) unlockNow(m, t("restore.ok")); else m.textContent = t("restore.none"); }
+    catch(e){ m.className = "msg err"; m.textContent = t("restore.err"); }
   } else {
-    m.textContent = "Wiederherstellen funktioniert in der App aus dem App Store oder Google Play.";
+    m.textContent = t("restore.web");
   }
 });
 
@@ -1379,6 +1687,19 @@ $("#tgDark").addEventListener("click", () => { S.settings.theme = S.settings.the
 $("#tgCalm").addEventListener("click", () => { S.settings.calm = !S.settings.calm; save(); applySettings(); });
 $("#sizeChips").addEventListener("click", e => { const b=e.target.closest(".chip"); if(!b) return; S.settings.size=b.dataset.s; save(); applySettings(); });
 $("#nameInput").addEventListener("input", e => { S.settings.name = e.target.value.trim(); save(); greeting(); });
+$("#langChips").addEventListener("click", e => { const b=e.target.closest(".chip"); if(!b) return; S.settings.lang = b.dataset.l; applyLang(); });
+/* Sprache wechseln: alles sofort neu darstellen, ohne Neuladen */
+function applyLang(){
+  LANG = resolveLang(S.settings.lang);
+  retitleExamples();
+  applyStatic(); applySettings(); renderSuggest(); renderMoods(); setAiNote(aiState); openDl(!$("#dlBox").hidden);
+  if(welcomeGap) welcomeText();
+  ["#decMsg","#buyMsg","#fbMsg","#dataMsg"].forEach(s => { $(s).textContent = ""; });
+  if(!decSteps.length){ $("#decTitle").textContent = t("dec.yourSteps"); $("#decSteps").innerHTML = ""; } else if(!$("#decAdd").disabled) renderSteps();
+  $("#toast").hidden = true; undoFn = null;
+  if(!$("#resetWrap").querySelector("span")) resetBtnBack(); else askReset();
+  save(); renderAll();
+}
 /* Mitteilungen (nur wenn Browser und Gerät sie erlauben) */
 const canNotify = () => typeof Notification !== "undefined";
 function renderNotif(){
@@ -1386,16 +1707,16 @@ function renderNotif(){
   if(STORE && STORE.notifStatus){
     STORE.notifStatus().then(st => {
       tg.setAttribute("aria-checked", st === "granted");
-      note.textContent = st === "granted" ? "An: Erinnerungen kommen auch, wenn FocusHer geschlossen ist."
-        : st === "denied" ? "Mitteilungen sind aus. Du kannst sie in den iPhone-Einstellungen unter Mitteilungen > FocusHer erlauben."
-        : "Erlaube Mitteilungen, damit Erinnerungen auch bei geschlossener App ankommen.";
+      note.textContent = st === "granted" ? t("notif.on")
+        : st === "denied" ? t("notif.denied")
+        : t("notif.prompt");
     }).catch(() => {});
     return;
   }
   const granted = canNotify() && Notification.permission === "granted";
   tg.setAttribute("aria-checked", !!(S.settings.notif && granted));
-  if(!canNotify()){ note.textContent = "Auf diesem Gerät nicht verfügbar. Auf dem iPhone geht es, wenn FocusHer zum Home-Bildschirm hinzugefügt wurde."; tg.disabled = true; }
-  else if(Notification.permission === "denied"){ note.textContent = "Mitteilungen sind für FocusHer blockiert. Du kannst sie in den Einstellungen des Browsers erlauben."; }
+  if(!canNotify()){ note.textContent = t("notif.unavail"); tg.disabled = true; }
+  else if(Notification.permission === "denied"){ note.textContent = t("notif.blocked"); }
 }
 $("#tgNotif").addEventListener("click", async () => {
   if(STORE && STORE.notifRequest){ await STORE.notifRequest().catch(() => {}); save(); renderNotif(); return; }
@@ -1405,24 +1726,24 @@ $("#tgNotif").addEventListener("click", async () => {
     const p = Notification.permission === "granted" ? "granted" : await Notification.requestPermission();
     S.settings.notif = p === "granted";
   }catch(e){ S.settings.notif = false; }
-  if(!S.settings.notif){ $("#notifNote").textContent = "Hier konnten keine Mitteilungen erlaubt werden. Die Erinnerungen erscheinen dann oben in der App und in deinem Kalender."; }
+  if(!S.settings.notif){ $("#notifNote").textContent = t("notif.failed"); }
   save(); renderNotif();
 });
 function resetBtnBack(){
   const w=$("#resetWrap"); w.innerHTML = "";
-  const b=document.createElement("button"); b.className="btn ghost"; b.type="button"; b.textContent="Alle Daten löschen"; b.style.minHeight="38px"; b.style.padding="8px 14px"; b.style.fontSize=".85em";
+  const b=document.createElement("button"); b.className="btn ghost"; b.type="button"; b.textContent=t("reset.btn"); b.style.minHeight="38px"; b.style.padding="8px 14px"; b.style.fontSize=".85em";
   b.addEventListener("click", askReset); w.appendChild(b);
 }
 function askReset(){
   const w = $("#resetWrap"); w.innerHTML = "";
-  const p = document.createElement("span"); p.className="small"; p.textContent = "Wirklich alle Aufgaben und Funken löschen?";
-  const yes = document.createElement("button"); yes.className="btn ghost"; yes.type="button"; yes.textContent="Ja, löschen";
-  const no = document.createElement("button"); no.className="btn soft"; no.type="button"; no.textContent="Abbrechen";
+  const p = document.createElement("span"); p.className="small"; p.textContent = t("reset.ask");
+  const yes = document.createElement("button"); yes.className="btn ghost"; yes.type="button"; yes.textContent=t("reset.yes");
+  const no = document.createElement("button"); no.className="btn soft"; no.type="button"; no.textContent=t("reset.no");
   yes.addEventListener("click", () => {
     const keep = {trialStart:S.trialStart, unlocked:S.unlocked};
     store.clear(); store.set("trialStart",keep.trialStart); store.set("unlocked",keep.unlocked); store.set("tasks",[]);
-    load(); applySettings(); renderAll(); resetBtnBack();
-    const m=$("#dataMsg"); m.className="msg ok"; m.textContent="Alles gelöscht. Du startest mit einer leeren Liste.";
+    load(); applyStatic(); applySettings(); renderSuggest(); renderMoods(); setAiNote(aiState); renderAll(); resetBtnBack();
+    const m=$("#dataMsg"); m.className="msg ok"; m.textContent=t("reset.done");
   });
   no.addEventListener("click", resetBtnBack);
   w.append(p,yes,no);
@@ -1445,11 +1766,13 @@ function showToast(text, undo){
   clearTimeout(toastTimer); toastTimer = setTimeout(() => { $("#toast").hidden = true; undoFn = null; }, 5000);
 }
 $("#toastUndo").addEventListener("click", () => { if(undoFn) undoFn(); undoFn=null; $("#toast").hidden = true; });
+let welcomeGap = false;
+function welcomeText(){ $("#welcomeBack").textContent = t("welcome", {n: S.journal.length}); }
 function welcomeBack(){
   const w = $("#welcomeBack");
   if(S.lastVisit && !S.settings.calm){
     const gap = Math.floor((Date.now()-S.lastVisit)/DAY);
-    if(gap >= 2){ w.textContent = "Schön, dass du wieder da bist. Hier ist nichts verloren gegangen: deine " + S.journal.length + " Funken sind alle noch im Glas."; w.hidden = false; }
+    if(gap >= 2){ welcomeGap = true; welcomeText(); w.hidden = false; }
   }
   S.lastVisit = Date.now(); store.set("lastVisit", S.lastVisit);
 }
@@ -1462,7 +1785,7 @@ window.addEventListener("fh-entitlement", e => {
   const active = !!(e.detail && e.detail.active);
   if(active !== S.unlocked){ S.unlocked = active; store.set("unlocked", active); renderAll(); }
 });
-load(); applySettings(); welcomeBack(); renderAll(); resetBtnBack();
+load(); applyStatic(); renderSuggest(); renderMoods(); setAiNote(aiState); applySettings(); welcomeBack(); renderAll(); resetBtnBack();
 let startTab = "heute"; try{ startTab = sessionStorage.getItem("fh_tab") || "heute"; }catch(e){}
 go(startTab);
 })();
