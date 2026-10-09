@@ -8,4 +8,10 @@ Abo: focusher_jahr FocusHer APPROVED ONE_YEAR 6819877479
   Preise in 175 Ländern, z. B. ['99.99', '24.99', '24.99'] DEU dabei: True
   Verfügbarkeit: gesetzt
   Prüfbild: vorhanden
-Run 9 Thu Oct  8 22:08:29 UTC 2026
+Verfügbarkeit-ID: 6819870035 {'availableInNewTerritories': False}
+Verfügbar in: [('CHE', ['AVAILABLE']), ('AUT', ['TRADER_STATUS_NOT_PROVIDED']), ('LUX', ['TRADER_STATUS_NOT_PROVIDED']), ('DEU', ['TRADER_STATUS_NOT_PROVIDED'])]
+   CHE {'available': True, 'releaseDate': '2026-10-08', 'preOrderEnabled': False, 'preOrderPublishDate': None, 'contentStatuses': ['AVAILABLE']}
+   AUT {'available': True, 'releaseDate': '2026-10-08', 'preOrderEnabled': False, 'preOrderPublishDate': None, 'contentStatuses': ['TRADER_STATUS_NOT_PROVIDED']}
+   LUX {'available': True, 'releaseDate': '2026-10-08', 'preOrderEnabled': False, 'preOrderPublishDate': None, 'contentStatuses': ['TRADER_STATUS_NOT_PROVIDED']}
+   DEU {'available': True, 'releaseDate': '2026-10-08', 'preOrderEnabled': False, 'preOrderPublishDate': None, 'contentStatuses': ['TRADER_STATUS_NOT_PROVIDED']}
+Run 10 Fri Oct  9 05:48:37 UTC 2026
