@@ -1163,7 +1163,10 @@ const WD = new Proxy([], {get: (o, k) => /^\d+$/.test(String(k)) ? t("wd")[k] : 
 function weeklyText(w){
   const d = w.days.slice().sort((a,b) => ((a+6)%7) - ((b+6)%7));
   const names = d.length === 7 ? t("weekly.daily") : d.join() === "1,2,3,4,5" ? t("weekly.work") : d.map(x => WD[x]).join(", ");
-  return names + " " + w.time;
+  // Deutsch unverändert ("09:00"), Englisch im Gerätformat ("9:00 AM")
+  let time = w.time;
+  if(LANG !== "de"){ const [hh, mm] = String(w.time || "09:00").split(":").map(Number); const d = new Date(); d.setHours(hh, mm, 0, 0); time = d.toLocaleTimeString(dateLocale(), timeOpts()); }
+  return names + " " + time;
 }
 $("#addForm").addEventListener("submit", e => {
   e.preventDefault();
