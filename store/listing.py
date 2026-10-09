@@ -367,6 +367,20 @@ def setup():
 def status():
     load()
     step("Abo", lambda: s_subscription(fix=False))
+    def avail():
+        av = call("GET", f"/apps/{C.app_id}/appAvailabilityV2", ok404=True)
+        if not av or not av.get("data"):
+            log("KEINE App-Verfügbarkeit gesetzt!")
+            return
+        log("Verfügbarkeit-ID:", av["data"]["id"], av["data"].get("attributes"))
+        ta = call("GET", f"/v2/appAvailabilities/{av['data']['id']}/territoryAvailabilities",
+                  params={"limit": 200, "include": "territory"})
+        on = [(t["relationships"]["territory"]["data"]["id"], t["attributes"].get("contentStatuses")) for t in ta["data"] if t["attributes"].get("available")]
+        log("Verfügbar in:", on)
+        for t in ta["data"]:
+            if t["relationships"]["territory"]["data"]["id"] in TERRITORIES:
+                log("  ", t["relationships"]["territory"]["data"]["id"], t["attributes"])
+    step("Verfügbarkeit", avail)
     if C.version:
         step("Build", lambda: log("Build an Version:", call("GET", f"/appStoreVersions/{C.version['id']}/build").get("data")))
 
