@@ -1,17 +1,8 @@
 App: FocusHer 6819870035 Primärsprache: de-DE Inhaltsrechte: DOES_NOT_USE_THIRD_PARTY_CONTENT
 App-Info: 420405c6-03e5-4cd2-8bc9-c9f83ade483a READY_FOR_SALE
 Version: 1.0.0 READY_FOR_SALE 5821f437-6385-4150-87f1-f006696a591b
-Abo-Gruppe: FocusHer 22448375
-  Gruppen-Sprachen: [('de-DE', 'FocusHer', 'APPROVED')]
-Abo: focusher_jahr FocusHer APPROVED ONE_YEAR 6819877479
-  Sprachen: [('de-DE', 'FocusHer Vollversion', 'APPROVED')]
-  Preise in 175 Ländern, z. B. ['99.99', '24.99', '24.99'] DEU dabei: True
-  Verfügbarkeit: gesetzt
-  Prüfbild: vorhanden
-Verfügbarkeit-ID: 6819870035 {'availableInNewTerritories': False}
-Verfügbar in: [('CHE', ['AVAILABLE']), ('AUT', ['AVAILABLE']), ('LUX', ['AVAILABLE']), ('DEU', ['AVAILABLE'])]
-   CHE {'available': True, 'releaseDate': '2026-10-08', 'preOrderEnabled': False, 'preOrderPublishDate': None, 'contentStatuses': ['AVAILABLE']}
-   AUT {'available': True, 'releaseDate': '2026-10-08', 'preOrderEnabled': False, 'preOrderPublishDate': None, 'contentStatuses': ['AVAILABLE']}
-   LUX {'available': True, 'releaseDate': '2026-10-08', 'preOrderEnabled': False, 'preOrderPublishDate': None, 'contentStatuses': ['AVAILABLE']}
-   DEU {'available': True, 'releaseDate': '2026-10-08', 'preOrderEnabled': False, 'preOrderPublishDate': None, 'contentStatuses': ['AVAILABLE']}
-Run 11 Mon Oct 19 22:15:49 UTC 2026
+OK Version 1.0.1 Copyright, automatische Veröffentlichung nach Freigabe
+Build: 8 VALID 
+OK Build 8 ausgewählt
+OK Beschreibung, Werbetext, Schlüsselwörter, Support-URL (2166 Zeichen)
+Run 12 Mon Oct 19 22:17:42 UTC 2026
