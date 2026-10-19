@@ -50,11 +50,14 @@ def step(name, fn):
 
 
 # ---------------- Texte ----------------
-SUBTITLE = "ADHS-Planer ohne Druck"
+# Suchbegriffe nach Google-Trends-Auswertung (Okt. 2026): „ADHS App“ +250 %, Prokrastination, KI-Hilfe.
+# Name und Untertitel lassen sich bei Apple nur zusammen mit einer neuen Version ändern.
+NAME = "FocusHer: ADHS App & Planer"
+SUBTITLE = "KI zerlegt deine Aufgaben"
 PRIVACY_URL = "https://vellunaprints.de/focusher/datenschutz/"
 SUPPORT_URL = "https://vellunaprints.de/focusher/"
 COPYRIGHT = "2026 Walter Götz"
-KEYWORDS = "ADHS,ADHD,Planer,To-do,Aufgaben,Fokus,Erinnerung,Deadline,Routine,Aufschieben,Struktur,Journal"
+KEYWORDS = "ADHD,ADS,Prokrastination,Aufschieben,Fokus,To-do,Erinnerung,Deadline,Routine,Journal,Paralyse"
 PROMO = ("Weniger Druck, mehr erledigt: FocusHer zerlegt große Aufgaben in kleine Schritte, "
          "passt sich deiner Energie an und erinnert dich sanft an Deadlines.")
 DESCRIPTION = """FocusHer ist ein ruhiger Planer für Menschen mit ADHS und für alle, in deren Kopf zu viele Tabs offen sind. Keine Punkte, die verfallen, keine roten Zahlen, kein schlechtes Gewissen. Nur der nächste kleine Schritt.
@@ -164,14 +167,14 @@ def s_categories():
 def s_info_loc():
     locs = call("GET", f"/appInfos/{C.info['id']}/appInfoLocalizations")["data"]
     log("App-Info-Sprachen:", [l["attributes"]["locale"] for l in locs])
-    attrs = {"subtitle": SUBTITLE, "privacyPolicyUrl": PRIVACY_URL}
+    attrs = {"name": NAME, "subtitle": SUBTITLE, "privacyPolicyUrl": PRIVACY_URL}
     mine = [l for l in locs if l["attributes"]["locale"] == LOC]
     if mine:
         call("PATCH", f"/appInfoLocalizations/{mine[0]['id']}", json={"data": {"type": "appInfoLocalizations", "id": mine[0]["id"], "attributes": attrs}})
     else:
-        call("POST", "/appInfoLocalizations", json={"data": {"type": "appInfoLocalizations", "attributes": {"locale": LOC, "name": "FocusHer", **attrs},
+        call("POST", "/appInfoLocalizations", json={"data": {"type": "appInfoLocalizations", "attributes": {"locale": LOC, **attrs},
              "relationships": {"appInfo": {"data": {"type": "appInfos", "id": C.info["id"]}}}}})
-    log("OK Untertitel + Datenschutz-URL")
+    log("OK Name, Untertitel + Datenschutz-URL")
 
 
 def s_age():
