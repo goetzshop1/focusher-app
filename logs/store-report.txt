@@ -1,7 +1,16 @@
-App: FocusHer 6819870035 Primärsprache: de-DE Inhaltsrechte: DOES_NOT_USE_THIRD_PARTY_CONTENT
+App: FocusHer: ADHS App & Planer 6819870035 Primärsprache: de-DE Inhaltsrechte: DOES_NOT_USE_THIRD_PARTY_CONTENT
 App-Info: 2583c1cc-8d79-48d8-83d4-beb152a97e2b PREPARE_FOR_SUBMISSION
 Version: 1.0.1 PREPARE_FOR_SUBMISSION 98bf7dd0-84c1-4470-a2e1-a6d0aec7bddc
 Version: 1.0.0 READY_FOR_SALE 5821f437-6385-4150-87f1-f006696a591b
-App-Info-Sprachen: ['de-DE']
-OK Name, Untertitel + Datenschutz-URL
-Run 13 Mon Oct 19 22:18:48 UTC 2026
+Build: 8 VALID 
+OK Build 8 ausgewählt
+Abo-Gruppe: FocusHer 22448375
+  Gruppen-Sprachen: [('de-DE', 'FocusHer', 'APPROVED')]
+Abo: focusher_jahr FocusHer APPROVED ONE_YEAR 6819877479
+  Sprachen: [('de-DE', 'FocusHer Vollversion', 'APPROVED')]
+  Preise in 175 Ländern, z. B. ['99.99', '24.99', '24.99'] DEU dabei: True
+  Verfügbarkeit: gesetzt
+  Prüfbild: vorhanden
+OK Version zur Einreichung hinzugefügt
+OK EINGEREICHT: Version 1.0.1 wartet auf die Prüfung
+Run 14 Mon Oct 19 22:20:13 UTC 2026
