@@ -13,7 +13,8 @@ import jwt, requests
 
 API = "https://api.appstoreconnect.apple.com"
 BUNDLE = "de.vellunaprints.focusher"
-VERSION = "1.0.0"
+VERSION = "1.0.1"
+WHATS_NEW = "Kleine Verbesserungen für mehr Ruhe und Stabilität. Danke für dein Feedback!"
 LOC = "de-DE"
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPORT = []
@@ -267,6 +268,8 @@ def s_build():
 def s_version_loc():
     locs = call("GET", f"/appStoreVersions/{C.version['id']}/appStoreVersionLocalizations")["data"]
     attrs = {"description": DESCRIPTION, "keywords": KEYWORDS, "promotionalText": PROMO, "supportUrl": SUPPORT_URL, "marketingUrl": SUPPORT_URL}
+    if VERSION != "1.0.0":
+        attrs["whatsNew"] = WHATS_NEW
     mine = [l for l in locs if l["attributes"]["locale"] == LOC]
     if mine:
         C.vloc = mine[0]["id"]
