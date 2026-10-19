@@ -9,9 +9,9 @@ Abo: focusher_jahr FocusHer APPROVED ONE_YEAR 6819877479
   Verfügbarkeit: gesetzt
   Prüfbild: vorhanden
 Verfügbarkeit-ID: 6819870035 {'availableInNewTerritories': False}
-Verfügbar in: [('CHE', ['AVAILABLE']), ('AUT', ['TRADER_STATUS_NOT_PROVIDED']), ('LUX', ['TRADER_STATUS_NOT_PROVIDED']), ('DEU', ['TRADER_STATUS_NOT_PROVIDED'])]
+Verfügbar in: [('CHE', ['AVAILABLE']), ('AUT', ['AVAILABLE']), ('LUX', ['AVAILABLE']), ('DEU', ['AVAILABLE'])]
    CHE {'available': True, 'releaseDate': '2026-10-08', 'preOrderEnabled': False, 'preOrderPublishDate': None, 'contentStatuses': ['AVAILABLE']}
-   AUT {'available': True, 'releaseDate': '2026-10-08', 'preOrderEnabled': False, 'preOrderPublishDate': None, 'contentStatuses': ['TRADER_STATUS_NOT_PROVIDED']}
-   LUX {'available': True, 'releaseDate': '2026-10-08', 'preOrderEnabled': False, 'preOrderPublishDate': None, 'contentStatuses': ['TRADER_STATUS_NOT_PROVIDED']}
-   DEU {'available': True, 'releaseDate': '2026-10-08', 'preOrderEnabled': False, 'preOrderPublishDate': None, 'contentStatuses': ['TRADER_STATUS_NOT_PROVIDED']}
-Run 10 Fri Oct  9 05:48:37 UTC 2026
+   AUT {'available': True, 'releaseDate': '2026-10-08', 'preOrderEnabled': False, 'preOrderPublishDate': None, 'contentStatuses': ['AVAILABLE']}
+   LUX {'available': True, 'releaseDate': '2026-10-08', 'preOrderEnabled': False, 'preOrderPublishDate': None, 'contentStatuses': ['AVAILABLE']}
+   DEU {'available': True, 'releaseDate': '2026-10-08', 'preOrderEnabled': False, 'preOrderPublishDate': None, 'contentStatuses': ['AVAILABLE']}
+Run 11 Mon Oct 19 22:15:49 UTC 2026
