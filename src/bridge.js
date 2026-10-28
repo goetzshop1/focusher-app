@@ -162,6 +162,11 @@ if(native){
     window.FocusHerStore.purchase = async () => true;
     window.FocusHerStore.restore = async () => true;
   }
+  if(platform === "android"){
+    // Nutzungsbedingungen: auf Android die Google-Play-Bedingungen statt der Apple-EULA
+    const setTerms = () => { const a = document.getElementById("termsLink"); if(a) a.href = "https://play.google.com/about/play-terms/"; };
+    if(document.readyState === "loading") document.addEventListener("DOMContentLoaded", setTerms); else setTerms();
+  }
   if(platform === "android"){ try{ StatusBar.setStyle({ style: Style.Dark }); StatusBar.setBackgroundColor({ color: "#16141b" }); }catch(e){} }
 
   // Abo-Status beim Start und beim Zurückkehren in die App prüfen
