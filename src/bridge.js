@@ -54,14 +54,34 @@ function remTime(t, r){
   if(r === "morning"){ const d = new Date(t.deadline); d.setHours(8,0,0,0); return d.getTime() < t.deadline ? d.getTime() : null; }
   return t.deadline - (+r) * 60000;
 }
-const LABEL = {"10080":"in einer Woche","4320":"in 3 Tagen","1440":"morgen","morning":"heute","180":"in 3 Stunden","60":"in einer Stunde","15":"in 15 Minuten"};
-function fmtDue(ts){
+// Texte der Mitteilungen in der Sprache, die die App beim Planen übergibt (de/en)
+const TXT = {
+  de: {
+    label: {"10080":"in einer Woche","4320":"in 3 Tagen","1440":"morgen","morning":"heute","180":"in 3 Stunden","60":"in einer Stunde","15":"in 15 Minuten"},
+    due: "Die Frist ist jetzt erreicht. Ein kleiner Schritt reicht.",
+    before: (when, d) => "Fällig " + when + ": " + d + ".",
+    weeklyDue: d => "Deine Erinnerung für heute. Fällig " + d + ".",
+    weekly: "Deine Erinnerung für heute. Ein kleiner Schritt zählt schon."
+  },
+  en: {
+    label: {"10080":"in a week","4320":"in 3 days","1440":"tomorrow","morning":"today","180":"in 3 hours","60":"in an hour","15":"in 15 minutes"},
+    due: "The deadline is here. A small step is enough.",
+    before: (when, d) => "Due " + when + ": " + d + ".",
+    weeklyDue: d => "Your reminder for today. Due " + d + ".",
+    weekly: "Your reminder for today. Even a small step counts."
+  }
+};
+function langOpts(opts){
+  const lang = (opts && opts.lang) || (document.documentElement.lang === "en" ? "en" : "de");
+  return { lang: lang === "en" ? "en" : "de", locale: (opts && opts.locale) || (lang === "en" ? "en-GB" : "de-DE") };
+}
+function fmtDue(ts, locale){
   const d = new Date(ts);
-  return d.toLocaleDateString("de-DE", { weekday:"short", day:"numeric", month:"numeric" }) + ", " + d.toLocaleTimeString("de-DE", { hour:"2-digit", minute:"2-digit" });
+  return d.toLocaleDateString(locale, { weekday:"short", day:"numeric", month:"numeric" }) + ", " + d.toLocaleTimeString(locale, { hour: locale === "de-DE" ? "2-digit" : "numeric", minute:"2-digit" });
 }
 function hashId(str){ let h = 0x811c9dc5; for(let i=0;i<str.length;i++){ h ^= str.charCodeAt(i); h = Math.imul(h, 0x01000193) >>> 0; } return (h % 2000000000) + 1; }
-function planFor(tasks){
-  const now = Date.now(), out = [];
+function planFor(tasks, lo){
+  const now = Date.now(), out = [], T = TXT[lo.lang];
   for(const t of tasks || []){
     if(t.done) continue;
     if(t.deadline){
@@ -69,7 +89,7 @@ function planFor(tasks){
         const at = remTime(t, r);
         if(at == null || at <= now + 5000) continue;
         out.push({ id: hashId(t.id + r), at, title: t.title,
-          body: r === "due" ? "Die Frist ist jetzt erreicht. Ein kleiner Schritt reicht." : "Fällig " + LABEL[r] + ": " + fmtDue(t.deadline) + "." });
+          body: r === "due" ? T.due : T.before(T.label[r], fmtDue(t.deadline, lo.locale)) });
       }
     }
     if(t.weekly && t.weekly.days && t.weekly.days.length){
@@ -79,7 +99,7 @@ function planFor(tasks){
         if(!t.weekly.days.includes(d.getDay()) || d.getTime() <= now + 5000) continue;
         if(t.deadline && d.getTime() > t.deadline) continue;
         out.push({ id: hashId(t.id + "w" + d.toDateString()), at: d.getTime(), title: t.title,
-          body: t.deadline ? "Deine Erinnerung für heute. Fällig " + fmtDue(t.deadline) + "." : "Deine Erinnerung für heute. Ein kleiner Schritt zählt schon." });
+          body: t.deadline ? T.weeklyDue(fmtDue(t.deadline, lo.locale)) : T.weekly });
       }
     }
   }
@@ -87,10 +107,12 @@ function planFor(tasks){
   return out.sort((a,b) => a.at - b.at).slice(0, 60);
 }
 let lastPlanKey = "";
-async function syncReminders(tasks){
+async function syncReminders(tasks, opts){
   if(!native) return;
-  const plan = planFor(tasks);
-  const key = plan.map(p => p.id + ":" + p.at).join(",");
+  const lo = langOpts(opts);
+  const plan = planFor(tasks, lo);
+  // Sprache gehört zum Schlüssel, damit ein Sprachwechsel die Mitteilungen neu plant
+  const key = lo.lang + "|" + plan.map(p => p.id + ":" + p.at).join(",");
   if(key === lastPlanKey) return;
   try{
     let perm = await LocalNotifications.checkPermissions();
@@ -144,7 +166,8 @@ if(native){
       return isActive(customerInfo);
     },
     async decompose(opts){
-      const out = await callServer("fhDecompose", opts);
+      // lang ("de" | "en") steuert die Sprache der Schritte auf dem Server
+      const out = await callServer("fhDecompose", Object.assign({ lang: langOpts(opts).lang }, opts));
       return out && out.steps;
     },
     async sendFeedback(entry){
