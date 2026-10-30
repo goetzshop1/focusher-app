@@ -1,8 +1,8 @@
 App: FocusHer: ADHS App & Planer 6819870035 Primärsprache: de-DE Inhaltsrechte: DOES_NOT_USE_THIRD_PARTY_CONTENT
-App-Info: 2583c1cc-8d79-48d8-83d4-beb152a97e2b READY_FOR_SALE
+App-Info: 4da33db2-5457-4bd7-8e3c-7b75b24913b2 PREPARE_FOR_SUBMISSION
+Version: 1.0.2 PREPARE_FOR_SUBMISSION 4c4b812a-568e-4d95-a68f-13bb322c064a
 Version: 1.0.1 READY_FOR_SALE 98bf7dd0-84c1-4470-a2e1-a6d0aec7bddc
 Version: 1.0.0 READY_FOR_SALE 5821f437-6385-4150-87f1-f006696a591b
-OK Version 1.0.2 Copyright, automatische Veröffentlichung nach Freigabe
-FEHLER: kein gültiger Build für 1.0.2
-OK Beschreibung, Werbetext, Schlüsselwörter, Support-URL (2166 Zeichen)
-Run 16 Fri Oct 30 14:58:58 UTC 2026
+Build: 9 VALID 
+OK Build 9 ausgewählt
+Run 17 Fri Oct 30 15:07:42 UTC 2026
