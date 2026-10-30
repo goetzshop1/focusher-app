@@ -13,8 +13,8 @@ import jwt, requests
 
 API = "https://api.appstoreconnect.apple.com"
 BUNDLE = "de.vellunaprints.focusher"
-VERSION = "1.0.1"
-WHATS_NEW = "Kleine Verbesserungen für mehr Ruhe und Stabilität. Danke für dein Feedback!"
+VERSION = "1.0.2"
+WHATS_NEW = "Neu: Beim ersten Start fragt FocusHer nach deinem Namen und zeigt dir in einer kurzen Anleitung, wo du was findest. Die App gibt es jetzt auch auf Englisch."
 LOC = "de-DE"
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPORT = []
