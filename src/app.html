@@ -245,6 +245,19 @@ nav.tabs button[aria-selected="true"] svg{color:var(--lav)}
 .toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(84px + env(safe-area-inset-bottom,0px));background:var(--fg);color:var(--bg);border-radius:14px;padding:10px 12px 10px 16px;display:flex;gap:12px;align-items:center;font-size:.9em;z-index:20;max-width:calc(100% - 32px);box-shadow:0 8px 24px rgba(0,0,0,.25)}
 .toast button{background:transparent;border:1px solid currentColor;color:inherit;border-radius:10px;padding:4px 10px;font-weight:700}
 
+/* Erststart: Name + kurzer Rundgang */
+.tour{position:fixed;inset:0;z-index:40}
+.tour-dim{position:fixed;inset:0;background:rgba(10,8,14,.72)}
+.tour-spot{position:fixed;border-radius:18px;box-shadow:0 0 0 9999px rgba(10,8,14,.72),0 0 0 3px var(--lav);transition:all .3s ease;pointer-events:none}
+.tour-card{position:fixed;left:50%;transform:translateX(-50%);width:min(520px,calc(100% - 32px));background:var(--surface);color:var(--fg);border:1px solid var(--line);border-radius:22px;padding:20px;box-shadow:0 18px 50px rgba(0,0,0,.45);display:flex;flex-direction:column;gap:12px}
+.tour-card h2{margin:0;font-size:1.3em}
+.tour-card p{margin:0;line-height:1.5}
+.tour-card .field{width:100%}
+.tour-dots{display:flex;gap:6px;justify-content:center}
+.tour-dots i{width:7px;height:7px;border-radius:50%;background:var(--line)}
+.tour-dots i.on{background:var(--lav)}
+.tour-btns{display:flex;gap:10px;justify-content:space-between;align-items:center}
+.tour-emoji{font-size:2.2em;line-height:1}
 .calm *{animation:none!important;transition:none!important}
 @media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
 </style>
@@ -467,6 +480,10 @@ nav.tabs button[aria-selected="true"] svg{color:var(--lav)}
         <div class="lbl"><span data-i18n="set.name">Dein Name</span><div class="small muted" data-i18n="set.nameSub">Für die Begrüßung, freiwillig</div></div>
         <input class="field" id="nameInput" maxlength="24" style="max-width:150px" placeholder="optional" data-i18n-ph="set.namePh">
       </div>
+      <div class="setrow">
+        <div class="lbl"><span data-i18n="tour.replayHead">Kurze Anleitung</span><div class="small muted" data-i18n="tour.replaySub">Zeigt dir noch einmal, wo du was findest</div></div>
+        <button class="btn soft" type="button" id="tourReplay" style="min-height:38px;padding:8px 12px" data-i18n="tour.replayBtn">Ansehen</button>
+      </div>
       <div class="setrow" style="flex-wrap:wrap">
         <div class="lbl"><span data-i18n="set.lang">Sprache / Language</span><div class="small muted" id="langSub"></div></div>
         <div class="chips" id="langChips" role="group" aria-label="Sprache" data-i18n-aria="set.langAria">
@@ -521,6 +538,22 @@ nav.tabs button[aria-selected="true"] svg{color:var(--lav)}
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="5" cy="12" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="19" cy="12" r="1.5"/></svg><span data-i18n="nav.mehr">Mehr</span></button>
   </div>
 </nav>
+
+<div class="tour" id="tour" hidden role="dialog" aria-modal="true" aria-labelledby="tourTitle">
+  <div class="tour-dim" id="tourDim"></div>
+  <div class="tour-spot" id="tourSpot" hidden></div>
+  <div class="tour-card" id="tourCard">
+    <div class="tour-emoji" id="tourEmoji"></div>
+    <h2 id="tourTitle"></h2>
+    <p id="tourText"></p>
+    <input class="field" id="tourName" maxlength="24" autocomplete="given-name" hidden>
+    <div class="tour-dots" id="tourDots"></div>
+    <div class="tour-btns">
+      <button class="linkbtn" type="button" id="tourSkip"></button>
+      <button class="btn" type="button" id="tourNext"></button>
+    </div>
+  </div>
+</div>
 
 <div class="toast" id="toast" hidden role="status"><span id="toastTxt"></span><button type="button" id="toastUndo" data-i18n="toast.undo">Rückgängig</button></div>
 
@@ -769,6 +802,7 @@ function applyStatic(){
   $$("[data-i18n-ph]").forEach(el => { el.placeholder = t(el.dataset.i18nPh); });
   $$("[data-i18n-aria]").forEach(el => { el.setAttribute("aria-label", t(el.dataset.i18nAria)); });
   $$("#dlDays .chip").forEach(c => { c.textContent = t("wd")[+c.dataset.d]; });
+  const dlt = $("#dlToggleTxt"), dlb = $("#dlBox"); if(dlt && dlb) dlt.textContent = dlb.hidden ? t("dl.toggle") : t("dl.toggleOpen");
 }
 const uid = () => Math.random().toString(36).slice(2,10) + Date.now().toString(36).slice(-4);
 const dayKey = (d=new Date()) => { const x=new Date(d); return x.getFullYear()+"-"+String(x.getMonth()+1).padStart(2,"0")+"-"+String(x.getDate()).padStart(2,"0"); };
@@ -776,6 +810,32 @@ const DAY = 86400000;
 const E = ["low","mid","high"];
 const ELABEL = new Proxy({}, {get: (o, k) => t("e." + String(k))});
 const ESHORT = new Proxy({}, {get: (o, k) => t("es." + String(k))});
+
+/* ---------- Texte für Erststart und Rundgang ---------- */
+Object.assign(I18N.de, {
+  "tour.hiTitle":"Willkommen bei FocusHer", "tour.hiText":"Schön, dass du da bist. Wie dürfen wir dich nennen?", "tour.namePh":"Dein Vorname (freiwillig)",
+  "tour.skip":"Überspringen", "tour.next":"Weiter", "tour.start":"Los geht’s", "tour.back":"Zurück",
+  "tour.energyTitle":"Wie viel Kraft hast du gerade?", "tour.energyText":"Schieb den Regler auf wenig, mittel oder viel. FocusHer zeigt dir dann zuerst die Aufgaben, die gerade zu dir passen. Alles andere wartet unten.",
+  "tour.addTitle":"Neue Aufgabe eintragen", "tour.addText":"Schreib hier hinein, was ansteht, und wähle, wie viel Energie es braucht. Über „Deadline und Erinnerung hinzufügen“ kannst du ein Datum setzen und dich erinnern lassen.",
+  "tour.listTitle":"Abhaken gibt einen Funken", "tour.listText":"Tippe auf den Kreis neben einer Aufgabe, wenn sie erledigt ist. Ein paar Beispiel-Aufgaben stehen schon da. Du kannst sie einfach löschen.",
+  "tour.decTitle":"Zu groß? Zerlegen!", "tour.decText":"Im Tab „Zerlegen“ schreibst du eine Aufgabe hinein, die sich riesig anfühlt. Daraus werden 3 bis 5 kleine Schritte, der erste ist immer leicht.",
+  "tour.jarTitle":"Dein Funken-Glas", "tour.jarText":"Alles, was du schaffst, landet hier als Funke. Ohne Serien, die reißen können. Du kannst auch kleine Erfolge eintragen, die auf keiner Liste standen.",
+  "tour.moreTitle":"Einstellungen und Vollversion", "tour.moreText":"Unter „Mehr“ findest du Name, Sprache, dunklen Modus, Textgröße und Feedback. Die ersten 7 Tage kannst du alles kostenlos nutzen.",
+  "tour.doneTitle":"Alles bereit{name}", "tour.doneText":"Fang mit einer kleinen Sache an. Das reicht völlig. Die Anleitung findest du jederzeit wieder unter „Mehr“.",
+  "tour.replayHead":"Kurze Anleitung", "tour.replaySub":"Zeigt dir noch einmal, wo du was findest", "tour.replayBtn":"Ansehen"
+});
+Object.assign(I18N.en, {
+  "tour.hiTitle":"Welcome to FocusHer", "tour.hiText":"Glad you’re here. What should we call you?", "tour.namePh":"Your first name (optional)",
+  "tour.skip":"Skip", "tour.next":"Next", "tour.start":"Let’s go", "tour.back":"Back",
+  "tour.energyTitle":"How much energy do you have right now?", "tour.energyText":"Move the slider to low, medium or high. FocusHer then shows the tasks that fit you right now first. Everything else waits below.",
+  "tour.addTitle":"Add a new task", "tour.addText":"Type what’s on your mind and choose how much energy it takes. Under “Add a deadline and reminder” you can set a date and get reminded.",
+  "tour.listTitle":"Ticking off earns a spark", "tour.listText":"Tap the circle next to a task when it’s done. A few example tasks are already there. Feel free to delete them.",
+  "tour.decTitle":"Too big? Break it down!", "tour.decText":"In the “Break it down” tab, type a task that feels huge. It turns into 3 to 5 small steps, and the first one is always easy.",
+  "tour.jarTitle":"Your spark jar", "tour.jarText":"Everything you get done lands here as a spark. No streaks that can break. You can also add small wins that were never on a list.",
+  "tour.moreTitle":"Settings and full version", "tour.moreText":"Under “More” you’ll find your name, language, dark mode, text size and feedback. You can use everything free for the first 7 days.",
+  "tour.doneTitle":"All set{name}", "tour.doneText":"Start with one small thing. That’s plenty. You can find this guide again any time under “More”.",
+  "tour.replayHead":"Quick guide", "tour.replaySub":"Shows you again where to find everything", "tour.replayBtn":"Show"
+});
 
 let S = {};
 function load(){
@@ -1788,8 +1848,82 @@ window.addEventListener("fh-entitlement", e => {
   const active = !!(e.detail && e.detail.active);
   if(active !== S.unlocked){ S.unlocked = active; store.set("unlocked", active); renderAll(); }
 });
+
+/* ---------- Erststart: Name abfragen und kurzer Rundgang ---------- */
+const TOUR = [
+  {k:"hi", emoji:"👋", name:true},
+  {k:"energy", tab:"heute", el:".card.energy"},
+  {k:"add", tab:"heute", el:"#addForm"},
+  {k:"list", tab:"heute", el:"#fitList"},
+  {k:"dec", tab:"zerlegen", el:"#decInput"},
+  {k:"jar", tab:"journal", el:"#jarSvg"},
+  {k:"more", tab:"mehr", el:'nav.tabs button[data-go="mehr"]'},
+  {k:"done", emoji:"✨", tab:"heute"}
+];
+let tourI = 0;
+function tourSaveName(){
+  const v = $("#tourName").value.trim();
+  if(v !== (S.settings.name||"")){ S.settings.name = v; save(); greeting(); $("#nameInput").value = v; }
+}
+function placeTour(){
+  const st = TOUR[tourI], spot = $("#tourSpot"), card = $("#tourCard"), dim = $("#tourDim");
+  const el = st.el ? $(st.el) : null;
+  if(el && el.offsetParent !== null){
+    const r = el.getBoundingClientRect(), pad = 8;
+    spot.hidden = false; dim.style.background = "transparent";
+    Object.assign(spot.style, {left:(r.left-pad)+"px", top:(r.top-pad)+"px", width:(r.width+pad*2)+"px", height:(r.height+pad*2)+"px"});
+    const h = card.offsetHeight, gap = pad + 14;
+    const spaceBelow = innerHeight - r.bottom - gap, spaceAbove = r.top - gap;
+    card.style.bottom = "";
+    if(spaceBelow >= h + 16) card.style.top = (r.bottom + gap) + "px";
+    else if(spaceAbove >= h + 16) card.style.top = (r.top - gap - h) + "px";
+    else card.style.top = Math.max(16, innerHeight - h - 96) + "px";
+  } else {
+    spot.hidden = true; dim.style.background = "";
+    card.style.bottom = ""; card.style.top = Math.max((innerHeight - card.offsetHeight)/2, 16) + "px";
+  }
+}
+function showTour(){
+  const st = TOUR[tourI], last = tourI === TOUR.length-1;
+  if(st.tab) go(st.tab);
+  const nm = S.settings.name ? ", " + S.settings.name : "";
+  $("#tourEmoji").textContent = st.emoji || ""; $("#tourEmoji").hidden = !st.emoji;
+  $("#tourTitle").textContent = t("tour." + st.k + "Title", {name: nm});
+  $("#tourText").textContent = t("tour." + st.k + "Text");
+  const inp = $("#tourName"); inp.hidden = !st.name; inp.placeholder = t("tour.namePh");
+  if(st.name) inp.value = S.settings.name || "";
+  $("#tourNext").textContent = last ? t("tour.start") : t("tour.next");
+  $("#tourSkip").textContent = tourI === 0 ? t("tour.skip") : t("tour.back");
+  $("#tourSkip").hidden = last;
+  $("#tourDots").innerHTML = TOUR.map((x,i) => '<i class="' + (i===tourI ? "on" : "") + '"></i>').join("");
+  const el = st.el ? $(st.el) : null;
+  if(el && el.offsetParent !== null){
+    const r = el.getBoundingClientRect();
+    if(r.top < 80 || r.bottom > innerHeight - 260) window.scrollTo(0, Math.max(0, scrollY + r.top - 110));
+  } else window.scrollTo(0,0);
+  requestAnimationFrame(() => requestAnimationFrame(placeTour));
+  if(st.name) setTimeout(() => inp.focus(), 250);
+}
+function startTour(){ tourI = 0; $("#tour").hidden = false; document.body.style.overflow = "hidden"; showTour(); }
+function endTour(){
+  tourSaveName(); store.set("onboarded", true);
+  $("#tour").hidden = true; document.body.style.overflow = ""; go("heute");
+}
+$("#tourNext").addEventListener("click", () => {
+  if(TOUR[tourI].name) tourSaveName();
+  if(tourI >= TOUR.length-1) return endTour();
+  tourI++; showTour();
+});
+$("#tourSkip").addEventListener("click", () => {
+  if(tourI === 0){ return endTour(); }
+  tourI--; showTour();
+});
+$("#tourName").addEventListener("keydown", e => { if(e.key === "Enter"){ e.preventDefault(); $("#tourNext").click(); } });
+addEventListener("resize", () => { if(!$("#tour").hidden) placeTour(); });
+$("#tourReplay").addEventListener("click", startTour);
 load(); applyStatic(); renderSuggest(); renderMoods(); setAiNote(aiState); applySettings(); welcomeBack(); renderAll(); resetBtnBack();
 let startTab = "heute"; try{ startTab = sessionStorage.getItem("fh_tab") || "heute"; }catch(e){}
 go(startTab);
+if(!store.get("onboarded", false)) setTimeout(startTour, 300);
 })();
 </script>

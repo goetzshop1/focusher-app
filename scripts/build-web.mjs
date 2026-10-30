@@ -36,7 +36,7 @@ const cfg = {
   apiBase: process.env.FH_API_BASE || "https://base44.app/api/apps/6ac55f2ebe297f016feac28a/functions",
   apiKey: process.env.FH_API_KEY || "fh-app-2026-velluna",
   revenuecatIos: process.env.REVENUECAT_IOS_KEY || "appl_MBEknWSUPSAUcZaMboYCiBKYWNT", // öffentlicher SDK-Schlüssel, darf in der App stehen
-  revenuecatAndroid: process.env.REVENUECAT_ANDROID_KEY || "goog_SrXYmsrkAiZjjdzMHirlQDKbvVa", // öffentlicher SDK-Schlüssel, darf in der App stehen
+  revenuecatAndroid: process.env.REVENUECAT_ANDROID_KEY || "goog_JZKtOygLbEtKePRoRlPPhapFKqi", // öffentlicher SDK-Schlüssel, darf in der App stehen
   entitlement: "focusher_pro",
   priceLabel: "29,99 €",
 };
