@@ -5,4 +5,13 @@ Version: 1.0.1 READY_FOR_SALE 98bf7dd0-84c1-4470-a2e1-a6d0aec7bddc
 Version: 1.0.0 READY_FOR_SALE 5821f437-6385-4150-87f1-f006696a591b
 Build: 9 VALID 
 OK Build 9 ausgewählt
-Run 17 Fri Oct 30 15:07:42 UTC 2026
+Abo-Gruppe: FocusHer 22448375
+  Gruppen-Sprachen: [('de-DE', 'FocusHer', 'APPROVED')]
+Abo: focusher_jahr FocusHer APPROVED ONE_YEAR 6819877479
+  Sprachen: [('de-DE', 'FocusHer Vollversion', 'APPROVED')]
+  Preise in 175 Ländern, z. B. ['99.99', '24.99', '24.99'] DEU dabei: True
+  Verfügbarkeit: gesetzt
+  Prüfbild: vorhanden
+OK Version zur Einreichung hinzugefügt
+OK EINGEREICHT: Version 1.0.2 wartet auf die Prüfung
+Run 18 Fri Oct 30 15:08:33 UTC 2026
