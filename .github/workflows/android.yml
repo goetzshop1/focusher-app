@@ -17,7 +17,7 @@ jobs:
   android:
     runs-on: ubuntu-latest
     env:
-      APP_VERSION: "1.0.3"
+      APP_VERSION: "1.0.4"
       VERSION_CODE: ${{ github.run_number }}
     steps:
       - uses: actions/checkout@v4
@@ -58,6 +58,22 @@ jobs:
           G=android/app/build.gradle
           sed -i "s/versionCode [0-9]*/versionCode $VERSION_CODE/" $G
           sed -i "s/versionName \"[^\"]*\"/versionName \"$APP_VERSION\"/" $G
+          # Code verkleinern und verschleiern (R8), von Google Play empfohlen
+          sed -i "s/minifyEnabled false/minifyEnabled true/" $G
+          sed -i "s/getDefaultProguardFile('proguard-android.txt')/getDefaultProguardFile('proguard-android-optimize.txt')/" $G
+          cat >> android/app/proguard-rules.pro <<'PRO'
+          # Capacitor: Plugins und Brücke zur Weboberfläche behalten
+          -keep class com.getcapacitor.** { *; }
+          -keep @com.getcapacitor.annotation.CapacitorPlugin public class * { *; }
+          -keepattributes *Annotation*,Signature,InnerClasses,EnclosingMethod
+          -keepclassmembers class * { @android.webkit.JavascriptInterface <methods>; }
+          -keepclassmembers class * { @com.getcapacitor.PluginMethod public <methods>; }
+          -keep class com.capacitorjs.plugins.** { *; }
+          -keep class com.revenuecat.purchases.** { *; }
+          -dontwarn com.revenuecat.**
+          PRO
+          sed -i 's/^          //' android/app/proguard-rules.pro
+          grep -n "minifyEnabled\|proguard" $G
           grep -E "versionCode|versionName|targetSdk|minSdk" $G android/variables.gradle || true
           # Benachrichtigungen (Android 13+)
           M=android/app/src/main/AndroidManifest.xml

@@ -73,7 +73,7 @@ const TXT = {
 };
 function langOpts(opts){
   const lang = (opts && opts.lang) || (document.documentElement.lang === "en" ? "en" : "de");
-  return { lang: lang === "en" ? "en" : "de", locale: (opts && opts.locale) || (lang === "en" ? "en-GB" : "de-DE") };
+  return { lang: lang === "en" ? "en" : "de", locale: (opts && opts.locale) || (lang === "en" ? "en-GB" : "de-DE"), impulse: (opts && opts.impulse) || null };
 }
 function fmtDue(ts, locale){
   const d = new Date(ts);
@@ -103,6 +103,14 @@ function planFor(tasks, lo){
       }
     }
   }
+  // Täglicher Impuls (nur wenn in der App eingeschaltet)
+  const imp = lo.impulse;
+  if(imp && imp.days){
+    for(const d of imp.days){
+      if(d.at <= now + 5000) continue;
+      out.push({ id: hashId("impulse" + d.day), at: d.at, title: imp.title, body: d.text, plain: true });
+    }
+  }
   // iOS erlaubt höchstens 64 geplante Mitteilungen: die nächsten 60 nehmen
   return out.sort((a,b) => a.at - b.at).slice(0, 60);
 }
@@ -123,7 +131,7 @@ async function syncReminders(tasks, opts){
     }
     if(perm.display !== "granted" || !plan.length){ lastPlanKey = key; return; }
     await LocalNotifications.schedule({ notifications: plan.map(p => ({
-      id: p.id, title: "FocusHer: " + p.title, body: p.body, schedule: { at: new Date(p.at), allowWhileIdle: true }
+      id: p.id, title: p.plain ? p.title : "FocusHer: " + p.title, body: p.body, schedule: { at: new Date(p.at), allowWhileIdle: true }
     })) });
     lastPlanKey = key;
   }catch(e){ /* nächster Versuch beim nächsten Speichern */ }
@@ -190,7 +198,7 @@ if(native){
     const setTerms = () => { const a = document.getElementById("termsLink"); if(a) a.href = "https://play.google.com/about/play-terms/"; };
     if(document.readyState === "loading") document.addEventListener("DOMContentLoaded", setTerms); else setTerms();
   }
-  if(platform === "android"){ try{ StatusBar.setStyle({ style: Style.Dark }); StatusBar.setBackgroundColor({ color: "#16141b" }); }catch(e){} }
+  if(platform === "android"){ try{ StatusBar.setStyle({ style: Style.Dark }); }catch(e){} /* keine Statusleisten-Farbe mehr setzen: veraltete API unter Android 15 (randlose Anzeige) */ }
 
   // Abo-Status beim Start und beim Zurückkehren in die App prüfen
   setTimeout(refreshEntitlement, 300);

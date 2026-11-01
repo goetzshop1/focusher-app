@@ -281,6 +281,13 @@ nav.tabs button[aria-selected="true"] svg{color:var(--lav)}
     <div id="impulse" class="impulse" hidden>
       <div class="row"><span class="eyebrow" data-i18n="imp.head">Impuls für heute</span><button class="linkbtn" type="button" id="impHide" data-i18n="imp.hide">Für heute ausblenden</button></div>
       <p id="impText"></p>
+      <div id="impAsk" class="stack" style="gap:8px;margin-top:6px" hidden>
+        <p class="small" data-i18n="imp.ask">Möchtest du diesen Impuls jeden Tag als Mitteilung bekommen? Du kannst das jederzeit unter „Mehr“ wieder ausschalten.</p>
+        <div class="row" style="gap:8px;justify-content:flex-start">
+          <button class="btn soft" type="button" id="impYes" style="min-height:36px;padding:6px 12px" data-i18n="imp.yes">Ja, gern</button>
+          <button class="linkbtn" type="button" id="impNo" data-i18n="imp.no">Nein danke</button>
+        </div>
+      </div>
     </div>
     <div id="reminders" class="stack" hidden></div>
     <div class="stack" id="dlWrap" hidden>
@@ -523,6 +530,13 @@ nav.tabs button[aria-selected="true"] svg{color:var(--lav)}
         <div class="lbl"><span data-i18n="set.notif">Mitteilungen auf diesem Gerät</span><div class="small muted" id="notifNote" data-i18n="set.notifSub">Erinnert dich auch, wenn FocusHer im Hintergrund offen ist</div></div>
         <button class="toggle" role="switch" id="tgNotif" aria-checked="false" aria-label="Mitteilungen" data-i18n-aria="set.notifAria"></button>
       </div>
+      <div class="setrow" id="impNotifRow" hidden>
+        <div class="lbl"><span data-i18n="imp.setHead">Täglicher Impuls als Mitteilung</span><div class="small muted" data-i18n="imp.setSub">Einmal am Tag, freiwillig</div></div>
+        <div class="row" style="gap:8px">
+          <input class="field" type="time" id="impTime" value="09:00" style="max-width:110px" aria-label="Uhrzeit" data-i18n-aria="imp.timeAria">
+          <button class="toggle" role="switch" id="tgImpNotif" aria-checked="false" aria-label="Täglicher Impuls als Mitteilung" data-i18n-aria="imp.setHead"></button>
+        </div>
+      </div>
       <p class="small muted" style="margin:10px 0 0" data-i18n="set.remNote">Damit eine Erinnerung sicher ankommt, auch wenn die App geschlossen ist, trag die Aufgabe zusätzlich in deinen Kalender ein. Tippe dafür in der Liste auf das Datum der Aufgabe.</p>
     </div>
 
@@ -670,7 +684,7 @@ de: {
   "set.rem":"Erinnerungen", "set.notif":"Mitteilungen auf diesem Gerät", "set.notifSub":"Erinnert dich auch, wenn FocusHer im Hintergrund offen ist", "set.notifAria":"Mitteilungen",
   "set.remNote":"Damit eine Erinnerung sicher ankommt, auch wenn die App geschlossen ist, trag die Aufgabe zusätzlich in deinen Kalender ein. Tippe dafür in der Liste auf das Datum der Aufgabe.",
   "notif.on":"An: Erinnerungen kommen auch, wenn FocusHer geschlossen ist.",
-  "notif.denied":"Mitteilungen sind aus. Du kannst sie in den iPhone-Einstellungen unter Mitteilungen > FocusHer erlauben.",
+  "notif.denied":"Mitteilungen sind aus. Du kannst sie in den Einstellungen deines Handys bei FocusHer erlauben.",
   "notif.prompt":"Erlaube Mitteilungen, damit Erinnerungen auch bei geschlossener App ankommen.",
   "notif.unavail":"Auf diesem Gerät nicht verfügbar. Auf dem iPhone geht es, wenn FocusHer zum Home-Bildschirm hinzugefügt wurde.",
   "notif.blocked":"Mitteilungen sind für FocusHer blockiert. Du kannst sie in den Einstellungen des Browsers erlauben.",
@@ -767,7 +781,7 @@ en: {
   "set.rem":"Reminders", "set.notif":"Notifications on this device", "set.notifSub":"Reminds you even when FocusHer is open in the background", "set.notifAria":"Notifications",
   "set.remNote":"To make sure a reminder reaches you even when the app is closed, also add the task to your calendar. To do that, tap the task's date in the list.",
   "notif.on":"On: reminders arrive even when FocusHer is closed.",
-  "notif.denied":"Notifications are off. You can allow them in your iPhone Settings under Notifications > FocusHer.",
+  "notif.denied":"Notifications are off. You can allow them for FocusHer in your phone’s settings.",
   "notif.prompt":"Allow notifications so reminders arrive even when the app is closed.",
   "notif.unavail":"Not available on this device. On iPhone it works once FocusHer has been added to the Home Screen.",
   "notif.blocked":"Notifications are blocked for FocusHer. You can allow them in your browser settings.",
@@ -847,15 +861,15 @@ Object.assign(I18N.en, {
 
 /* ---------- Täglicher Impuls ---------- */
 const IMPULSES = { de: ["Fang mit dem kleinsten möglichen Schritt an. Nicht „Küche aufräumen“, sondern „eine Tasse in die Spüle stellen“.", "Stell dir einen Timer auf 10 Minuten. Wenn er klingelt, darfst du aufhören. Oft machst du dann freiwillig weiter.", "Was du siehst, vergisst du seltener. Leg Dinge, die du morgen brauchst, heute schon vor die Tür.", "Ein voller Kopf ist kein Plan. Schreib alles auf, was dich gerade beschäftigt, und such dir danach nur eine Sache aus.", "Wenig Energie heute? Dann zählt auch „Wasser trinken“ und „kurz lüften“. Das sind echte Erledigungen.", "Mach unangenehme Aufgaben zusammen mit etwas Angenehmem: Lieblingsmusik, ein Podcast oder ein warmes Getränk.", "Body Doubling hilft vielen: Arbeite neben jemandem, auch per Videoanruf. Allein die Anwesenheit macht den Anfang leichter.", "Schreib auf, wie lange Dinge wirklich dauern. Viele Aufgaben sind kürzer, als sie sich anfühlen.", "Plane Pausen ein, bevor du sie brauchst. Eine Pause nach 25 Minuten ist kein Aufgeben, sondern Strategie.", "Leg dein Handy beim Arbeiten in einen anderen Raum. Jeder Schritt Abstand macht Ablenkung etwas schwerer.", "Du musst nicht motiviert sein, um anzufangen. Oft kommt die Motivation erst, wenn du schon angefangen hast.", "Gib jedem Ding einen festen Platz: Schlüssel, Brille, Geldbeutel. Ein Haken oder eine Schale an der Tür spart viel Suchen.", "Ein Termin ohne Erinnerung ist ein halber Termin. Stell dir lieber zwei Erinnerungen als keine.", "Wenn du hängst, frag dich: Was ist der nächste sichtbare Schritt? Nur diesen einen.", "Perfekt ist der Feind von fertig. „Gut genug“ ist heute ein völlig gutes Ziel.", "Feiere kleine Erfolge sofort. Leg einen Funken ins Glas, auch für Dinge, die anderen klein vorkommen.", "Mach Übergänge sanft: Kündige dir selbst an, dass du in 5 Minuten wechselst. Dann fällt das Umschalten leichter.", "Schlaf, Essen und Bewegung beeinflussen deine Konzentration stark. Ein kurzer Spaziergang ist auch Arbeit an deinem Kopf.", "Teile große Aufgaben in Etappen mit eigenem Ende. „Bis zur Hälfte“ ist ein Ziel, das man erreichen kann.", "Erlaube dir einen schlechten Tag. Morgen ist ein neuer Versuch, und nichts in FocusHer läuft ab.", "Sag öfter „Ich melde mich bis Freitag“ statt sofort zuzusagen. Das gibt dir Zeit, deine Kraft einzuschätzen.", "Erledige Zwei-Minuten-Aufgaben sofort. Alles, was länger dauert, kommt auf die Liste.", "Hyperfokus ist eine Kraft, aber stell dir einen Wecker für Essen und Trinken.", "Räum für 5 Minuten nur eine einzige Fläche frei, zum Beispiel den Nachttisch. Kleine Ordnung wirkt groß.", "Wenn eine Aufgabe zu groß wirkt, nutz den Tab „Zerlegen“. Der erste Schritt ist immer leicht.", "Belohnung darf vorher kommen: Erst ein Stück Schokolade, dann die Steuer-Mail. Das ist erlaubt.", "Vergleiche dich mit dir von gestern, nicht mit anderen. Dein Weg hat sein eigenes Tempo.", "Geräusche können helfen: Weißes Rauschen, Café-Geräusche oder Musik ohne Text erleichtern vielen das Dranbleiben.", "Plane deinen Tag nach Energie, nicht nur nach Uhrzeit. Schwere Dinge in deine stärkste Zeit legen.", "Bevor du etwas Neues anfängst, frag dich kurz: Was liegt noch offen? Ein Ding fertig ist mehr wert als drei angefangen.", "Schreib Gedanken, die dich ablenken, auf einen Zettel neben dir. Später ist auch noch Zeit dafür.", "Ein fester Ablauf am Morgen spart Entscheidungen. Je weniger du entscheiden musst, desto mehr Kraft bleibt.", "Du darfst um Hilfe bitten. Eine Aufgabe abzugeben ist kein Versagen, sondern kluge Planung.", "Mach es dir leicht anzufangen: Laptop schon offen, Datei schon geöffnet, Sportsachen schon bereit.", "Unerledigtes ist kein Beweis, dass du faul bist. Dein Kopf arbeitet anders, und dafür gibt es Werkzeuge.", "Lege für E-Mails und Nachrichten feste Zeiten fest, statt ständig nachzusehen.", "Wenn du etwas Wichtiges nicht vergessen willst, sag es laut und schreib es sofort auf. Doppelt hält besser.", "Plane Puffer ein. Wenn du denkst, etwas dauert 20 Minuten, plane 30.", "Ein unordentlicher Raum sagt nichts über deinen Wert aus. Fang mit einem Korb an, in den alles darf.", "Atme dreimal tief ein und aus, bevor du eine schwierige Aufgabe anfängst. Das beruhigt das Nervensystem.", "Notiere abends eine einzige Sache für morgen. Dann musst du morgens nicht erst überlegen.", "Nutze Farben: zum Beispiel Rot für Dringendes und Grün für „wenn Zeit ist“. Das Auge erfasst es schneller.", "Nimm dir nicht mehr als drei wichtige Aufgaben pro Tag vor. Alles Weitere ist Bonus.", "Steh kurz auf und streck dich. Bewegung bringt oft den Fokus zurück, den Sitzen verloren hat.", "Wenn du eine Sache immer wieder aufschiebst, frag dich: Was genau macht sie unangenehm? Oft ist es nur ein kleiner Teil.", "Freundlich mit dir selbst zu reden ist keine Schwäche. Sprich mit dir, wie du mit einer guten Freundin sprechen würdest.", "Halte wichtige Unterlagen an einem einzigen Ort, zum Beispiel einer Mappe für „Papierkram“.", "Sag Nein zu einer Sache diese Woche. Jeder freie Platz im Kalender ist Erholung für deinen Kopf.", "Rückblick statt Druck: Schau heute Abend ins Funken-Glas und sieh, was du schon geschafft hast.", "Dein Wert hängt nicht an deiner Produktivität. Pausen sind Teil des Plans, nicht das Gegenteil davon."], en: ["Start with the smallest possible step. Not “clean the kitchen”, but “put one cup in the sink”.", "Set a timer for 10 minutes. When it rings, you’re allowed to stop. Often you’ll keep going anyway.", "What you can see, you forget less. Put tomorrow’s things by the door today.", "A full head isn’t a plan. Write down everything on your mind, then pick just one thing.", "Low energy today? Then “drink some water” and “open a window” count too. Those are real wins.", "Pair unpleasant tasks with something pleasant: favourite music, a podcast or a warm drink.", "Body doubling helps many people: work next to someone, even on a video call. Just their presence makes starting easier.", "Write down how long things really take. Many tasks are shorter than they feel.", "Plan breaks before you need them. A break after 25 minutes isn’t giving up, it’s strategy.", "Put your phone in another room while you work. Every step of distance makes distraction a bit harder.", "You don’t need motivation to start. Often motivation shows up once you’ve already begun.", "Give everything a fixed spot: keys, glasses, wallet. A hook or bowl by the door saves a lot of searching.", "An appointment without a reminder is half an appointment. Set two reminders rather than none.", "When you’re stuck, ask yourself: what is the next visible step? Just that one.", "Perfect is the enemy of done. “Good enough” is a perfectly good goal today.", "Celebrate small wins right away. Add a spark to the jar, even for things that seem small to others.", "Make transitions gentle: tell yourself you’ll switch in 5 minutes. Switching gets easier.", "Sleep, food and movement strongly affect your focus. A short walk is work on your brain too.", "Split big tasks into stages with their own finish line. “Halfway” is a goal you can reach.", "Allow yourself a bad day. Tomorrow is a new try, and nothing in FocusHer expires.", "Say “I’ll get back to you by Friday” more often instead of agreeing right away. It gives you time to check your energy.", "Do two-minute tasks right away. Anything longer goes on the list.", "Hyperfocus is a strength, but set an alarm for eating and drinking.", "Clear just one surface for 5 minutes, like your bedside table. Small order has a big effect.", "If a task feels too big, use the “Break it down” tab. The first step is always easy.", "Rewards can come first: a piece of chocolate, then the tax email. That’s allowed.", "Compare yourself to yesterday’s you, not to others. Your path has its own pace.", "Sound can help: white noise, café sounds or music without lyrics make it easier for many to stay on task.", "Plan your day by energy, not just by the clock. Put hard things into your strongest time of day.", "Before starting something new, ask: what’s still open? One thing finished beats three started.", "Jot down distracting thoughts on a note next to you. There’s time for them later.", "A fixed morning routine saves decisions. The fewer choices, the more energy you have left.", "You’re allowed to ask for help. Handing off a task isn’t failure, it’s smart planning.", "Make starting easy: laptop already open, file already up, workout clothes ready.", "Unfinished things don’t prove you’re lazy. Your brain works differently, and there are tools for that.", "Set fixed times for emails and messages instead of checking constantly.", "If you don’t want to forget something important, say it out loud and write it down right away. Twice sticks better.", "Plan in buffers. If you think something takes 20 minutes, plan 30.", "A messy room says nothing about your worth. Start with one basket where anything can go.", "Take three deep breaths before starting a hard task. It calms your nervous system.", "In the evening, write down one single thing for tomorrow. Then you don’t have to think about it in the morning.", "Use colours: red for urgent and green for “when there’s time”. Your eye picks it up faster.", "Plan no more than three important tasks a day. Anything extra is a bonus.", "Stand up and stretch for a moment. Movement often brings back the focus that sitting took away.", "If you keep putting something off, ask: what exactly makes it unpleasant? Often it’s just one small part.", "Talking kindly to yourself isn’t weakness. Speak to yourself like you would to a good friend.", "Keep important papers in one single place, like a folder for “paperwork”.", "Say no to one thing this week. Every free slot in your calendar is rest for your mind.", "Look back instead of pushing: check your spark jar tonight and see what you’ve already done.", "Your worth doesn’t depend on productivity. Breaks are part of the plan, not the opposite of it."] };
-Object.assign(I18N.de, {"imp.head":"Impuls für heute", "imp.hide":"Für heute ausblenden"});
-Object.assign(I18N.en, {"imp.head":"Today’s tip", "imp.hide":"Hide for today"});
+Object.assign(I18N.de, {"imp.head":"Impuls für heute", "imp.hide":"Für heute ausblenden", "imp.ask":"Möchtest du diesen Impuls jeden Tag als Mitteilung bekommen? Du kannst das jederzeit unter „Mehr“ wieder ausschalten.", "imp.yes":"Ja, gern", "imp.no":"Nein danke", "imp.setHead":"Täglicher Impuls als Mitteilung", "imp.setSub":"Einmal am Tag, freiwillig", "imp.timeAria":"Uhrzeit für den Impuls", "imp.notifTitle":"Dein Impuls für heute"});
+Object.assign(I18N.en, {"imp.head":"Today’s tip", "imp.hide":"Hide for today", "imp.ask":"Would you like to get this tip as a notification every day? You can turn it off any time under “More”.", "imp.yes":"Yes, please", "imp.no":"No thanks", "imp.setHead":"Daily tip as a notification", "imp.setSub":"Once a day, optional", "imp.timeAria":"Time for the daily tip", "imp.notifTitle":"Your tip for today"});
 
 let S = {};
 function load(){
   S.tasks = store.get("tasks", null);
   S.journal = store.get("journal", []);
   S.energy = store.get("energy", 1);
-  S.settings = Object.assign({theme:"dark", calm:false, size:"m", name:"", notif:false, lang:"auto"}, store.get("settings", {}));
+  S.settings = Object.assign({theme:"dark", calm:false, size:"m", name:"", notif:false, lang:"auto", impNotif:false, impTime:"09:00", impAsked:false}, store.get("settings", {}));
   LANG = resolveLang(S.settings.lang);
   S.trialStart = store.get("trialStart", null);
   S.unlocked = store.get("unlocked", false);
@@ -870,7 +884,7 @@ function save(){
   store.set("tasks",S.tasks); store.set("journal",S.journal); store.set("energy",S.energy); store.set("settings",S.settings); store.set("decUse",S.decUse);
   // In der App: Erinnerungen als echte Mitteilungen auf dem Gerät planen
   const NS_ = window.FocusHerStore;
-  if(NS_ && NS_.syncReminders){ clearTimeout(syncTimer); syncTimer = setTimeout(() => { try{ NS_.syncReminders(S.tasks, {lang: LANG, locale: dateLocale()}); }catch(e){} }, 400); }
+  if(NS_ && NS_.syncReminders){ clearTimeout(syncTimer); syncTimer = setTimeout(() => { try{ NS_.syncReminders(S.tasks, {lang: LANG, locale: dateLocale(), impulse: impulsePlan()}); }catch(e){} }, 400); }
 }
 function seedTasks(){
   const now = Date.now(), seed = t("seed");
@@ -1856,14 +1870,48 @@ function welcomeBack(){
 function renderImpulse(){
   const box = $("#impulse"); if(!box) return;
   if(store.get("impHidden", "") === dayKey()){ box.hidden = true; return; }
-  const list = IMPULSES[LANG] || IMPULSES.de;
-  const d = new Date(), start = new Date(d.getFullYear(), 0, 0);
-  const n = Math.floor((d - start) / DAY) + d.getFullYear() * 7;
-  $("#impText").textContent = list[n % list.length];
+  $("#impText").textContent = impulseFor(new Date());
+  renderImpAsk();
   box.hidden = false;
 }
+function impulseFor(d){
+  const list = IMPULSES[LANG] || IMPULSES.de;
+  const start = new Date(d.getFullYear(), 0, 0);
+  const n = Math.floor((new Date(d.getFullYear(), d.getMonth(), d.getDate()) - start) / DAY) + d.getFullYear() * 7;
+  return list[n % list.length];
+}
+/* Täglicher Impuls als Mitteilung: nur wenn die Nutzerin es selbst einschaltet */
+function impulsePlan(){
+  if(!S.settings.impNotif) return null;
+  const [hh, mm] = String(S.settings.impTime || "09:00").split(":").map(Number);
+  const out = [];
+  for(let i=0; i<14; i++){
+    const d = new Date(Date.now() + i*DAY); d.setHours(hh, mm, 0, 0);
+    out.push({ at: d.getTime(), day: dayKey(d), text: impulseFor(d) });
+  }
+  return { title: t("imp.notifTitle"), days: out };
+}
+function renderImpAsk(){
+  const ask = $("#impAsk"); if(!ask) return;
+  const daysUsed = Math.floor((Date.now() - (S.trialStart || Date.now())) / DAY);
+  ask.hidden = !(window.FocusHerStore && !S.settings.impAsked && !S.settings.impNotif && daysUsed >= 2);
+}
+function setImpNotif(on){
+  S.settings.impNotif = on; S.settings.impAsked = true; save(); renderImpAsk(); renderImpSetting();
+}
+function renderImpSetting(){
+  const row = $("#impNotifRow"); if(!row) return;
+  row.hidden = !window.FocusHerStore;
+  $("#tgImpNotif").setAttribute("aria-checked", !!S.settings.impNotif);
+  $("#impTime").value = S.settings.impTime || "09:00";
+  $("#impTime").disabled = !S.settings.impNotif;
+}
+$("#impYes").addEventListener("click", () => setImpNotif(true));
+$("#impNo").addEventListener("click", () => { S.settings.impAsked = true; save(); renderImpAsk(); });
+$("#tgImpNotif").addEventListener("click", () => setImpNotif(!S.settings.impNotif));
+$("#impTime").addEventListener("change", e => { S.settings.impTime = e.target.value || "09:00"; save(); });
 $("#impHide").addEventListener("click", () => { store.set("impHidden", dayKey()); $("#impulse").hidden = true; });
-function renderAll(){ renderImpulse(); greeting(); renderEnergy(); renderToday(); renderJournal(); renderPlan(); renderDecLock(false); checkReminders(); renderNotif(); }
+function renderAll(){ renderImpulse(); renderImpSetting(); greeting(); renderEnergy(); renderToday(); renderJournal(); renderPlan(); renderDecLock(false); checkReminders(); renderNotif(); }
 setAiNote("wait");
 if(window.FocusHerStore && window.FocusHerStore.decompose) setAiNote("on"); else getSample().then(s => setAiNote(s ? "on" : "off"));
 setTimeout(flushFeedback, 3000);
