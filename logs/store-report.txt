@@ -3,17 +3,8 @@ App-Info: 4da33db2-5457-4bd7-8e3c-7b75b24913b2 READY_FOR_SALE
 Version: 1.0.2 READY_FOR_SALE 4c4b812a-568e-4d95-a68f-13bb322c064a
 Version: 1.0.1 READY_FOR_SALE 98bf7dd0-84c1-4470-a2e1-a6d0aec7bddc
 Version: 1.0.0 READY_FOR_SALE 5821f437-6385-4150-87f1-f006696a591b
-Abo-Gruppe: FocusHer 22448375
-  Gruppen-Sprachen: [('de-DE', 'FocusHer', 'APPROVED')]
-Abo: focusher_jahr FocusHer APPROVED ONE_YEAR 6819877479
-  Sprachen: [('de-DE', 'FocusHer Vollversion', 'APPROVED')]
-  Preise in 175 Ländern, z. B. ['99.99', '24.99', '24.99'] DEU dabei: True
-  Verfügbarkeit: gesetzt
-  Prüfbild: vorhanden
-Verfügbarkeit-ID: 6819870035 {'availableInNewTerritories': False}
-Verfügbar in: [('CHE', ['AVAILABLE']), ('AUT', ['AVAILABLE']), ('LUX', ['AVAILABLE']), ('DEU', ['AVAILABLE'])]
-   CHE {'available': True, 'releaseDate': '2026-10-08', 'preOrderEnabled': False, 'preOrderPublishDate': None, 'contentStatuses': ['AVAILABLE']}
-   AUT {'available': True, 'releaseDate': '2026-10-08', 'preOrderEnabled': False, 'preOrderPublishDate': None, 'contentStatuses': ['AVAILABLE']}
-   LUX {'available': True, 'releaseDate': '2026-10-08', 'preOrderEnabled': False, 'preOrderPublishDate': None, 'contentStatuses': ['AVAILABLE']}
-   DEU {'available': True, 'releaseDate': '2026-10-08', 'preOrderEnabled': False, 'preOrderPublishDate': None, 'contentStatuses': ['AVAILABLE']}
-Run 20 Sun Nov  1 09:01:20 UTC 2026
+OK Version 1.0.3 Copyright, automatische Veröffentlichung nach Freigabe
+Build: 10 VALID 
+OK Build 10 ausgewählt
+OK Beschreibung, Werbetext, Schlüsselwörter, Support-URL (2166 Zeichen)
+Run 21 Sun Nov  1 09:14:59 UTC 2026
