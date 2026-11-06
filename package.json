@@ -1,6 +1,6 @@
 {
   "name": "focusher-app",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "private": true,
   "description": "FocusHer – reizarmer Alltagsmanager für Erwachsene mit ADHS (iOS/Android)",
   "scripts": {
